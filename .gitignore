@@ -1,7 +1,10 @@
 # macOS
 .DS_Store
-. AppleDouble
+.AppleDouble
 .LSOverride
-*. swp
+
+# Editor/IDE
+.vscode/
+*.swp
 *.swo
 *~
