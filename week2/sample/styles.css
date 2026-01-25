@@ -1,162 +1,211 @@
-body {
-  color: #40514e;
+/*
+|grid|
+  left |flex|
+    -img1
+    -img2
+  right |flex|
+    -title |flex|
+      --My
+      --Portfolio
+    -footer =flex=
+      --name
+      --text 
+
+    1         1.2
+_____________________
+|  <img>  |MY       |
+|_________|PORTFOLIO|
+|  <img>  |__________
+|_________|name|text|
+
+
+
+*/
+* {
   margin: 0;
-  text-align: center;
-  font-family: "Merriweather", serif;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-h1 {
-  color: #66bfbf;
-  font-size: 5.625rem;
-  margin: 50px auto 0 auto;
-  font-family: "Sacramento", cursive;
+body{
+  display: flex;
+  flex-direction: column;
+  background-color: #efefef; /* off-white */
+  color: #111;
+  font-family: 'Bodoni Moda', serif;
+  
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 0;
 }
 
-h2 {
-  color: #66bfbf;
-  font-family: "Montserrat", sans-serif;
-  font-size: 2.5rem;
-  font-weight: normal;
-  padding-bottom: 10px;
+/* |grid|, 90%w,90%h, 1row/2col  */
+.main-grid-container{
+  display: grid;
+  width: 90vw; /*90% screen*/
+  height: 90vh; /*90% screen*/
+  grid-template-columns: 1fr 1.2fr; /* right col like 20% larger*/
+  gap: 40px;
+  margin-bottom: 60px;
 }
 
-h3 {
-  color: #11999e;
-  font-family: "Montserrat", sans-serif;
+/* |flex|, clamp height */
+.left-flex-column { 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  height: 100%;
 }
-
-p {
-  line-height: 2;
-}
-
-hr {
-  border: dotted #eaf6f6 6px;
-  border-bottom: none;
-  width: 4%;
-  margin: 100px auto;
-}
-
-a {
-  color: #11999e;
-  font-family: "Montserrat", sans-serif;
-  margin: 10px 20px;
-  text-decoration: none;
-}
-
-a:hover {
-  color: #eaf6f6;
-}
-
-.top-container {
-  background-color: #e4f9f5;
+/* ai was used for the image wrappers because I had no clue how to fix the images being so big without hardcoding the source link*/
+.image-wrapper {
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
   position: relative;
-  padding-top: 100px;
+}
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(100%);
+}
+.image-wrapper:hover img {
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
 }
 
-.middle-container {
-  margin: 100px 0;
-}
-
-.bottom-container {
-  background-color: #66bfbf;
-  padding: 50px 0 20px;
-}
-
-.skill-row {
-  width: 50%;
-  margin: 100px auto 100px auto;
-  text-align: left;
-}
-
-.pro {
-  text-decoration: underline;
-}
-
-.intro {
-  width: 30%;
-  margin: auto;
-}
-
-.contact-message {
-  width: 40%;
-  margin: 40px auto 60px;
-}
-
-.copyright {
-  color: #eaf6f6;
-  font-size: 0.75rem;
+/* |flex| */
+.right-flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 20px 0;
 }
 
-.top-cloud {
-  position: absolute;
-  right: 300px;
-  top: 40px;
+/*"My |flex|
+   Portfolio"*/
+.title {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(4rem, 9vw, 11rem); /* */
+  font-weight: 400;
+  line-height: 0.85; /* tight, but not too tight*/
+  letter-spacing: -0.05em; /*little smaller than element font size*/
+  text-transform: uppercase;
+}
+.line-1 {
+  display: block;
+}
+.line-2 {
+  display: block;
 }
 
-.bottom-cloud {
-  position: absolute;
-  left: 250px;
-  bottom: 300px;
+/* =flex= */
+.footer-flex-row { 
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  padding-right: 40px;
+}
+.name {
+  font-size: 1.2rem;
+  color: #888; /* slight contrast? */
+}
+.tag {
+  font-family: Tahoma, sans-serif;
+  font-weight: 600;
+  font-size: .8rem; /* like 20% smaller */
+  text-transform: uppercase; /* like 20% cooler */
+  color: #000; /*black*/
 }
 
-.code-img {
-  width: 25%;
-  float: left;
-  margin-right: 30px;
-}
+/*
+  to do:
+    - stack images above for mobile?
+      - or just thin screens in general
+*/
 
-.chilli-img {
-  width: 50%;
-  margin-left: 30px;
-}
+/*##########*/
 
-.btn {
-  background: #11cdd4;
-  background-image: -webkit-linear-gradient(top, #11cdd4, #11999e);
-  background-image: -moz-linear-gradient(top, #11cdd4, #11999e);
-  background-image: -ms-linear-gradient(top, #11cdd4, #11999e);
-  background-image: -o-linear-gradient(top, #11cdd4, #11999e);
-  background-image: linear-gradient(to bottom, #11cdd4, #11999e);
-  -webkit-border-radius: 8;
-  -moz-border-radius: 8;
-  border-radius: 8px;
-  font-family: "Montserrat", sans-serif;
-  color: #ffffff;
-  font-size: 20px;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
-}
-
-.btn:hover {
-  background: #30e3cb;
-  background-image: -webkit-linear-gradient(top, #30e3cb, #2bc4ad);
-  background-image: -moz-linear-gradient(top, #30e3cb, #2bc4ad);
-  background-image: -ms-linear-gradient(top, #30e3cb, #2bc4ad);
-  background-image: -o-linear-gradient(top, #30e3cb, #2bc4ad);
-  background-image: linear-gradient(to bottom, #30e3cb, #2bc4ad);
-  text-decoration: none;
-}
-
-.parent {
+.second-grid-container{
+  
+  width: 90vw; /*90% screen*/
+  max-width: 1400px; /*cap for large screens*/
+  padding: 40px 60px;
+  
   display: grid;
-  grid-template-columns: 0.5fr 1fr;
-  grid-template-rows: repeat(1, 1fr);
-  width: 50%;
-  margin: 100px auto 0 auto;
-  text-align: left;
-  row-gap: 2rem;
+  grid-template-columns: 1fr 2.5fr; 
+  gap: 60px;
+  align-items: start;
 }
 
-/* .typing {
-  grid-area: 1 / 1 / 3 / 3;
+.text-content {
+    margin-top: 10px;
+    min-width: 250px;
 }
-.coding {
-  grid-area: 1 / 1 / 2 / 2;
+.title h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1;
 }
-.chillies {
-  grid-area: 1 / 2 / 2 / 3;
+.description p {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: #333;
+    max-width: 300px;
 }
-.hot-wings {
-  grid-area: 2 / 1 / 3 / 2;
-} */
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+}
+
+.image-box {
+    background-color: #888;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.box-vertical {
+    grid-row: 1 / span 2;
+    grid-column: 1;
+}
+
+/*force aspect ratio for vertical box*/
+.box-normal {
+    aspect-ratio: 16 / 9;
+    grid-column: 2;
+}
+
+/*##########*/
+
+
+@media (max-width: 650px) {
+  
+  body{
+    height: auto;
+    padding: 30px;
+    overflow: auto;
+  }
+  
+  /*make flex column if too thin*/
+  .main-grid-container{
+    display: flex;
+    flex-direction: column; /*column-reverse if photos on bottom*/
+    height: auto;
+    gap: 30px;
+  }
+
+  .second-grid-container {
+    grid-template-columns: 1fr;
+  }
+  .text-content {
+    margin-bottom: 40px;
+  }
+}
