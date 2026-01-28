@@ -1,0 +1,60 @@
+.container {
+  width: 70%;
+  margin: auto;
+  text-align: center;
+}
+
+.dice {
+  text-align: center;
+  display: inline-block;
+
+}
+
+body {
+  background-color: #393E46;
+}
+
+h1 {
+  margin: 30px;
+  font-family: 'Lobster', cursive;
+  text-shadow: 5px 0 #232931;
+  font-size: 8rem;
+  color: #4ECCA3;
+}
+
+p {
+  font-size: 2rem;
+  color: #4ECCA3;
+  font-family: 'Indie Flower', cursive;
+}
+
+img {
+  width: 80%;
+}
+
+footer {
+  margin-top: 5%;
+  color: #EEEEEE;
+  text-align: center;
+  font-family: 'Indie Flower', cursive;
+
+}
+
+
+@keyframes shake {
+  0% { transform: rotate(0deg) translateX(0); }
+  10% { transform: rotate(5deg) translateX(-5px); }
+  20% { transform: rotate(-5deg) translateX(5px); }
+  30% { transform: rotate(5deg) translateX(-5px); }
+  40% { transform: rotate(-5deg) translateX(5px); }
+  50% { transform: rotate(5deg) translateX(-5px); }
+  60% { transform: rotate(-5deg) translateX(5px); }
+  70% { transform: rotate(5deg) translateX(-5px); }
+  80% { transform: rotate(-5deg) translateX(5px); }
+  90% { transform: rotate(5deg) translateX(-5px); }
+  100% { transform: rotate(0deg) translateX(0); }
+}
+
+.rolling {
+  animation: shake 0.6s ease-in-out;
+}
