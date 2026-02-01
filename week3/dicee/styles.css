@@ -1,60 +1,160 @@
+/* INFO
+NAME: Kendall Beam
+ASSIGNMENT: Week 3a - Extension of Dicee Code
+GOAL: add to user experience
+FILENAME: styles.css
+DATE: 1/30/2026
+*/
+
+/* Changed:
+  1) Added simple animation for dice roll
+  2) Added reroll button + container for future buttons
+  3) added hover/active effect for button UX
+  4) Changed font to sans-serif for readability
+  5) changed color palate to work better with dice.png's #9C060C
+  6) generated a tutorial overlay on refresh per requirements
+
+AI Usage: In developing some classes, "modal" classes for tutorial
+Code: by me or grandfathered from assignment, unless otherwise stated
+Comments: by me
+*/
+
+/* static container, but works */
 .container {
   width: 70%;
   margin: auto;
   text-align: center;
+  min-width: 450px; /* hack to stop weird text readujsting */
 }
 
 .dice {
   text-align: center;
   display: inline-block;
-
+  /* if adding more dice: make display: grid */
 }
 
 body {
-  background-color: #393E46;
+  background-color: #1C2A33; /* off-grey blue for contrast */
 }
 
 h1 {
   margin: 30px;
-  font-family: 'Lobster', cursive;
-  text-shadow: 5px 0 #232931;
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 5px 0 #222; /* might comment out shadow, not needed if color = white*/
   font-size: 8rem;
-  color: #4ECCA3;
+  color: #DDD;
 }
 
 p {
-  font-size: 2rem;
-  color: #4ECCA3;
-  font-family: 'Indie Flower', cursive;
+  font-size: 2rem; /* player title is a little bit bigger*/
+  color: #DDD;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 img {
-  width: 80%;
+  width: 80%; /* weird, but dice can stay static size */
 }
 
 footer {
   margin-top: 5%;
   color: #EEEEEE;
   text-align: center;
-  font-family: 'Indie Flower', cursive;
-
+  font-family: Arial, Helvetica, sans-serif;
+  min-width: 450px; /* keep consistent with hack */
 }
 
 
-@keyframes shake {
-  0% { transform: rotate(0deg) translateX(0); }
-  10% { transform: rotate(5deg) translateX(-5px); }
-  20% { transform: rotate(-5deg) translateX(5px); }
-  30% { transform: rotate(5deg) translateX(-5px); }
-  40% { transform: rotate(-5deg) translateX(5px); }
-  50% { transform: rotate(5deg) translateX(-5px); }
-  60% { transform: rotate(-5deg) translateX(5px); }
-  70% { transform: rotate(5deg) translateX(-5px); }
-  80% { transform: rotate(-5deg) translateX(5px); }
-  90% { transform: rotate(5deg) translateX(-5px); }
-  100% { transform: rotate(0deg) translateX(0); }
-}
-
+/* Animation for dice roll
+- slight rotation and X translation to roughly simulate shaking
+- '.rolling' class added and removed in JS to trigger animation
+-- Skeleton from AI and values by me
+*/
 .rolling {
   animation: shake 0.6s ease-in-out;
+}
+@keyframes shake {
+  0% { transform: rotate(0deg) translateX(0); }
+  10% { transform: rotate(2deg) translateX(-1px); }
+  20% { transform: rotate(-3deg) translateX(2px); }
+  30% { transform: rotate(4deg) translateX(-4px); }
+  40% { transform: rotate(-5deg) translateX(4px); }
+  50% { transform: rotate(5deg) translateX(-4px); }
+  60% { transform: rotate(-5deg) translateX(4px); }
+  70% { transform: rotate(4deg) translateX(-4px); }
+  80% { transform: rotate(-3deg) translateX(2px); }
+  90% { transform: rotate(2deg) translateX(-1px); }
+  100% { transform: rotate(0deg) translateX(0); }
+}/* Could be smoother, but works */
+
+
+/* Button container with flexbox for future button additions */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+/* Reroll button style class, with hover and active */
+.reroll-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #DDD;
+  
+  background-color: #0d0d0d;
+  
+  transition: background-color 0.3s ease;
+}
+/* change color on hover for feedback*/
+.reroll-btn:hover { 
+  background-color: #9e1c23;
+}
+/* shrink on click for feedback*/
+.reroll-btn:active { 
+  transform: scale(0.98);
+}
+
+/* Modal styling for tutorial */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.modal-content {
+  background-color: #1C2A33;
+  margin: auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+.modal-content img {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+.close {
+  color: #DDD;
+  float: right;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.close:hover {
+  color: #9e1c23;
 }

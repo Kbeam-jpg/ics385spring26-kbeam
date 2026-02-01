@@ -47,4 +47,5 @@ Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
 
 ## Week 3 - JavaScript
 - HW3.a: Dice Game - [dicee](week3/dicee/index.html)
-- HW3.b: Simon Game - [Simon](week3/Simon Game Challenge Completed/index.html)
+    - Updated UI, UX, added ability to change titles, account for n dice
+- HW3.b: Simon Game - [Simon](week3/Simon/index.html)

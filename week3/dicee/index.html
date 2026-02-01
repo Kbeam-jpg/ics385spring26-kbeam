@@ -1,46 +1,103 @@
+<!-- INFO
+NAME: Kendall Beam
+ASSIGNMENT: Week 3a - Extension of Dicee Code
+GOAL: Update code and logic to add a third dice, update user experience
+FILENAME: index.html
+DATE: 1/30/2026
+-->
+<!-- Changes:
+1. Added a third dice to the HTML structure.
+2. Added button to reroll dice without having to reload page
+3. Added input fields below button to change name of player titles
+  - will update win text as well
+4. Added containers around dice, input for add/remove function (not implemented)
+5. generated a tutorial overlay on refresh per requirements
+
+AI Usage: "modal" popup on refresh for tutorial
+Code: by me, unless otherwise stated
+Comments: by me
+ -->
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <!-- charset meta data -->
     <meta charset="utf-8">
+    <!-- title meta data -->
     <title>Dicee - copy</title>
     <!-- link to css -->
     <link rel="stylesheet" href="styles.css">
-    <!-- link to fonts -->
+    <!-- link to font -->
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster" rel="stylesheet">
-
   </head>
+
   <body>
-    <!-- title to be changed -->
+    <!-- normal container to keep everything neat -->
     <div class="container">
-      <h1>Refresh Me</h1>
 
-      <!-- left dice -->
-      <div class="dice">
-        <p>Player 1</p>
-        <img class="img1" src="images/dice6.png">
+      <!-- title to be changed -->
+      <h1></h1>
+
+      <div class="diceContainer">
+        <!-- left dice -->
+        <div class="dice">
+          <p>Player 1</p>
+          <img class="img1" src="images/dice6.png">
+        </div>
+
+        <!-- middle dice -->
+        <div class="dice">
+          <p>Player 2</p>
+          <img class="img2" src="images/dice6.png">
+        </div>
+
+        <!-- right dice -->
+        <div class="dice">
+          <p>Player 3</p>
+          <img class="img3" src="images/dice6.png">
+        </div>
       </div>
 
-      <!-- middle dice -->
-      <div class="dice">
-        <p>Player 2</p>
-        <img class="img2" src="images/dice6.png">
+      <!-- buttons container =flex=  -->
+      <div class="button-container">
+        <!-- reroll button -->
+        <button class="reroll-btn">Reroll</button>
+        <!-- add player -->
+        <!-- <button class="reroll-btn">Add Player</button>  -->
+        <!-- remove player -->
+        <!-- <button class="reroll-btn">Remove Player</button> -->
       </div>
 
-      <!-- right dice -->
-      <div class="dice">
-        <p>Player 3</p>
-        <img class="img3" src="images/dice6.png">
+      <!-- tutorial modal -->
+      <div id="tutorialModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <img id="tutorialImage" src="images/tutorial.png" alt="Tutorial">
+        </div>
       </div>
 
+      <br>
+      <div class="inputField">
+        <!-- input field for changing dice player titles -->
+        <!-- note: for, id, name -  can't start with a number -->
+        <!-- <label for="player1name">Player 1 name:</label> --><br>
+        <input type="text" id="player1name" name="player1name" value="Player 1"><br>
+        <!-- <label for="player2name">Player 2 name:</label> --><br>
+        <input type="text" id="player2name" name="player2name" value="Player 2"><br>
+        <!-- <label for="player3name">Player 3 name:</label> --><br>
+        <input type="text" id="player3name" name="player3name" value="Player 3"><br> 
+      </div>
     </div>
 
-    <!-- load ES to change page -->
+    <!-- footer  -->
+    <footer>
+      <hr>
+      <button class="reroll-btn tutorial-btn">Tutorial</button>
+      <!-- 🎲 = U+ 1F3B2  🚩 = U+ 1F6A9 -->
+    </footer>
+
+    <!-- load Javascript once html loads to change page -->
     <script src="index.js" charset="utf-8"></script>
 
-      </body>
-
-      
-      <footer>
-         🎲 = U+ 1F3B2  🚩 = U+ 1F6A9
-      </footer>
-    </html>
+  </body>
+</html>
