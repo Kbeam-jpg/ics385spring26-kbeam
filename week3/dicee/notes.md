@@ -29,34 +29,35 @@ Notes:
 
 To Do:
 
-- implement 'add player' and 'remove player' buttons
-    - playerCounter - keep track of players
-        - keep min==2 max==5 for simplicity
+    - implement 'add player' and 'remove player' buttons
+        - playerCounter - keep track of players
+            - keep min==2 max==5 for simplicity
 
-    addPlayer()
-        call:
-            appendChild() for playerDice HTML elements
-            appendChild() for associated input field
-        - make containers for easier searching?
-    
-    - removePlayer()
-        call:
-            removeChild() on last playerDice
-            removeChild() on last 
+        addPlayer()
+            call:
+                appendChild() for playerDice HTML elements
+                appendChild() for associated input field
+            - make containers for easier searching?
+        
+        - removePlayer()
+            call:
+                removeChild() on last playerDice
+                removeChild() on last 
 
-    - make diceMap based on playerCounter
-        - keep global array for playerDice()?
+        - make diceMap based on playerCounter
+            - keep global array for playerDice()?
 
-    - event listeners for buttons dynamically?
-    - update CSS
-        grid?
+        - event listeners for buttons dynamically?
+        - update CSS
+            grid?
 
-- implement a handicap dice
-    - may need multiple dice
-        - to reduce ties
-        - to soften impact of adding a handicap dice
-    - button to add a dice
-    - mutiple dice (3 or 4) per player
-        - completely change how I'm DOM searching to account for handicap
+    - implement a handicap dice
+        - may need multiple dice
+            - to reduce ties
+            - to soften impact of adding a handicap dice
+        - button to add a dice
+        - mutiple dice (3 or 4) per player
+            - completely change how I'm DOM searching
+            - to account for handicap
 
     

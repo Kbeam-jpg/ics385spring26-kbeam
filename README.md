@@ -3,11 +3,12 @@
 Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
 
 ## 01. A bit about me
-    Aloha and welcome! Still on my educational journey, but currently enjoying the ride! 
-    I've dabbled in all kinds of tech, picked up a wide range of skills and know-how along the way.
+    Aloha and welcome! Still on my educational journey,
+     but currently enjoying the ride! 
+    I've dabbled in all kinds of tech, 
+    picked up a wide range of skills and know-how along the way.
 
 ## 02. My work
-
     (wip)
 
 ## 03. Experience
@@ -29,7 +30,7 @@ Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
     - Audio / Video / Livestreaming
     - Troubleshooting
 
-## 0.5 Contact Me
+## 05. Contact Me
     Email: beam.kendall@gmail.com
 [github.com/kbeam-jpg](https://github.com/Kbeam-jpg)
 \-
