@@ -1,0 +1,163 @@
+/* INFO
+NAME: Kendall Beam
+ASSIGNMENT: Week 3b - Extension of Simon Code
+GOAL: add to user experience
+FILENAME: styles.css
+DATE: 2/1/2026
+*/
+
+/* Changed:
+  1. class for toggling display of hard-mode buttons
+  2. added animation for speedUp()
+  3. added button :hover/:active for UX feedback
+  4. tweaked some classes for style
+
+  5. generated styling for input/label
+    -- a little beyond me currently
+
+AI Usage: generated input/label styling
+Code: by me, or grandfathered from assignment, unless otherwise stated
+Comments: by me
+*/
+
+body {
+  text-align: center;
+  background-color: #011F3F;
+}
+
+#level-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 3rem;
+  margin:  5%;
+  color: #FEF2BF;
+}
+
+.container {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  min-height: 150px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  padding: 2px;
+}
+
+.btn {
+  margin: 0.5%;
+  display: flex;
+  width: 8%;
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  border: 2px solid black;
+  background-color: black;
+  border-radius: 20%;
+
+  font-size: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #DDD;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.game-over {
+  background-color: red;
+  opacity: 0.8;
+}
+/* these aren't used anymore */
+/* .red {
+  background-color: red;
+}
+.green {
+  background-color: green;
+}
+.blue {
+  background-color: blue;
+}
+.yellow {
+  background-color: yellow;
+} */
+
+/* maybe should be a(n) :active? */
+.pressed {
+  box-shadow: 0 0 20px white;
+  background-color: grey;
+}
+
+
+/* ### additions: ### */
+/* feedback on click/hover */
+.btn:hover { 
+  border-color: #F51569;
+}
+.btn:active { 
+  background-color: #F51569;
+  transform: scale(0.98);
+}
+
+/* overload display for buttons */
+.hard-mode {
+  display: none;
+  /* display: flex; */
+}
+
+/* color animation for speed up  */
+.speeding-up {
+  animation: neon 1s ease-in-out 2;
+}
+@keyframes neon {
+  0%, 100% { color: #B608F5; }
+  20% { color: #F51569; }
+  40% { color: #F50FE5; }
+  60% { color: #5A08F5; }
+  80% { color: #F52614; }
+}
+
+/* Generated code */
+/* Style the Hard Mode checkbox and label to match #level-title */
+#hardmode {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 6px;
+  border: 3px solid #FEF2BF;
+  background-color: transparent;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.6rem;
+  position: relative;
+  cursor: pointer;
+  transition: background 180ms ease, box-shadow 180ms ease, transform 90ms ease;
+}
+#hardmode:checked {
+  background: linear-gradient(135deg,#F51569 0%, #B608F5 100%);
+  box-shadow: 0 0 12px rgba(245,21,105,0.6);
+  transform: scale(1.03);
+}
+#hardmode:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(254,242,191,0.12);
+}
+
+label[for="hardmode"] {
+  font-family: 'Press Start 2P', cursive;
+  color: #FEF2BF;
+  font-size: 0.9rem;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* make checkbox + label sit nicely in the container */
+.container input[type="checkbox"],
+.container label[for="hardmode"] {
+  display: inline-block;
+  margin-top: 1rem;
+}

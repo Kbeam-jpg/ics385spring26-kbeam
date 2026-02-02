@@ -1,0 +1,92 @@
+<!-- INFO
+NAME: Kendall Beam
+ASSIGNMENT: Week 3b - Extension of Simon Code
+GOAL: Update code and logic to add a "level", update user experience + guidance
+FILENAME: index.html
+DATE: 2/1/2026
+-->
+<!-- CHANGES
+
+1. added normal mode (6 buttons)
+2. NEW LEVEL => added hard mode (26 buttons)
+3. added checkbox for toggling modes
+
+AI Usage: for modal skeleton
+Code: by me, or grandfathered from assignment, unless otherwise stated
+Comments: by me
+-->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>QWERTYsimon</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <h1 id="level-title">Press A Key to Start</h1>
+  </div>
+  <div class="container">
+
+    <!-- top row of keyboard -->
+    <div class="row" id="row-1">
+
+      <!-- <normal mode> -->
+      <!-- <hard mode> -->
+      <div type="button" id="q" class="btn">Q</div>
+      <div type="button" id="w" class="btn">W</div>
+      <div type="button" id="e" class="btn">E</div>
+      <div type="button" id="r" class="btn">R</div>
+      <div type="button" id="t" class="btn">T</div>
+      <div type="button" id="y" class="btn">Y</div>
+      <!-- </normal mode> -->
+
+      <div type="button" id="u" class="btn hard-mode">U</div>
+      <div type="button" id="i" class="btn hard-mode">I</div>
+      <div type="button" id="o" class="btn hard-mode">O</div>
+      <div type="button" id="p" class="btn hard-mode">P</div>
+
+      
+    </div>
+
+    <div class="row" id="row-2">
+
+      <div type="button" id="a" class="btn hard-mode">A</div>
+      <div type="button" id="s" class="btn hard-mode">S</div>
+      <div type="button" id="d" class="btn hard-mode">D</div>
+      <div type="button" id="f" class="btn hard-mode">F</div>
+      <div type="button" id="g" class="btn hard-mode">G</div>
+      <div type="button" id="h" class="btn hard-mode">H</div>
+      <div type="button" id="j" class="btn hard-mode">J</div>
+      <div type="button" id="k" class="btn hard-mode">K</div>
+      <div type="button" id="l" class="btn hard-mode">L</div>
+
+    </div>
+
+    <div class="row" id="row-3">
+
+      <div type="button" id="z" class="btn hard-mode">Z</div>
+      <div type="button" id="x" class="btn hard-mode">X</div>
+      <div type="button" id="c" class="btn hard-mode">C</div>
+      <div type="button" id="v" class="btn hard-mode">V</div>
+      <div type="button" id="b" class="btn hard-mode">B</div>
+      <div type="button" id="n" class="btn hard-mode">N</div>
+      <div type="button" id="m" class="btn hard-mode">M</div>
+    <!-- </hard mode> -->
+    </div>
+
+    <br><hr><br>
+    <input type="checkbox" id="hardmode" name="hardmode" switch>
+    <label for="hardmode">Hard Mode</label><br>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="game.js" charset="utf-8"></script>
+
+</body>
+</html>
