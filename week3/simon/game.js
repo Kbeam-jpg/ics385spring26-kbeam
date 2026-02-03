@@ -18,8 +18,9 @@ DATE: 2/1/2026
     -- loops through gamePattern[] and flashes sequence
   5) toggleMode()
     -- handles DOM change for button display
+  6) integrated modal with JQuery
 
-AI Usage: used in developing some functions
+AI Usage: limited use in developing some functions
 Code: by me, or grandfathered from assignment, unless otherwise stated
 Comments: by me
   -- gotta learn somehow
@@ -109,6 +110,7 @@ function checkAnswer(currentLevel) {
   }
 }
 
+//inner functions: speedingUp(), playbackSequence()
 /* Function: logic for next level/stage
 Param, returns: void;
 DOES: choose next button, sequence playback, */
