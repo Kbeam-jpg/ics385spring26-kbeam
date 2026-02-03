@@ -13,7 +13,7 @@ DATE: 2/1/2026
   3) speedingUp()
     -- handles add/remove of animation class
   4) playbackSequence()
-    -- added 15% speedup every x=SPEEDUP(5) levels, capped at x=MAXDEPLAY(250ms)
+    -- added 15% speedup every x=SPEEDUP(5) levels, capped at x=MAXDELAY(250ms)
       // any faster and I can't keep track 
     -- loops through gamePattern[] and flashes sequence
   5) toggleMode()
@@ -125,7 +125,7 @@ function nextSequence() {
   let randomChosenLetter = 'q';
   let randomNumber = '0';
 
-  if (!hardMode){
+  if (!hardMode){ /*normalMode*/
     randomNumber = Math.floor(Math.random() * 6); //buttonNamesNormal.length
     randomChosenLetter = buttonNamesNormal[randomNumber];
 
@@ -137,7 +137,7 @@ function nextSequence() {
   // 4. push choice to gamePattern[]
   gamePattern.push(randomChosenLetter);
 
-  // 5. every 10 levels update #level-title w/ animation
+  // 5. every 5 levels update #level-title w/ animation
   if (level % SPEEDUP === 0){
     speedingUp();
   }
@@ -168,16 +168,17 @@ function nextSequence() {
 
   /* Function: flash gamePatten[] to player
   Param, Return: void;
-  Does: speed up delay every 10 levels, jQuery fadein/out */
+  Does: speed up delay every 5 levels, jQuery fadein/out */
   function playbackSequence() {
 
     // Calculate delay: DEFAULTS: 500ms base, -15% every 5 levels, min 250ms
     let delay = DEFAULTSPD * Math.pow(SPEEDAMNT, Math.floor(level / SPEEDUP)); //0.85, 10
     delay = Math.max(delay, MAXDELAY); // ?: 250ms
 
+    // display button flash every delay ms apart from each other
     for (let i = 0; i < gamePattern.length; i++) {
       setTimeout(function() {
-        // animatePress(gamePattern[i]);
+        // hack to be more noticeable
         $("#" + gamePattern[i]).fadeIn(1500).fadeOut(150).fadeIn(150);
       }, delay * i);
     }
@@ -227,3 +228,48 @@ function toggleMode() {
     $(".hard-mode").css("display", "none");
   }
 }
+
+
+
+// ### Overlay ###
+
+// Tutorial modal functions
+// Get the modal and close button
+const tutorialModal = $("#tutorialModal");
+const closeBtn = $(".close");
+
+/* Shows the tutorial modal
+ON: refresh, tutorial button event
+DOES: Makes modal visible
+*/
+function showTutorial() {
+    tutorialModal.css("display", "block");
+}
+
+/* Hides the tutorial modal
+ON: none
+DOES: Hides modal
+*/
+function hideTutorial() {
+    tutorialModal.css("display", "none");
+}
+
+// Show tutorial on page load
+$(window).on("load", showTutorial);
+
+// Close tutorial when clicking the X button
+closeBtn.on("click", hideTutorial);
+
+// Close tutorial when clicking outside the modal content
+$(window).on("click", function (event){
+  if (event.target === tutorialModal) {
+    hideTutorial();
+  }
+});
+
+// Show tutorial when clicking the Tutorial button in footer
+$(".tutorial-btn").on("click", showTutorial);
+// ### End Overlay ###
+
+
+// ##### End Main #####

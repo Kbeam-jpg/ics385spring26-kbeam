@@ -11,7 +11,7 @@ DATE: 2/1/2026
 2. NEW LEVEL => added hard mode (26 buttons)
 3. added checkbox for toggling modes
 
-AI Usage: for modal skeleton
+AI Usage: none
 Code: by me, or grandfathered from assignment, unless otherwise stated
 Comments: by me
 -->
@@ -28,7 +28,7 @@ Comments: by me
 
 <body>
   <div class="container">
-    <h1 id="level-title">Press A Key to Start</h1>
+    <h1 id="level-title">Press any Key to Start</h1>
   </div>
   <div class="container">
 
@@ -79,9 +79,29 @@ Comments: by me
     <!-- </hard mode> -->
     </div>
 
+    <!-- tutorial modal -->
+     <!-- loads on refresh / tutorial button -->
+    <div id="tutorialModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p class="medium">QWERTY Simon!</p>
+        <p class="small">Click/Tap the buttons in the order they flash</p>
+        <p class="small">Level increases on succesful pattern, so aim for the highest level you can!</p>
+        <img id="tutorialGif" src="assets/tutorial1.gif" alt="simon demonstration gif">
+        <p class="small">Try out Hard Mode if you are up to the challenge</p>
+        <img id="tutorialImage" src="assets/tutorial2.png" alt="tutorial hardmode checkbox">
+        <p class="small">To start, close out with the X</p>
+      </div>
+    </div>
+
     <br><hr><br>
     <input type="checkbox" id="hardmode" name="hardmode" switch>
     <label for="hardmode">Hard Mode</label><br>
+    <br>
+    <!-- tutorial modal button -->
+    <button class="tutorial-btn">
+      <span class="small">Tutorial</span>
+    </button>
 
   </div>
 
@@ -90,3 +110,13 @@ Comments: by me
 
 </body>
 </html>
+
+<!-- <p class="medium">QWERTY Simon!</p>
+        <p class="small">Click/Tap the buttons in the order they flash</p>
+        <p class="small">Level increases on succesful pattern,</p>
+        <p class="small">so aim for the highest level you can!</p>
+        <img id="tutorialGif" src="assets/tutorial1.gif" alt="simon demonstration gif">
+        <br>
+        <p class="small">Try out Hard Mode if you are up to the challenge</p>
+        <img id="tutorialImage" src="assets/tutorial2.png" alt="tutorial hardmode checkbox">
+        <p class="small">To start, close out with the X</p> -->

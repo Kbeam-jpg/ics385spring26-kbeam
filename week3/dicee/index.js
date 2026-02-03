@@ -69,8 +69,7 @@ function findDiceImg(num) {
 
 /* recallable function to handle the reroll logic
 Params: none, attached to eventlistener
-Effects: Updates DOM with new dice values and winner announcement
-*/
+Effects: Updates DOM with new dice values and winner announcement*/
 function playGame() {
 
     // initalize variables
@@ -122,7 +121,6 @@ function playGame() {
 
 
 // ##### Main Code ##### 
-
 
 // Call logic on page load
 // User can get a feel for how it works before starting

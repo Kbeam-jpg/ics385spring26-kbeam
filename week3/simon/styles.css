@@ -64,6 +64,8 @@ body {
 
   align-items: center;
   justify-content: center;
+
+  cursor: pointer;
 }
 
 .game-over {
@@ -119,10 +121,44 @@ body {
   80% { color: #F52614; }
 }
 
+.small {
+  font-size: 0.75rem;
+  font-family: 'Press Start 2P', cursive;
+  margin:  5%;
+  color: #FEF2BF;
+}
+.medium { 
+  font-size: 1rem;
+  font-family: 'Press Start 2P', cursive;
+  margin:  5%;
+  color: #FEF2BF;
+}
+
+/* styling for tutorial button */
+.tutorial-btn {
+  padding: 5px 10px;
+  box-sizing: border-box;
+  
+  border-radius: 6px;
+  background-color: transparent;
+  cursor: pointer;
+
+  /* align-items: center;
+  justify-content: center; */
+}
+.tutorial-btn:hover {
+  appearance: none;
+  color: #F51569;
+  border: 1px solid #FEF2BF;
+}
+.tutorial-btn:active {
+  background-color: #F51569;
+  transform: scale(0.98);
+}
+
 /* Generated code */
 /* Style the Hard Mode checkbox and label to match #level-title */
 #hardmode {
-  -webkit-appearance: none;
   appearance: none;
   width: 2.2rem;
   height: 2.2rem;
@@ -161,3 +197,52 @@ label[for="hardmode"] {
   display: inline-block;
   margin-top: 1rem;
 }
+
+
+/* Modal styling for tutorial */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.modal-content {
+  /* display: flex;
+  flex-direction: column; */
+
+  background-color: #011F3F;
+  margin: auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+.modal-content img {
+  width: 80vw;
+  max-width: 300px;
+  max-height: 80vh;
+  object-fit: contain;
+}
+.close {
+  color: #DDD;
+  float: right; /*keep right corner*/
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.close:hover {
+  color: #9e1c23;
+}
+
+
+
