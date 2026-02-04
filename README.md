@@ -53,3 +53,6 @@ Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
     - Updated UI, UX, converted layout to qwerty keyboard, JQuery functionality
 
 ## Week 4 - Node.js
+- HW4.a: hero-hw4 - [hero](https://github.com/Kbeam-jpg/ics385spring26-kbeam/tree/main/week4/hero-hw4)
+    - simple Node.js http server + fs file i/o
+- HW4.b:
