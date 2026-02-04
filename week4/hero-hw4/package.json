@@ -1,0 +1,16 @@
+{
+  "name": "hw4-hero",
+  "version": "1.0.0",
+  "description": "Week 4, extension of node.js code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kendall Beam",
+  "license": "ISC",
+  "dependencies": {
+    "inspirational-quotes": "^1.0.8",
+    "superheroes": "^3.0.0",
+    "supervillains": "^3.0.0"
+  }
+}
