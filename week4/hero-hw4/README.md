@@ -36,7 +36,7 @@ Dependencies:
 
 - added movie quote and famous last words to http response
 
-- commit file.txt's are most ironic I could get in like 5 minutes
+- commit file.txt's are the most ironic I could get in like 5 minutes
     -- "tyrant" hero promoting greed
     --  quote related to greed
     -- "fixer" villan dodging UX
