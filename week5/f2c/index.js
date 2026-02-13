@@ -1,3 +1,15 @@
+/* INFO
+Name: Kendall Beam
+Date: Feb 13 2026
+Course: ICS 385 Week 5b
+File: index.js (main)
+Purpose: 
+- Use express to handle get/post html requests
+- implement a basic function
+- see f2cCalc.html
+
+AI Use: none
+*/
 // make app object from express module
 const express = require("express");
 const app = express();
