@@ -2,6 +2,49 @@
 
 Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
 
+##
+##
+# For ICS 385 S26
+
+## Week 1 - Introduction and Setup
+
+## Week 2 - HTML and CSS
+- HW2.a: Codepen.io test - [Codepen](https://codepen.io/Kendall-Beam/pen/KwMqVLv)
+- HW2.b: Bio Page - [bio.html](week2/hw2/bio.html), [samples.css](week2/hw2/samples.css)
+- HW2.c: Github Pages - [@here](https://kbeam-jpg.github.io/ics385spring26-kbeam/) 
+
+## Week 3 - JavaScript
+- HW3.a: Dice Game - [dicee](week3/dicee/index.html)
+    - Updated UI, UX, added ability to change titles, account for n dice
+- HW3.b: Simon Game - [simon](week3/simon/index.html)
+    - Updated UI, UX, converted layout to qwerty keyboard, JQuery functionality
+
+## Week 4 - Node.js
+- HW4.a: hero-hw4 - [hero](week4/hero-hw4/)
+    - simple Node.js http server + fs file i/o
+- HW4.b: qrcode - [qrcode](week4/qrcode/)
+    - extension of qr code script to make user friendly & have more features
+
+
+## Week 5 - Express.js
+- HW5b - F2C calc - [f2c](week5/f2c/)
+    - simple app.get/post through express
+
+
+
+
+
+
+
+
+
+
+
+
+
+##
+##
+
 ## 01. A bit about me
     Aloha and welcome! Still on my educational journey,
      but currently enjoying the ride! 
@@ -35,25 +78,3 @@ Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
 [github.com/kbeam-jpg](https://github.com/Kbeam-jpg)
 \-
 [linkedin.com/in/kendall-beam/](https://www.linkedin.com/in/kendall-beam-308405296/)
-
-##
-##
-# For ICS 385 S26
-## Week 1 - Introduction and Setup
-
-## Week 2 - HTML and CSS
-- HW2.a: Codepen.io test - [Codepen](https://codepen.io/Kendall-Beam/pen/KwMqVLv)
-- HW2.b: Bio Page - [bio.html](week2/hw2/bio.html), [samples.css](week2/hw2/samples.css)
-- HW2.c: Github Pages - [@here](https://kbeam-jpg.github.io/ics385spring26-kbeam/) 
-
-## Week 3 - JavaScript
-- HW3.a: Dice Game - [dicee](week3/dicee/index.html)
-    - Updated UI, UX, added ability to change titles, account for n dice
-- HW3.b: Simon Game - [simon](week3/simon/index.html)
-    - Updated UI, UX, converted layout to qwerty keyboard, JQuery functionality
-
-## Week 4 - Node.js
-- HW4.a: hero-hw4 - [hero](week4/hero-hw4/)
-    - simple Node.js http server + fs file i/o
-- HW4.b: qrcode - [qrcode](week4/qrcode/)
-    - extension of qr code script to make user friendly & have more features
