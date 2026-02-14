@@ -28,7 +28,9 @@ Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
 
 ## Week 5 - Express.js
 - HW5b - F2C calc - [f2c](week5/f2c/)
-    - simple app.get/post through express
+    - simple app, handle get/post using express.js
+- HW5c - VolCalc - [VolCalc](week5/VolCalc/)
+    - simple app, handle get/post using express.js
 
 
 
