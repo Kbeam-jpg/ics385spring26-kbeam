@@ -44,8 +44,8 @@ Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
 
 
 
-##
-##
+## 
+## 
 
 ## 01. A bit about me
     Aloha and welcome! Still on my educational journey,

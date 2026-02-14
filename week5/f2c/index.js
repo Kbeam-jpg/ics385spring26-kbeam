@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Path : /f2c
 // get -> send f2cCalc.html file
-app.get("/f2c", function (req, res) {
+app.get("/", function (req, res) {
   res.sendFile(__dirname + "/f2cCalc.html");
 });
 

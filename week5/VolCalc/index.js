@@ -17,15 +17,16 @@ const PORT = 3001;
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// on: load page req
+// get -> res send volCalc html file
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/VolCalculator.html");
 });
 
-// on: load page req
-// get -> res send volCalc html file
-app.get("/VolCalc", function (req, res) {
-  res.sendFile(__dirname + "/VolCalculator.html");
-});
+
+// app.get("/VolCalc", function (req, res) {
+//   res.sendFile(__dirname + "/VolCalculator.html");
+// });
 
 // on: form submit button
 // post -> calculate volume, show as field on webpage
