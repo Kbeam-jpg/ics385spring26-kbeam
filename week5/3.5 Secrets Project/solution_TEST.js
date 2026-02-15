@@ -1,3 +1,11 @@
+/*
+    Currently runs
+    I have no incentive to fix/document
+    ~40% copilot implementation
+    - KJ
+*/
+
+
 import express from "express";
 import bodyParser from "body-parser";
 import helmet from "helmet";  // Security middleware to set HTTP headers
@@ -12,7 +20,7 @@ dotenv.config();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
-// Read port and password from environment variables (security best practice: no hardcoded secrets)
+// Read port and password from environment variables 
 const port = process.env.PORT || 3000;
 const correctPassword = process.env.PASSWORD || "ILoveProgramming";
 
@@ -27,7 +35,8 @@ app.use(cors({ origin: process.env.CORS_ORIGIN || "http://localhost:3000" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Track authorized users by their IP address (simplified session management)
-// Note: In production, use express-session or JWT tokens instead of tracking by IP
+// tracking by IP
+// Note: In production, use express-session
 const authorizedSessions = new Set();
 
 // Middleware to validate password and authorize users
@@ -56,7 +65,6 @@ function passwordCheck(req, res, next) {
   // Continue to next middleware/route
   next();
 }
-app.use(passwordCheck);
 
 // Home route: serve login page
 app.get("/", (req, res) => {
@@ -70,7 +78,7 @@ app.get("/", (req, res) => {
 });
 
 // Check authorization route: verify user's password and return appropriate page
-app.post("/check", (req, res) => {
+app.post("/check", passwordCheck, (req, res) => {
   // Check if this client's IP is in the authorized sessions set
   // (password validation already happened in passwordCheck middleware above)
   const isAuthorized = authorizedSessions.has(req.ip);
@@ -95,8 +103,8 @@ app.post("/check", (req, res) => {
 });
 
 // === ERROR HANDLING MIDDLEWARE ===
-// Global error handler (must be defined AFTER all other routes and middleware)
-// Catches any errors thrown during request processing and sends safe error response
+// Global error handler (defined after other routes and middleware)
+// Catch any errors thrown during request processing and sends safe response
 app.use((err, req, res, next) => {
   console.error("Unhandled error:", err.stack);
   // Return JSON error response instead of exposing server details
