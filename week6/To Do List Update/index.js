@@ -56,16 +56,42 @@ app.post("/", function(req, res) {
     }
 });
 
-// display default to do list on the localhost:3000/work route!
+// display work to do list @ localhost:3000/work
 app.get("/work", function(req, res){
 
-  let day = date.getDate();
+//   let day = date.getDate();
   
-    res.render("list", {listTitle: "Work Items To-Do List", newListItems: workItems})
+    res.render("list", {listTitle: "Work Items To-Do List", newListItems: workItems});
 });
 
-// add a app.get for every route - /fun and /weekend
-// Make sure your listTitle starts off with Fun Items and Weekend Items
+/* add a app.get for new routes - /chores and /camping
+Week6a - todolistv1 -> add new EJS content*/
+//### Additions ###
+
+let choreItems = ["Wash Dishes", "Fold Laundry", "Clean Bathroom", "Meal Prep"];
+// chores to do list @ localhost:3000/chores
+// get -> page load on 3000/chores
+// does -> add/replace list with chore list ^^ 
+app.get("/chores", function(req, res){
+
+    // view: list
+    // content: listTitle in purple bar, chore list in box
+    res.render("list", {listTitle: "Chores To-Do List", newListItems: choreItems});
+});
+
+let campingItems = ["Pitch Tent", "Setup Gear", "Kick Back", "Have Fun"];
+// camping to do list @ localhost:3000/camping
+// get -> page load on 3000/camping
+// does -> add/replace list with camping list ^^ 
+app.get("/camping", function(req, res) {
+
+    res.render("list", {listTitle: "Camping To-Do List", newListItems: campingItems});
+});
+
+
+//### ###
+//
+//
 
 app.listen(3000, function() {
 console.log ("Server is running on port 3000")
