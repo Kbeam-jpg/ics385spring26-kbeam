@@ -27,12 +27,17 @@ Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
 
 
 ## Week 5 - Express.js
-- HW5b - F2C calc - [f2c](week5/f2c/)
+- HW5.b - F2C calc - [f2c](week5/f2c/)
     - simple app, handle get/post using express.js
-- HW5c - VolCalc - [VolCalc](week5/VolCalc/)
+- HW5.c - VolCalc - [VolCalc](week5/VolCalc/)
     - simple app, handle get/post using express.js
 
-
+## Week 6 - EJS
+- HW6.a - To Do List - [To Do List](week6/To%20Do%20List%20Update/index.js)
+    - add webpage content using EJS
+- HW6.b - Random Course Generator - [Random Course Generator](week6/Random%20Course%20Generator/)
+    - update EJS project to generate different strings, add logic
+- HW6.c - 
 
 
 

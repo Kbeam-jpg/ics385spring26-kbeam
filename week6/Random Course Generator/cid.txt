@@ -37,11 +37,11 @@ HSER, Human Services
 HWST, Hawaiian Studies
 ICS, Information Technology
 JAPN, Japanese Language and Literature
-MATH, Math
+MATH, Mathematics
 MGT, Management
 MUS, Music
 NURS, Nursing
-OCN, Ocean
+OCN, Ocean Science
 PACS, Pacific Island Studies
 PHRM, Pharmacy
 SCI, Science
