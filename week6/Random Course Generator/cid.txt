@@ -1,0 +1,55 @@
+ACC, Accounting
+AJ, Administrative Justice
+AG, Agriculture
+AGNR, Agriculture and Natural Resources
+AMT, Automotive Technology
+ANSC, Animal Sciences
+ART, Art and Media
+AST, Astronomy
+BA, Buisness Administration
+BIOL, Biology
+BLAW, Buisness Law
+BOT, Botany
+BUSN, Buisness 
+CA, Culinary Arts
+CARP, Carpentry
+CHEM, Chemistry
+CM, Creative Media
+COM, Communications
+CT, Construction Technology
+CULN, Culinary
+DH, Dental Hygine
+ECED, Early Childhood Education
+ECET, Electronic and Computer Enginering Technology
+ELEC, Electrician
+ENG, English
+ENGT, Engineering Technology
+ETRO, Electronics
+FIN, Finance
+FSHN, Food Science and Human Nutrition
+FT, Fashion Technology
+HAW, Hawaiian
+HDFS, Human Development and Family Studies
+HIST, History
+HLTH, Health
+HOST, Hospitality and Tourism
+HSER, Human Services
+HWST, Hawaiian Studies
+ICS, Information Technology
+JAPN, Japanese Language and Literature
+MATH, Math
+MGT, Management
+MUS, Music
+NURS, Nursing
+OCN, Ocean
+PACS, Pacific Island Studies
+PHRM, Pharmacy
+SCI, Science
+SSM, Sustainable Science Management
+WELD, Welding
+ZOOL, Zoology
+
+**Not Comprehensive
+https://catalog.manoa.hawaii.edu/content.php?catoid=2&navoid=510
+https://maui.hawaii.edu/programs
+https://elwd.maui.hawaii.edu/#1712624968205-8c20a82d-e9e5
