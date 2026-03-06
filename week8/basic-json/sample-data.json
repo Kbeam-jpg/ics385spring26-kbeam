@@ -1,0 +1,237 @@
+{
+"university": "University of Hawaii Maui College",
+"semester": "Spring 2026",
+"lastUpdated": "2026-03-05",
+"departments": [
+    {
+    "code": "ICS",
+    "name": "Information and Computer Sciences",
+    "chair": "Dr. Jane Smith",
+    "courses": [
+        {
+        "courseCode": "ICS 385",
+        "title": "Web Development and Administration",
+        "credits": 3,
+        "description": "Detailed knowledge of web page authoring and server-side programming.",
+        "prerequisites": ["ICS 320"],
+        "instructor": {
+            "name": "Dr. Debasis Bhattacharya",
+            "email": "debasisb@hawaii.edu",
+            "office": "Kaaike 114"
+        },
+        "schedule": {
+            "days": ["Tuesday"],
+            "time": "4:30 PM - 5:45 PM",
+            "location": "Online (Zoom)",
+            "capacity": 25,
+            "enrolled": 18
+        },
+        "isActive": true,
+        "topics": ["HTML", "CSS", "JavaScript", "Node.js", "APIs", "React"],
+        "assignments": [
+            {"name": "Week 1 - Setup", "points": 1, "dueDate": "2026-01-19"},
+            {"name": "Week 2 - HTML/CSS", "points": 3, "dueDate": "2026-01-26"}
+        ]
+        },
+        {
+        "courseCode": "ICS 360",
+        "title": "Database Design and Development",
+        "credits": 3,
+        "description": "Detailed knowledge of database design and development",
+        "prerequisites": ["ICS 320"],
+        "instructor": {
+            "name": "Jake Domingo",
+            "email": "domingoj@hawaii.edu",
+            "office": ""
+        },
+        "schedule": {
+            "days": [""],
+            "time": "",
+            "location": "Online (Async)",
+            "capacity": 25,
+            "enrolled": 14
+        },
+        "isActive": true,
+        "topics": ["SQL", "Data", "Management", "Server", "Models"],
+        "assignments": [
+            {"name": "Midterm Exam", "points": 100, "dueDate": "2026-03-15"},
+            {"name": "Final Exam", "points": 100, "dueDate": "2026-05-15"}
+        ]
+        }
+    ]
+    },
+    {
+    "code": "MATH",
+    "name": "Mathematics",
+    "chair": "Dr. Robert Johnson",
+    "courses": [
+        {
+        "courseCode": "MATH 241",
+        "title": "Calculus I",
+        "credits": 3,
+        "description": "Limits, derivatives, applications of derivatives.",
+        "prerequisites": ["MATH 135"],
+        "instructor": {
+            "name": "Dr. Sarah Wilson",
+            "email": "sarahw@hawaii.edu",
+            "office": "Academic Center 201"
+        },
+        "schedule": {
+            "days": ["Monday", "Wednesday", "Friday"],
+            "time": "10:00 AM - 10:50 AM",
+            "location": "AC 105",
+            "capacity": 30,
+            "enrolled": 25
+        },
+        "isActive": true,
+        "topics": ["Limits", "Derivatives", "Integration", "Applications"],
+        "assignments": [
+            {"name": "Homework 1", "points": 10, "dueDate": "2026-01-20"},
+            {"name": "Midterm Exam", "points": 100, "dueDate": "2026-03-15"}
+        ]
+        },
+        {
+        "courseCode": "MATH 242",
+        "title": "Calculus II",
+        "credits": 3,
+        "description": "Differentiation and integration of the transcendental functions",
+        "prerequisites": ["MATH 205 or MATH 241"],
+        "instructor": {
+            "name": "John Okamoto",
+            "email": "okamotoj@hawaii.edu",
+            "office": ""
+        },
+        "schedule": {
+            "days": ["Tuesday", "Thursday"],
+            "time": "1:30 PM - 3:10 PM",
+            "location": "KUPAA 204 ",
+            "capacity": 24,
+            "enrolled": 10
+        },
+        "isActive": true,
+        "topics": ["Limits", "Derivatives", "Integration", "Applications"],
+        "assignments": [
+            {"name": "Midterm Exam 1", "points": 100, "dueDate": "2026-02-20"},
+            {"name": "Midterm Exam 2", "points": 100, "dueDate": "2026-03-29"},
+            {"name": "Final Exam", "points": 150, "dueDate": "2026-05-15"}
+        ]
+        },
+        { 
+        "courseCode": "MATH 243",
+        "title": "Calculus III",
+        "credits": 3,
+        "description": "Introduces the study of functions of several variables with multiple integrals",
+        "prerequisites": ["MATH 242"],
+        "instructor": {
+            "name": "John Okamoto",
+            "email": "okamotoj@hawaii.edu",
+            "office": ""
+        },
+        "schedule": {
+            "days": [""],
+            "time": "",
+            "location": "Online (Async)",
+            "capacity": 24,
+            "enrolled": 0
+        },
+        "isActive": false,
+        "topics": ["Limits", "Derivatives", "Integration", "Applications", "Multi-variable"],
+        "assignments": [
+            {"name": "Midterm Exam 1", "points": 100, "dueDate": "2026-02-20"},
+            {"name": "Midterm Exam 2", "points": 100, "dueDate": "2026-03-29"},
+            {"name": "Final Exam", "points": 150, "dueDate": "2026-05-15"}
+        ]
+        },
+        {
+        "courseCode": "MATH 244",
+        "title": "Calculus IV",
+        "credits": 3,
+        "description": "Extends the study of functions of several variables with multiple integrals and vector analysis",
+        "prerequisites": ["MATH 243"],
+        "instructor": {
+            "name": "John Okamoto",
+            "email": "okamotoj@hawaii.edu",
+            "office": ""
+        },
+        "schedule": {
+            "days": ["Tuesday", "Thursday"],
+            "time": "1:30 PM - 3:10 PM",
+            "location": "Online (Zoom)",
+            "capacity": 24,
+            "enrolled": 10
+        },
+        "isActive": true,
+        "topics": ["Limits", "Derivatives", "Integration", "Applications", "Multi-variable", "vectors", "elementary"],
+        "assignments": [
+            {"name": "Midterm Exam 1", "points": 100, "dueDate": "2026-02-20"},
+            {"name": "Midterm Exam 2", "points": 100, "dueDate": "2026-03-29"},
+            {"name": "Final Exam", "points": 150, "dueDate": "2026-05-15"}
+        ]
+        }
+    ]
+    },
+    {
+    "code": "ANTH",
+    "name": "Anthropology",
+    "chair": "Dr. John Doe",
+    "courses": [
+        {
+        "courseCode": "ANTH 152",
+        "title": "Culture & Humanity",
+        "credits": 3,
+        "description": "Provides and introduction to cultural anthropology",
+        "prerequisites": ["ENG 22 or ENG 100"],
+        "instructor": {
+            "name": "Dr. Melissa Kirkendall",
+            "email": "kirkendaj@hawaii.edu",
+            "office": ""
+        },
+        "schedule": {
+            "days": ["Tuesday", "Thursday"],
+            "time": "1:30 PM - 2:45 PM",
+            "location": "Online (Zoom)",
+            "capacity": 25,
+            "enrolled": 21
+        },
+        "isActive": true,
+        "topics": ["Anthropology", "Culture", "Perspective", "enviornment", "humans", "interactions"],
+        "assignments": [
+            {"name": "Weekly Posts", "points": 7, "dueDate": ""},
+            {"name": "Final Paper", "points": 100, "dueDate": "2026-05-11"}
+        ]
+        },
+        {
+        "courseCode": "ANTH 200",
+        "title": "Cultural Anthropology",
+        "credits": 3,
+        "description": "Studies the concept of culture and basic tools for analyzing cultural behavior",
+        "prerequisites": ["ENG 22 or ENG 100"],
+        "instructor": {
+            "name": "Dr. Jane Kirkendall",
+            "email": "kirkendaj@hawaii.edu",
+            "office": ""
+        },
+        "schedule": {
+            "days": [""],
+            "time": "",
+            "location": "Online (Async)",
+            "capacity": 25,
+            "enrolled": 23
+        },
+        "isActive": true,
+        "topics": ["Anthropology", "Culture", "patterning", "integration", "change", "dynamics"],
+        "assignments": [
+            {"name": "Weekly Posts", "points": 7, "dueDate": ""},
+            {"name": "Final Paper", "points": 100, "dueDate": "2026-05-15"}
+        ]
+        }
+    ]
+    }
+],
+"metadata": {
+    "totalCourses": 8,
+    "totalDepartments": 3,
+    "totalCreditsOffered": 24,
+    "academicYear": "2025-2026"
+}
+}
