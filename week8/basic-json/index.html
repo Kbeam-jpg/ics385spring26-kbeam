@@ -21,12 +21,13 @@
             <label for="searchInput"> Search by course, instructor, or topic</label><br>
             <input type="text" id="searchInput" placeholder="Search">
             <button id="clearSearchBtn">Clear</button>
-        </div>
+        </div> 
         <div class="filter-section">
             <select id="departmentFilter">
                 <option value="all">All Departments</option>
                 <option value="ICS">Computer Science</option>
                 <option value="MATH">Mathematics</option>
+                <option value="ANTH">Anthropology</option>
             </select>
             <select id="creditsFilter">
                 <option value="all">All Credit Hours</option>
@@ -37,13 +38,13 @@
         </div>
         <br>
         <div class="action-section">
-            <button id="loadSampleBtn">Submit</button>
+            <button id="loadSampleBtn">Reset Catalog</button>
             <button id="addCourseBtn">Add New Course</button>
 
             <!-- Download button -->
-            <a href="./sample-data.json" download="sample-data">
-                <button id="exportBtn" name="exportJSON">Export JSON</button>
-            </a>
+            <!-- <a id="exportAnchor" href="./sample-data.json" download="sample-data"> -->
+            <button id="exportBtn" name="exportJSON">Export JSON</button>
+            <!-- </a> -->
                 
         </div>
     </section>
@@ -66,21 +67,180 @@
         <div class="loading" id="loading">Loading course catalog...</div>
         <!-- courseCards go here -->
     </section>
+
+    <section id="userErrorMessage">
+        <!-- Error Messages go here -->
+        <!-- Maybe a block with faint red -->
+    </section>
 </main>
-<br>
+
 <!-- Course Details Modal -->
 <div id="courseModal" class="modal hidden">
     <div class="modal-content">
-        <span class="close-btn">x</span>
+        <!-- <span class="close-btn">x</span> -->
         <div id="modalBody"> 
-            <p>Modal content</p>
           <!-- Course details will be dynamically inserted -->
         </div>
     </div>
 </div>
+<br>
+
+<!-- Add Course Modal -->
+<div id="addModal" class="modal hidden">
+    <div class="modal-content">
+    <section id="errorMessages">
+        <h4> Error Messages </h4>
+        <ul id="errorList">
+            <!-- error messages will be added here dynamically -->
+        </ul>
+    </section>
+
+<form id="addCourseForm" novalidate> <!-- maybe include validation in JS file insead? novalidate while I test -->
+    <h2> Course Information </h2>
+    <!-- Course Details -->
+    <label for="department">Course <span class="required">*</span></label>
+    <select id="department" name="department" required>
+        <option value="">Select Department</option>
+        <option value="ICS">ICS - Information and Computer Sciences</option>
+        <option value="MATH">MATH - Mathematics</option>
+        <option value="ANTH">ANTH - Anthropology</option>
+    </select>
+    <input type="number" id="courseNumber" name="courseNumber" maxlength="3" size="3" min="1" max="999" placeholder="101" required>
+    <br><br>
+    
+    <label for="courseTitle">Title <span class="required">*</span></label>
+    <input type="text" id="courseTitle" name="courseTitle" placeholder="title of course" pattern="[\w\s]+" required>
+    <br><br>
+    <label for="description">Description <span class="required">*</span></label><br>
+    <textarea id="description" name="description" placeholder="a brief summary of the class" required></textarea>
+    <br><br>
+    <label for="credits">Credits <span class="required">*</span></label>
+    <input type="number" id="credits" name="credits" min="1" max="6" placeholder="3" title="1-6" required>
+
+    <br><br>
+    <label for="prerequisites">Prerequisites (separate with commas)</label>
+    <input type="text" id="prerequisites" name="prerequisites" placeholder="e.g. MATH 101, MATH 102" pattern="[\w]+\s[\d]{2,3}$" title="like MATH 101, MATH 102">
+    <br><br>
+    
+    
+    <!-- Instructor Information -->
+    <h3> Instructor Information </h3>
+    <label for="instructorName">Instructor Name <span class="required">*</span></label>
+    <input type="text" id="instructorName" name="instructorName" placeholder="First Last" pattern="[\w\s]+" required>
+    <br><br>
+    <label for="instructorEmail">Instructor Email <span class="required">*</span></label>
+    <input type="email" id="instructorEmail" name="instructorEmail" placeholder="name@domain.edu" required>
+    <br><br>
+    <label for="instructorOffice">Instructor Office</label>
+    <input type="text" id="instructorOffice" name="instructorOffice" placeholder="e.g. Office 111" pattern="^[\w\s]+\s[\d]{2,3}$" title="like 'Office 111' " required>
+
+
+    <br><br>
+    <h3> Schedule Information </h3>
+    <label for="days">Days of Class<span class="required">*</span></label>
+    <div id="days">
+        <input type="checkbox" id="monday" name="days" value="Monday">
+        <label for="monday">M</label>
+        <input type="checkbox" id="tuesday" name="days" value="Tuesday">
+        <label for="tuesday">T</label>
+        <input type="checkbox" id="wednesday" name="days" value="Wednesday">
+        <label for="wednesday">W</label>
+        <input type="checkbox" id="thursday" name="days" value="Thursday">
+        <label for="thursday">Th</label>
+        <input type="checkbox" id="friday" name="days" value="Friday">
+        <label for="friday">F</label>
+        <input type="checkbox" id="saturday" name="days" value="Saturday">
+        <label for="saturday">Sa</label>
+    </div><br>
+
+    
+    <div id="time">
+        <div id="startTime">
+            <label for="startHour">Start Time</label><br>
+            <select id="startHour" name="startHour">
+                <option value="">Hour</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+            <select id="startMinute" name="startMinute">
+                <option value="">Minute</option>
+                <option value="00">:00</option>
+                <option value="15">:15</option>
+                <option value="30">:30</option>
+                <option value="45">:45</option>
+            </select>
+            <select id="startAmPm" name="startAmPm">
+                <option value="">AM/PM</option>
+                <option value="am">AM</option>
+                <option value="pm">PM</option>
+            </select>
+        </div>
+        <br>
+        <div id="endTime">
+            <label for="endHour">End Time</label><br>
+            <select id="endHour" name="endHour">
+                <option value="">Hour</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+            <select id="endMinute" name="endMinute">
+                <option value="default">Minute</option>
+                <option value="00">:00</option>
+                <option value="15">:15</option>
+                <option value="30">:30</option>
+                <option value="45">:45</option>
+            </select>
+            <select id="endAmPm" name="endAmPm">
+                <option value="default">AM/PM</option>
+                <option value="am">AM</option>
+                <option value="pm">PM</option>
+            </select>
+        </div>
+    </div><br>
+
+    <label for="location">Location</label>
+    <input type="text" id="location" name="location" placeholder="e.g. Building 111"><br><br>
+
+    <label for="capacity">Capacity <span class="required">*</span></label>
+    <input type="number" id="capacity" name="capacity" maxlength="3" size="3" min="1" max="999" required><br><br>
+
+    <label for="enrolled">Enrolled <span class="required">*</span></label>
+    <input type="number" id="enrolled" name="enrolled" maxlength="3" size="3" min="0" max="999" required><br><br>
+
+    <h3> Other </h3>
+    <label for="topics">Topics (separate with commas) <span class="required">*</span></label>
+    <input type="text" id="topics" name="topics" placeholder="e.g. programming, data structures, algorithms" pattern="^([\w\s]+)(,\s*[\w\s]+)*$" title="like 'programming, data structures, algorithms' " required><br><br>
+
+    <button type="submit" id="submitBtn">Add Course</button>
+    <button type="button" id="cancelBtn">Cancel</button>
+
+</form>
+    </div>
+</div>
 
 <footer>
-<p>ICS 385 Week 8 - JSON Fundamentals Assignment</p>
+<hr>
+<p>ICS 385 Week 8 - JSON Fundamentals Assignment - Kendall Beam</p>
 </footer>
 
 <script src="course-catalog.js"></script>

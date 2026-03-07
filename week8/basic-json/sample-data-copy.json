@@ -81,7 +81,7 @@
             "time": "10:00 AM - 10:50 AM",
             "location": "AC 105",
             "capacity": 30,
-            "enrolled": 25
+            "enrolled": 30
         },
         "isActive": true,
         "topics": ["Limits", "Derivatives", "Integration", "Applications"],
