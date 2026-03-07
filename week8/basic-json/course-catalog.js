@@ -32,7 +32,7 @@
 */
 
 /**
- * @constructor()
+ * @constructor - courseCatalog{}, filteredCourses[], currentView, map searchCache, stats{}
  * @initializeApp()
  * @setupEventListeners() - buttons/modal
  * @addFormSubmitted() 
@@ -84,10 +84,52 @@ class CourseCatalogManager {
         document.getElementById('addCourseForm').addEventListener('submit', (event) => {
             event.preventDefault();  //prevent default form submission
             this.addFormSubmitted();
+            this.hideModal();
         });
 
-        document.getElementById('')
+        // View Details button on click -> to-do: showCourseDetails()
+        document.getElementById('coursesContainer').addEventListener('click', (event) => {
+            if (event.target.classList.contains('details-btn')) {
+                const courseCode = event.target.closest('.course-card').dataset.courseCode;
+                this.showCourseDetails(courseCode);
+            }
+        });
 
+         // either modal x close button
+        document.getElementById('close-btn').addEventListener('click', () => {
+            this.hideAddModal();
+        });
+
+        // Add Course button on click -> show add course modal
+        document.getElementById('addCourseBtn').addEventListener('click', () => {
+            this.showModal('addModal');
+        });
+       
+        // cancel button -> hide add course modal
+        document.getElementById('cancelBtn').addEventListener('click', () => {
+            this.hideAddModal();
+        });
+
+        // incorporate search and filter event listeners for searchCourses(), filterByDepartment(), filterByCredits()
+        document.getElementById('searchInput').addEventListener('input', (event) => {
+            // console.log('search input updated: ', event.target.value);
+            this.searchCourses(event.target.value);
+        });
+        document.getElementById('departmentFilter').addEventListener('change', (event) => {
+            // console.log('department filter updated: ', event.target.value);
+            this.filterByDepartment(event.target.value);
+        });
+        document.getElementById('creditsFilter').addEventListener('change', (event) => {
+            // console.log('credits filter updated: ', event.target.value);
+            this.filterByCredits(event.target.value);
+        });
+    }
+
+    showModal(modalElement) {
+        document.getElementById(modalElement).style.display = 'flex';
+    }
+    hideAddModal() {
+        document.getElementById('addModal').style.display = 'none';
     }
 
     addFormSubmitted() {
@@ -323,12 +365,19 @@ class CourseCatalogManager {
      *  @async
      */
     async loadSampleData() {
+        var jsonString = null;
         try {
 
             // Fetch the JSON file
             // Runs into CORS issues if not server fed
             const response = await fetch('sample-data-copy.json');
-            const jsonString = await response.text();
+            jsonString = await response.text();
+        } catch (error) {
+            jsonString = JSON.stringify(_sample);
+
+        }
+
+        try {
 
             // Validate JSON format first
             if (!jsonString || typeof jsonString !== 'string') {
@@ -538,6 +587,8 @@ class CourseCatalogManager {
     showErrorMessage(message) {
         // add error message to error section
     }
+
+    
     showCourseDetails() {
         // to-do: for createCourseContent()
     }

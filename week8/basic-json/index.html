@@ -36,7 +36,6 @@
                 <option value="4">4 Credits</option>
             </select>
         </div>
-        <br>
         <div class="action-section">
             <button id="loadSampleBtn">Reset Catalog</button>
             <button id="addCourseBtn">Add New Course</button>
@@ -48,7 +47,6 @@
                 
         </div>
     </section>
-    <br>
     <section id="statisticsSection" class="statistics">
         <div class="stat-item">
             <span class="stat-number" id="totalCourses">0</span>
@@ -67,28 +65,29 @@
         <div class="loading" id="loading">Loading course catalog...</div>
         <!-- courseCards go here -->
     </section>
-
     <section id="userErrorMessage">
         <!-- Error Messages go here -->
         <!-- Maybe a block with faint red -->
     </section>
 </main>
 
-<!-- Course Details Modal -->
-<div id="courseModal" class="modal hidden">
-    <div class="modal-content">
-        <!-- <span class="close-btn">x</span> -->
-        <div id="modalBody"> 
-          <!-- Course details will be dynamically inserted -->
+    <!-- ON: View Details button click -> showCourseDetails -->
+    <!-- Course Details Modal -->
+    <div id="courseModal" class="modal hidden">
+        <div class="modal-content">
+            <!-- <span class="close-btn">x</span> -->
+            <div id="modalBody"> 
+            <!-- Course details will be dynamically inserted -->
+            </div>
         </div>
     </div>
-</div>
-<br>
+    <br>
 
 <!-- Add Course Modal -->
 <div id="addModal" class="modal hidden">
     <div class="modal-content">
-    <section id="errorMessages">
+        <span id="close-btn" class="close-btn">x</span>
+    <section id="errorMessages" class="hidden">
         <h4> Error Messages </h4>
         <ul id="errorList">
             <!-- error messages will be added here dynamically -->
@@ -96,7 +95,7 @@
     </section>
 
 <form id="addCourseForm" novalidate> <!-- maybe include validation in JS file insead? novalidate while I test -->
-    <h2> Course Information </h2>
+    <h2> New Course Information </h2>
     <!-- Course Details -->
     <label for="department">Course <span class="required">*</span></label>
     <select id="department" name="department" required>
@@ -231,8 +230,8 @@
     <label for="topics">Topics (separate with commas) <span class="required">*</span></label>
     <input type="text" id="topics" name="topics" placeholder="e.g. programming, data structures, algorithms" pattern="^([\w\s]+)(,\s*[\w\s]+)*$" title="like 'programming, data structures, algorithms' " required><br><br>
 
-    <button type="submit" id="submitBtn">Add Course</button>
-    <button type="button" id="cancelBtn">Cancel</button>
+    <button type="submit" id="submitBtn" class="modal-btn">Add Course</button>
+    <button type="button" id="cancelBtn" class="modal-btn">Cancel</button>
 
 </form>
     </div>
