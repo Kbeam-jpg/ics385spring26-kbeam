@@ -84,13 +84,14 @@ class CourseCatalogManager {
         document.getElementById('addCourseForm').addEventListener('submit', (event) => {
             event.preventDefault();  //prevent default form submission
             this.addFormSubmitted();
-            this.hideModal();
+            this.hideAddModal();
         });
 
         // View Details button on click -> to-do: showCourseDetails()
         document.getElementById('coursesContainer').addEventListener('click', (event) => {
             if (event.target.classList.contains('details-btn')) {
                 const courseCode = event.target.closest('.course-card').dataset.courseCode;
+                // console.log(courseCode, typeof courseCode);
                 this.showCourseDetails(courseCode);
             }
         });
@@ -98,6 +99,9 @@ class CourseCatalogManager {
          // either modal x close button
         document.getElementById('close-btn').addEventListener('click', () => {
             this.hideAddModal();
+        });
+        document.getElementById('details-close-btn').addEventListener('click', () => {
+            this.hideDetailsModal();
         });
 
         // Add Course button on click -> show add course modal
@@ -128,8 +132,12 @@ class CourseCatalogManager {
     showModal(modalElement) {
         document.getElementById(modalElement).style.display = 'flex';
     }
+    //these needed to be separate functions because of different modals?
     hideAddModal() {
         document.getElementById('addModal').style.display = 'none';
+    }
+    hideDetailsModal() {
+        document.getElementById('courseModal').style.display = 'none';
     }
 
     addFormSubmitted() {
@@ -195,18 +203,26 @@ class CourseCatalogManager {
         var courseObjErrors = this.validateCourseData(courseObject);
 
         // if good
-        const dept =  this.courseCatalog.departments.find(dpt => dpt.code === department);
-        dept.courses.push(courseObject);
+        if (courseObjErrors.isValid === 0) {
+            const dept =  this.courseCatalog.departments.find(dpt => dpt.code === department);
+            
+            if (dept) {
+                dept.courses.push(courseObject);
 
-        // update metadata
-        this.courseCatalog.metadata.totalCourses += 1;
-        // not touching departments yet
-        this.courseCatalog.metadata.totalCreditsOffered += courseObject.credits;
+                // update metadata
+                this.courseCatalog.metadata.totalCourses += 1;
+                // not touching departments yet
+                this.courseCatalog.metadata.totalCreditsOffered += courseObject.credits;
 
-        // refresh cards w/ new card
-        this.filteredCourses = this.getAllCourses(); //exists
-        this.displayCourses(); //exists
-        this.displayStatistics();
+                // refresh cards w/ new card
+                this.filteredCourses = this.getAllCourses(); //exists
+                this.displayCourses(); //exists
+                this.displayStatistics();
+            } else {
+                courseObjErrors.errors.push('Department not found');
+                courseObjErrors.isValid++;
+            }
+        }
 
 
         
@@ -255,7 +271,7 @@ class CourseCatalogManager {
 
         // Validate credits (must be positive integer 1-6)
         // check if exists, is num, 1 < x < 6
-        if (!course.credits || !Number.isInteger(course.credits) || course.credits <= 1 || course.credits > 6) {
+        if (!course.credits || !Number.isInteger(course.credits) || course.credits < 1 || course.credits > 6) {
             errors.push('Credits must be an integer between 1 and 6');
         }
 
@@ -373,6 +389,7 @@ class CourseCatalogManager {
             const response = await fetch('sample-data-copy.json');
             jsonString = await response.text();
         } catch (error) {
+            console.log("CORS error, no server to fetch file from.\n Loading backup data")
             jsonString = JSON.stringify(_sample);
 
         }
@@ -504,9 +521,9 @@ class CourseCatalogManager {
             'Enrolled: ' + course.schedule.enrolled + '/' + course.schedule.capacity + ' (' + enrollmentPercent + '%)' +
         '</div>' +
         '<div class="topics">' +
-            course.topics.map(topic => '<span class="topic-tag">' + topic + ', ' + '</span>').join('') +
+            course.topics.map(topic => '<span class="topic-tag">' + topic + ' ' + '</span>').join('') +
         '</div>' +
-        '<button class="details-btn" onclick="app.showCourseDetails(' + course.courseCode + ')">' + 
+        '<button class="details-btn">' + 
             'View Details' + 
         '</button>';
 
@@ -587,16 +604,78 @@ class CourseCatalogManager {
     showErrorMessage(message) {
         // add error message to error section
     }
+    // ######
 
-    
-    showCourseDetails() {
+
+    showCourseDetails(courseCode) {
         // to-do: for createCourseContent()
+        /*
+        courseCode: string;
+            title: string;
+            credits: number;
+            description: string;
+            prerequisites: string[];
+            instructor: {
+                name: string;
+                email: string;
+                office: string;
+            };
+            schedule: {
+                days: string[];
+                time: string;
+                location: string;
+                capacity: number;
+                enrolled: number;
+            };
+            isActive: boolean;
+            topics: string[];
+            assignments: {
+                name: string;
+                points: number;
+                dueDate: string;
+            }[];
+        };
+        */
+
+        // find course by course.code, populate modal with course details, show modal
+        try { 
+       const course = this.getAllCourses().find(c => c.courseCode === courseCode);
+
+        if (!course) {
+            console.error('Course not found: ' + courseCode);
+            return;
+        }
+       
+        // populate modal with course details
+        // to-do: createCourseContent(course)
+        const modalContent = document.getElementById('modalBody');
+        modalContent.innerHTML = `
+            <h2>${course.courseCode}: ${course.title}</h2>
+            <p><strong>Credits:</strong> ${course.credits}</p>
+            <p><strong>Description:</strong> ${course.description}</p>
+            <p><strong>Prerequisites:</strong> ${(course.prerequisites || []).join(', ')}</p>
+            <p><strong>Instructor:</strong> ${course.instructor.name} (${course.instructor.email})</p>
+            <p><strong>Schedule:</strong> ${course.schedule.days.join(', ')} ${course.schedule.time} at ${course.schedule.location}</p>
+            <p><strong>Enrollment:</strong> ${course.schedule.enrolled}/${course.schedule.capacity}</p>
+            <p><strong>Topics:</strong> ${(course.topics || []).join(', ')}</p>
+            <h3>Assignments:</h3>
+            <ul>
+                ${(course.assignments || []).map(assignment => `<li>${assignment.name} - ${assignment.points} points, due ${assignment.dueDate}</li>`).join('')}
+            </ul>`;
+        // show modal
+        this.showModal('courseModal');
+
+    } catch (error) {
+        console.error('Error showing course details:', error);
+        console.log(courseCode, error);
+        // this.handleError('Show Course Details', error);
+    }
     }
     searchCourses(query) {
 
         if (!query || query.trim().length === 0) {
             this.filteredCourses = this.getAllCourses();
-            this.displayAllCourses();
+            this.displayCourses();
             return;
         }
 
@@ -605,7 +684,7 @@ class CourseCatalogManager {
         // Check cache for performance
         if (this.searchCache.has(searchTerm)) {
             this.filteredCourses = this.searchCache.get(searchTerm);
-            this.displayAllCourses();
+            this.displayCourses();
             return;
         }
 
@@ -623,8 +702,8 @@ class CourseCatalogManager {
         // Cache results
         this.searchCache.set(searchTerm, results);
         this.filteredCourses = results;
-        this.displayAllCourses();
-        this.updateSearchStats(searchTerm, results.length);
+        this.displayCourses();
+        // this.updateSearchStats(searchTerm, results.length);
     }
     filterByDepartment() {
         // to-do: Department-specific course filtering
@@ -660,4 +739,3 @@ const _sample = {"university":"University of Hawaii Maui College","semester":"Sp
 var courseApp = new CourseCatalogManager();
 // document.getElementById("courseModal").style.display = "none";
 console.log("courseApp: ", courseApp.stats,"\nTime:", new Date().getHours(), new Date().getMinutes(), new Date().getSeconds());
-

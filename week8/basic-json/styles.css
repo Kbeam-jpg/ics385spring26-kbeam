@@ -25,7 +25,7 @@
 }
 
 
-
+/* search field and buttons */
 .controls {
     display: grid;
     gap: 10px;
@@ -61,6 +61,8 @@
     align-items: center;
     margin-bottom: 20px;
 }
+
+/* stats field */
 .statistics {
     display: grid;
     gap: 10px;
@@ -86,6 +88,7 @@
     color: #666;
 }
 
+/* course cards */
 .courses-grid {
     display: grid;
     gap: 10px;
@@ -121,6 +124,7 @@
     color: #555;
 }
 .course-title {
+    margin: 5px 0;
     font-size: 1.2em;
     font-weight: bold;
 }
@@ -200,8 +204,10 @@
     background-color: rgba(0, 0, 0, 0.5);
     display: none; /*hidden initally, toggle to 'flex'*/
     justify-content: center;
-    align-items: flex-start;
-    overflow: auto;
+
+    /*don't chop off content*/
+    align-items: flex-start; 
+    overflow: auto; 
 }
 .modal-content {
     background-color: #fff;
@@ -235,7 +241,7 @@
 }
 .close-btn {
   color: #111;
-  float: right;
+  float: right; /*keep top right corner*/
   font-size: 2rem;
   font-weight: bold;
   cursor: pointer;
@@ -253,7 +259,20 @@
     border-radius: 5px;
     cursor: pointer;
 }
-.modal-btn:hover {    background-color: #eee;
+.modal-btn:hover {
+    background-color: #eee;
 }
-.modal-btn:active {    transform: scale(0.95);
+.modal-btn:active {
+    transform: scale(0.95);
+}
+
+@media (min-width: 600px) {
+    .courses-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+} 
+@media (min-width: 900px) {
+    .courses-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
