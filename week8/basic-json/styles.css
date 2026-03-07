@@ -266,6 +266,7 @@
     transform: scale(0.95);
 }
 
+/* for mobile, or half window */
 @media (min-width: 600px) {
     .courses-grid {
         grid-template-columns: repeat(2, 1fr);

@@ -32,7 +32,7 @@
 */
 
 /**
- * @constructor - courseCatalog{}, filteredCourses[], currentView, map searchCache, stats{}
+ * @constructor - courseCatalog{}, filteredCourses[], currentView, map searchCache, stats{}, currentFilters{}
  * @initializeApp()
  * @setupEventListeners() - buttons/modal
  * @addFormSubmitted() 
@@ -41,6 +41,7 @@
  * @loadSampleData() - fetch, parse JSON, setup page
  * @validateCatalogStructure()
  * @getAllCourses()
+ * @searchCourses(filters) - applies query, department, credits filters
  * @displayCourses()
  * @createCourseCard()
  * @updateDisplayStats()
@@ -49,9 +50,6 @@
  * @handleError() - unused
  * @showErrorMessage() - unused
  * @showCourseDetails() - unused
- * @searchCourses(query) - unused
- * @filterByDepartment() - unused
- * @filterByCredits() - unused
  */
 class CourseCatalogManager {
 
@@ -61,6 +59,7 @@ class CourseCatalogManager {
         this.currentView = 'all';
         this.searchCache = new Map();
         this.stats = { numCourses: 0, numDepartments: 0, avgEnroll: 0 };
+        this.currentFilters = { query: '', department: '', credits: '' };
         this.initializeApp();
     }
 
@@ -117,15 +116,26 @@ class CourseCatalogManager {
         // incorporate search and filter event listeners for searchCourses(), filterByDepartment(), filterByCredits()
         document.getElementById('searchInput').addEventListener('input', (event) => {
             // console.log('search input updated: ', event.target.value);
-            this.searchCourses(event.target.value);
+            this.currentFilters.query = event.target.value;
+            this.searchCourses(this.currentFilters);
         });
         document.getElementById('departmentFilter').addEventListener('change', (event) => {
             // console.log('department filter updated: ', event.target.value);
-            this.filterByDepartment(event.target.value);
+            this.currentFilters.department = event.target.value;
+            this.searchCourses(this.currentFilters);
         });
         document.getElementById('creditsFilter').addEventListener('change', (event) => {
             // console.log('credits filter updated: ', event.target.value);
-            this.filterByCredits(event.target.value);
+            this.currentFilters.credits = event.target.value;
+            this.searchCourses(this.currentFilters);
+        });
+
+        document.getElementById('clearSearchBtn').addEventListener('click', () => {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('departmentFilter').value = '';
+            document.getElementById('creditsFilter').value = '';
+            this.currentFilters = { query: '', department: '', credits: '' };
+            this.searchCourses(this.currentFilters);
         });
     }
 
@@ -215,7 +225,7 @@ class CourseCatalogManager {
                 this.courseCatalog.metadata.totalCreditsOffered += courseObject.credits;
 
                 // refresh cards w/ new card
-                this.filteredCourses = this.getAllCourses(); //exists
+                this.searchCourses(this.currentFilters); // reapply current filters
                 this.displayCourses(); //exists
                 this.displayStatistics();
             } else {
@@ -411,7 +421,7 @@ class CourseCatalogManager {
             // Store data and update display
             this.courseCatalog = data;
             
-            this.filteredCourses = this.getAllCourses(); //exists
+            this.searchCourses(this.currentFilters); // apply initial filters (none)
             this.displayCourses(); //exists
             this.displayStatistics();
             console.log('Course catalog loaded successfully');
@@ -639,78 +649,77 @@ class CourseCatalogManager {
 
         // find course by course.code, populate modal with course details, show modal
         try { 
-       const course = this.getAllCourses().find(c => c.courseCode === courseCode);
+        const course = this.getAllCourses().find(c => c.courseCode === courseCode);
 
-        if (!course) {
-            console.error('Course not found: ' + courseCode);
-            return;
+            //don't think it'll get to this check, but doesn't hurt
+            if (!course) {
+                console.error('Course not found: ' + courseCode);
+                return;
+            }
+        
+            // populate modal with course details
+            // to-do: createCourseContent(course)
+            const modalContent = document.getElementById('modalBody');
+            modalContent.innerHTML = `
+                <h2>${course.courseCode}: ${course.title}</h2>
+                <p><strong>Credits:</strong> ${course.credits}</p>
+                <p><strong>Description:</strong> ${course.description}</p>
+                <p><strong>Prerequisites:</strong> ${(course.prerequisites || []).join(', ')}</p>
+                <p><strong>Instructor:</strong> ${course.instructor.name} (${course.instructor.email})</p>
+                <p><strong>Schedule:</strong> ${course.schedule.days.join(', ')} ${course.schedule.time} at ${course.schedule.location}</p>
+                <p><strong>Enrollment:</strong> ${course.schedule.enrolled}/${course.schedule.capacity}</p>
+                <p><strong>Topics:</strong> ${(course.topics || []).join(', ')}</p>
+                <h3>Assignments:</h3>
+                <ul>
+                    ${(course.assignments || []).map(assignment => `<li>${assignment.name} - ${assignment.points} points, due ${assignment.dueDate}</li>`).join('')}
+                </ul>`;
+            // show modal
+            this.showModal('courseModal');
+
+        } catch (error) {
+            console.error('Error showing course details:', error);
+            console.log(courseCode, error);
+            // this.handleError('Show Course Details', error);
         }
-       
-        // populate modal with course details
-        // to-do: createCourseContent(course)
-        const modalContent = document.getElementById('modalBody');
-        modalContent.innerHTML = `
-            <h2>${course.courseCode}: ${course.title}</h2>
-            <p><strong>Credits:</strong> ${course.credits}</p>
-            <p><strong>Description:</strong> ${course.description}</p>
-            <p><strong>Prerequisites:</strong> ${(course.prerequisites || []).join(', ')}</p>
-            <p><strong>Instructor:</strong> ${course.instructor.name} (${course.instructor.email})</p>
-            <p><strong>Schedule:</strong> ${course.schedule.days.join(', ')} ${course.schedule.time} at ${course.schedule.location}</p>
-            <p><strong>Enrollment:</strong> ${course.schedule.enrolled}/${course.schedule.capacity}</p>
-            <p><strong>Topics:</strong> ${(course.topics || []).join(', ')}</p>
-            <h3>Assignments:</h3>
-            <ul>
-                ${(course.assignments || []).map(assignment => `<li>${assignment.name} - ${assignment.points} points, due ${assignment.dueDate}</li>`).join('')}
-            </ul>`;
-        // show modal
-        this.showModal('courseModal');
-
-    } catch (error) {
-        console.error('Error showing course details:', error);
-        console.log(courseCode, error);
-        // this.handleError('Show Course Details', error);
     }
-    }
-    searchCourses(query) {
 
-        if (!query || query.trim().length === 0) {
-            this.filteredCourses = this.getAllCourses();
-            this.displayCourses();
-            return;
+    searchCourses(filters) {
+        let courses = this.getAllCourses();
+
+        // Apply department filter
+        // departmentFilter()
+        if (filters.department && filters.department !== '' && filters.department !== 'all') {
+            courses = courses.filter(course => course.departmentCode === filters.department);
         }
 
-        const searchTerm = query.toLowerCase().trim();
-
-        // Check cache for performance
-        if (this.searchCache.has(searchTerm)) {
-            this.filteredCourses = this.searchCache.get(searchTerm);
-            this.displayCourses();
-            return;
+        // Apply credits filter
+        // creditsFilter()
+        if (filters.credits && filters.credits !== '' && filters.credits !== 'all') {
+            const creditsValue = parseInt(filters.credits, 10);
+            if (filters.credits === '4+') {
+                courses = courses.filter(course => course.credits >= 4);
+            } else {
+                courses = courses.filter(course => course.credits === creditsValue);
+            }
         }
 
-        // Perform comprehensive search
-        // {6 items}
-        const results = this.getAllCourses().filter(course => {
-            return course.courseCode.toLowerCase().includes(searchTerm) ||
-            course.title.toLowerCase().includes(searchTerm) ||
-            course.description.toLowerCase().includes(searchTerm) ||
-            course.instructor.name.toLowerCase().includes(searchTerm) ||
-            course.topics.some(topic => topic.toLowerCase().includes(searchTerm)) ||
-            course.departmentName.toLowerCase().includes(searchTerm);
-        });
+        // Apply text search
+        if (filters.query && filters.query.trim().length > 0) {
+            const searchTerm = filters.query.toLowerCase().trim();
+            courses = courses.filter(course => {
+                return course.courseCode.toLowerCase().includes(searchTerm) ||
+                       course.title.toLowerCase().includes(searchTerm) ||
+                       course.description.toLowerCase().includes(searchTerm) ||
+                       course.instructor.name.toLowerCase().includes(searchTerm) ||
+                       course.topics.some(topic => topic.toLowerCase().includes(searchTerm)) ||
+                       course.departmentName.toLowerCase().includes(searchTerm);
+            });
+        }
 
-        // Cache results
-        this.searchCache.set(searchTerm, results);
-        this.filteredCourses = results;
+        this.filteredCourses = courses;
         this.displayCourses();
-        // this.updateSearchStats(searchTerm, results.length);
     }
-    filterByDepartment() {
-        // to-do: Department-specific course filtering
-    }
-    filterByCredits() {
-        // to-do: Filter courses by credit hours (1-4+ credits)
-    }
+
     //########
 
 
