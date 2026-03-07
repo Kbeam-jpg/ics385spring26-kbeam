@@ -37,7 +37,11 @@ Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
     - add webpage content using EJS
 - HW6.b - Random Course Generator - [Random Course Generator](week6/Random%20Course%20Generator/)
     - update EJS project to generate different strings, add logic
-- HW6.c - 
+- HW6.c - Code Review [los review](week6/Code%20Review%20of%20LOS%20Visitor%20Data/)
+
+## Week 8 - JSON & APIs
+- HW8.a Basic-JSON - [anything but](week8/basic-json/)
+    -  course catalog with search filters and modals
 
 
 

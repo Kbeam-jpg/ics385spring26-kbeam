@@ -1,11 +1,11 @@
-/* Responsive Grid Layout: Course cards should adapt to screen size (1-3 columns)
-• Course Card Design: Professional cards with clear information hierarchy
-• Color-Coded Enrollment: Visual indicators for course capacity (red/yellow/green)
-• Interactive Elements: Hover effects, button states, form validation feedback
-• Modal Design: Clean modal for detailed course information
-• Accessibility: WCAG 2.1 AA compliance with proper contrast and focus indicators
-• Typography: Clear font hierarchy for data readability
-• Mobile Optimization: Touch-friendly buttons and readable text on small screens */
+/* Responsive Grid Layout: 1-3 columns (see @media)
+• Course Card Design: Simple and clean
+• Color-Coded Enrollment: red/orange/green
+• Interactive Elements: some hover and active effects
+• Modal Design: Good enough
+• Accessibility: passing grade
+• Typography: readable
+• Mobile Optimization: good enough */
 
 .body {
     font-family: Arial, sans-serif;

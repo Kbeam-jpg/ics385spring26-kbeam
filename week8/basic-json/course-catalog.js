@@ -1,35 +1,29 @@
-/*call chain 
-        -> initializeApp()
-            -> setupEventListeners()
-                -> submit button
-                -> add new course button
-                -> exportJSON button
-
-            -> loadSampleData()
-                -> JSON.parse(sampleData)
-                -> validateCatalogStructure(all Data)
-
-                -> displayCourses()
-                    for each course:
-                        -> createCourseCard(course)
-                    -> updateDisplayStats()
-
-                -> displayStatistics()
-        
-
-        submit button ->
-
-        add new course button -> #partial, works
-            prevent page reload
-            addFormSubmitted() 
-                -> make object, push object to right department
-                -> getallCourses(), displayCourses, displayStatistics()
-
-        export JSON button -> #done
-            -> JSON.stringify current catalog object
-            -> make, click download anchor tag, remove
-
+/* INFO
+NAME: Kendall Beam
+ASSIGNMENT: Week 8 - Assignment 8a - Basic JSON (not basic) 
+GOAL: work with JSON parsing and stringify
+FILENAME: course-catalog.js (main)
+DATE: 3/7/2026
 */
+// 
+/*  SCRIPT
+    1) make Course Catalog App object
+    2) load data from server fetch (or fallback to _sample)
+        - check for structure
+    3) display all course cards
+    a. on search/filters update -> filter catalog, make new course cards
+    b. on reset catalog -> clear all current data, load from fetch/sample again
+    c. on add new course -> show modal w/ form
+        c.. on form submit -> validate data, add to catalog if good
+    d. on export json -> <a> download this.courseCatalog as .json file
+    e. on view details -> show modal of more information
+
+    NOTES
+    - not 100% comprehensive, like 90% of the way there
+    - AI was used for some boilerplate code, figuring out difficult problems
+    - otherwise code/docs is by me, if it wasn't given from the start
+*/
+
 
 /**
  * @constructor - courseCatalog{}, filteredCourses[], currentView, map searchCache, stats{}, currentFilters{}
@@ -49,15 +43,15 @@
  * @truncateText()
  * @handleError() - unused
  * @showErrorMessage() - unused
- * @showCourseDetails() - unused
+ * @showCourseDetails() - add to detailsModal
  */
 class CourseCatalogManager {
 
     constructor() {
         this.courseCatalog = null;
         this.filteredCourses = [];
-        this.currentView = 'all';
-        this.searchCache = new Map();
+        this.currentView = 'all'; //didn't know what this was for
+        this.searchCache = new Map(); // unused
         this.stats = { numCourses: 0, numDepartments: 0, avgEnroll: 0 };
         this.currentFilters = { query: '', department: '', credits: '' };
         this.initializeApp();
@@ -139,41 +133,53 @@ class CourseCatalogManager {
         });
     }
 
+    // #### Modal Show/Hide ###
+    /**
+     * @param {string} modalElement
+     * - (modalElement).style.display = 'flex';
+     */
     showModal(modalElement) {
         document.getElementById(modalElement).style.display = 'flex';
     }
-    //these needed to be separate functions because of different modals?
+    //these needed to be separate functions because of different modal ids?
+    /** ('addModal').style.display = 'none'; */
     hideAddModal() {
         document.getElementById('addModal').style.display = 'none';
     }
+    /** ('courseModal').style.display = 'none'; */
     hideDetailsModal() {
         document.getElementById('courseModal').style.display = 'none';
-    }
+    }// ### ####
 
+    /** 
+     * - Grab each addForm variable, make into object, push to courseCatalog
+     * - Will only add object if no errors from validateCourseData() are returned
+     * - to-do: add 
+     */
     addFormSubmitted() {
     // AI attribution: Gemini 3.1 Pro for parsing checkboxes, array formatting
 
-        // Extract and format course code 
+        // extract and format course code 
         const department = document.getElementById('department').value;
         const courseNumber = document.getElementById('courseNumber').value;
         const courseCode = `${department} ${courseNumber}`;
 
-        // Extract and split comma-separated strings into arrays
+        // extract and split comma-separated strings into arrays
         const prereqsInput = document.getElementById('prerequisites').value;
         const prerequisites = prereqsInput 
-            ? prereqsInput.split(',').map(item => item.trim()).filter(Boolean) 
-            : [];
+            ? prereqsInput.split(',').map(item => item.trim()).filter(Boolean) //if exists
+            : []; //if null
 
         const topicsInput = document.getElementById('topics').value;
         const topics = topicsInput 
-            ? topicsInput.split(',').map(item => item.trim()).filter(Boolean) 
-            : [];
+            ? topicsInput.split(',').map(item => item.trim()).filter(Boolean) //if exists
+            : []; //if null
 
-        // Gather checked days into an array
+        // gather all checked days into an array
         const checkedDays = document.querySelectorAll('input[name="days"]:checked');
         const daysArray = Array.from(checkedDays).map(checkbox => checkbox.value);
 
-        // 5. Format the Time string (e.g., "10:00 AM - 10:50 AM")
+        // format the time string (e.g., "10:00 AM - 10:50 AM")
         const startHour = document.getElementById('startHour').value;
         const startMin = document.getElementById('startMinute').value;
         const startAmPm = document.getElementById('startAmPm').value.toUpperCase();
@@ -210,13 +216,20 @@ class CourseCatalogManager {
 
         // Output the final object to the console to verify
         console.log(courseObject);
+
+        // check for errors (return list of error messages)
         var courseObjErrors = this.validateCourseData(courseObject);
 
-        // if good
+        // if good 
         if (courseObjErrors.isValid === 0) {
+
+            // find the department to append object to
             const dept =  this.courseCatalog.departments.find(dpt => dpt.code === department);
             
+            // if found
             if (dept) {
+
+                // append object to end of list
                 dept.courses.push(courseObject);
 
                 // update metadata
@@ -234,38 +247,37 @@ class CourseCatalogManager {
             }
         }
 
-
-        
         // comment out when done
-        // for each error in the list of errors, add list element to <ul id="errorList">
-        const errorList = document.getElementById('errorList');
-        errorList.innerHTML = ''; // Clear previous errors
-        if (courseObjErrors.isValid > 0) {
-            courseObjErrors.errors.forEach(error => {
-                const li = document.createElement('li');
-                li.textContent = error;
-                errorList.appendChild(li);
-            });
-            // add stringified course object to list for testing
-            const courseJson = document.createElement('li');
-            courseJson.textContent = JSON.stringify(courseObject, null, 2);
-            errorList.appendChild(courseJson);
-        } else {
-            const li = document.createElement('li');
-            li.textContent = 'Course data is valid!';
-            errorList.appendChild(li);
+        // // for each error in the list of errors, add list element to <ul id="errorList">
+        // const errorList = document.getElementById('errorList');
+        // errorList.innerHTML = ''; // Clear previous errors
+        // if (courseObjErrors.isValid > 0) {
+        //     courseObjErrors.errors.forEach(error => {
+        //         const li = document.createElement('li');
+        //         li.textContent = error;
+        //         errorList.appendChild(li);
+        //     });
+        //     // add stringified course object to list for testing
+        //     const courseJson = document.createElement('li');
+        //     courseJson.textContent = JSON.stringify(courseObject, null, 2);
+        //     errorList.appendChild(courseJson);
+        // } else {
+        //     const li = document.createElement('li');
+        //     li.textContent = 'Course data is valid!';
+        //     errorList.appendChild(li);
 
-            // add stringified course object to list for testing
-            const courseJson = document.createElement('li');
-            courseJson.textContent = JSON.stringify(courseObject, null, 2);
-            errorList.appendChild(courseJson);
-        }
+        //     // add stringified course object to list for testing
+        //     const courseJson = document.createElement('li');
+        //     courseJson.textContent = JSON.stringify(courseObject, null, 2);
+        //     errorList.appendChild(courseJson);
+        // }
     }
 
     /**
      * Validates JSON course data string for requirements, credits, instructor object, schedule object, and topics array.
      * @param course is a JS object with at least three keys 'courseCode', 'title', 'description'
-     * @returns a JS object -> \{isValid: # of errors, error: list of errors}
+     * @returns {isValid: num, errors: string[]}a JS object -> \{isValid: # of errors, error: list of errors}
+     * - to-do: error handle -> course code already exists, move over regex from html file, etc.
      */
     validateCourseData(course) {
         const errors = []; //to append error strings, to return
@@ -339,7 +351,7 @@ class CourseCatalogManager {
             }   
             
             /* ### 
-            * capacityGood, enrolledGood bools might not be needed, 
+            * capacityGood + enrolledGood bools might not be needed, 
             * but original could have compared two NaNs or smthn 
             ### */
         }
@@ -356,6 +368,10 @@ class CourseCatalogManager {
         return {isValid: errors.length, errors: errors};
     }
 
+    /**
+     * Prompt user with download for .json of courseCatalog
+     * @causes \<a> download
+     */
     exportJSON() { 
         // from https://www.aspsnippets.com/Articles/2921/Download-JSON-object-Array-as-File-from-Browser-using-JavaScript/
 
@@ -393,7 +409,6 @@ class CourseCatalogManager {
     async loadSampleData() {
         var jsonString = null;
         try {
-
             // Fetch the JSON file
             // Runs into CORS issues if not server fed
             const response = await fetch('sample-data-copy.json');
@@ -403,9 +418,7 @@ class CourseCatalogManager {
             jsonString = JSON.stringify(_sample);
 
         }
-
         try {
-
             // Validate JSON format first
             if (!jsonString || typeof jsonString !== 'string') {
                 throw new Error('Invalid input: JSON string required');
@@ -481,6 +494,9 @@ class CourseCatalogManager {
         return allCourses;
     }
 
+    /**
+     * @does call createCourseCard on every item in filteredCourses(), then append elements to <section> coursesContainer
+     */
     displayCourses() {
 
         const container = document.getElementById('coursesContainer');
@@ -504,6 +520,12 @@ class CourseCatalogManager {
 
         this.updateDisplayStats();
     }
+
+    /**
+     * Create <div> element, populate with data from course object, for dynamic inserting
+     * @param {*} course obj
+     * @returns cardDiv - <div> element
+     */
     createCourseCard(course) {
 
         const cardDiv = document.createElement('div');
@@ -540,6 +562,7 @@ class CourseCatalogManager {
         cardDiv.innerHTML = cardHTML;
         return cardDiv;
     }
+
     /**
      * Update this.stats w/ 
      * tally number of courses, departments, and calculate average enrollment
@@ -571,6 +594,7 @@ class CourseCatalogManager {
             this.stats.avgEnroll = 0;
         }
     }
+
     /**
      * // id="totalCourses", id="totalDepartments", id="averageEnrollment"
      */
@@ -580,74 +604,13 @@ class CourseCatalogManager {
         document.getElementById("averageEnrollment").innerHTML = this.stats.avgEnroll + '%';
     }
 
-
-    //####### UNUSED
     /**
-     * Error handling for JSON operations, print error to console, show error message
-     * @param operation some sort of operation
-     * @param error some sort of error object
+     * Find course by course.code, populate modal with course details, show modal
+     * @param {*} courseCode e.g. 'MATH 100'
+     * - to-do: test so it doesn't need the try{}catch{} anymore
      */
-    handleError(operation, error) {
-        let userMessage = 'An error occurred';
-
-        if (error instanceof SyntaxError) {
-            userMessage = 'Invalid JSON format: Please check your data structure';
-        } else if (error.message.includes('Missing required fields')) {
-            userMessage = 'Data validation failed: ' + error.message;
-        } else if (error.message.includes('network')) {
-            userMessage = 'Network error: Please check your connection';
-        } else {
-            userMessage = operation + ' failed: ' + error.message;
-        }
-
-        // Log technical details for debugging
-        console.error('JSON Operation Error:', {
-            operation: operation,
-            error: error.message,
-            stack: error.stack,
-            timestamp: new Date().toISOString()
-        });
-        
-        // Display user-friendly message
-        showErrorMessage(userMessage);
-    }
-    showErrorMessage(message) {
-        // add error message to error section
-    }
-    // ######
-
-
     showCourseDetails(courseCode) {
-        // to-do: for createCourseContent()
-        /*
-        courseCode: string;
-            title: string;
-            credits: number;
-            description: string;
-            prerequisites: string[];
-            instructor: {
-                name: string;
-                email: string;
-                office: string;
-            };
-            schedule: {
-                days: string[];
-                time: string;
-                location: string;
-                capacity: number;
-                enrolled: number;
-            };
-            isActive: boolean;
-            topics: string[];
-            assignments: {
-                name: string;
-                points: number;
-                dueDate: string;
-            }[];
-        };
-        */
 
-        // find course by course.code, populate modal with course details, show modal
         try { 
         const course = this.getAllCourses().find(c => c.courseCode === courseCode);
 
@@ -683,6 +646,11 @@ class CourseCatalogManager {
         }
     }
 
+    /**
+     * Filter out courses based on 
+     * @param {*} filters from this.filters
+     * to-do: seperate filters into own functions
+     */
     searchCourses(filters) {
         let courses = this.getAllCourses();
 
@@ -720,10 +688,11 @@ class CourseCatalogManager {
         this.displayCourses();
     }
 
-    //########
 
-
-    // helper function to make createCourseCard work
+    /** helper function to make createCourseCard work
+     * @param {string} text 
+     * @param {number} length 
+     * @returns ? text || text.slice(0,length) */
     truncateText(text, length) {
         if (text.length <= length) {
             return text;
@@ -731,6 +700,43 @@ class CourseCatalogManager {
             return text.slice(0, length) + '(see more)';
         }
     }
+
+
+    //### UNUSED ###
+    /**
+     * Error handling for JSON operations, print error to console, show error message
+     * @param {string} operation some sort of operation
+     * @param {Error} error some sort of error object
+     */
+    handleError(operation, error) {
+        let userMessage = 'An error occurred';
+
+        if (error instanceof SyntaxError) {
+            userMessage = 'Invalid JSON format: Please check your data structure';
+        } else if (error.message.includes('Missing required fields')) {
+            userMessage = 'Data validation failed: ' + error.message;
+        } else if (error.message.includes('network')) {
+            userMessage = 'Network error: Please check your connection';
+        } else {
+            userMessage = operation + ' failed: ' + error.message;
+        }
+
+        // Log technical details for debugging
+        console.error('JSON Operation Error:', {
+            operation: operation,
+            error: error.message,
+            stack: error.stack,
+            timestamp: new Date().toISOString()
+        });
+        
+        // Display user-friendly message
+        showErrorMessage(userMessage);
+    }
+    /** @param {string} message > error message to add to \<section id="userErrorMessage">*/
+    showErrorMessage(message) {
+        // add error message to error section
+    }
+    // ####  ####
 
 }
 
