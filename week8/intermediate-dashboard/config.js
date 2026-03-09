@@ -6,28 +6,29 @@ FILENAME: config.js
 DATE: 3/9/2026
 */
 
-// config.js - Secure configuration management
-/**
+
+import 'dotenv/config';
+/** Secure configuration management object
+ * 
  * this.config = this.loadConfiguration();
  */
-class SecureConfig {
+export class SecureConfig {
 
     constructor() {
         this.config = this.loadConfiguration();
         this.validateConfiguration();
     }
 
-    // In a real application, these would come from environment variables
-    // For demo purposes, we'll use a secure client-side approach
+   
     loadConfiguration() {
         return {
             apis: {
                 openWeather: {
-                    key: this.getSecureApiKey('openweather'),
+                    key: this.getSecureApiKey('openWeather'),
                     baseUrl: 'https://api.openweathermap.org/data/2.5',
                     endpoints: {
                         current: '/weather',
-                        forecast: '/forecast'
+                        geolocation: '/geo'
                     },
                     rateLimit: {
                         requests: 60,
@@ -36,7 +37,7 @@ class SecureConfig {
                     timeout: 5000
                 },
                 rapidApi: {
-                    key: this.getSecureApiKey('rapidapi'),
+                    key: this.getSecureApiKey('rapidApi'),
                     host: 'matchilling-chuck-norris-jokes-v1.p.rapidapi.com',
                     baseUrl: 'https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com',
                     endpoints: {
@@ -80,25 +81,37 @@ class SecureConfig {
         };
     }
 
-    // In production, this would retrieve from secure storage
-    // For development, use localStorage with warning
+   
     getSecureApiKey(service) {
-        const key = localStorage.getItem(service + '_api_key');
 
-        if (!key) {
-            throw new Error('API key for ' + service + ' not configured. Please set up your API keys.');
+        var key;
+        try {
+            switch (service) {
+                case 'openWeather':
+                    key = process.env.OPENWEATHER_API_KEY;
+                    break;
+                case 'rapidApi':
+                    key = process.env.RAPIDAPI_KEY;
+                    break;
+            }
+            return key;
+
+        } catch {
+            throw new Error('API key for ' + service + ' not configured. Please set up your API keys.\n (see .env.example for expected structure)');
         }
-        return key;
     }
 
     validateConfiguration() {
-        const required = ['openweather_api_key', 'rapidapi_api_key'];
-        const missing = required.filter(key => !localStorage.getItem(key));
+        const required = ['OPENWEATHER_API_KEY', 'RAPIDAPI_KEY'];
+        const missing = required.filter(key => !process.env[key]);
 
         if (missing.length > 0) {
             throw new Error('Missing required API keys: ' + missing.join(', ') +
-            '. Please configure your API keys in the settings.');
+            '. Please configure your API keys in a .env file');
         }
+
+        //###########
+        console.log(missing);
     }
 
     getApiConfig(service) {
@@ -118,5 +131,3 @@ class SecureConfig {
     }
 }
 
-// Initialize configuration
-const appConfig = new SecureConfig();

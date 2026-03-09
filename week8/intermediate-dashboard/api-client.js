@@ -6,10 +6,6 @@ FILENAME: api-client.js
 DATE: 3/9/2026
 */
 
-require('dotenv').config();
-console.log("openweather key: ", process.env.OPENWEATHER_API_KEY);
-console.log("rapidapi key: ", process.env.OPENWEATHER_API_KEY);
-
 // curl --request GET \
 // 	--url https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random \
 // 	--header 'Content-Type: application/json' \
@@ -25,10 +21,10 @@ console.log("rapidapi key: ", process.env.OPENWEATHER_API_KEY);
  * - this.requestTimestamps = new Map();
  * - this.rateLimiters = new Map();
  */
-class UnifiedApiClient {
+export class UnifiedApiClient {
 
     constructor(config) {
-        this.config = config;
+        this.config = config.config;
         this.cache = new Map();
         this.requestTimestamps = new Map();
         this.rateLimiters = new Map();
@@ -46,26 +42,33 @@ class UnifiedApiClient {
     }
 
     async makeRequest(service, endpoint, params = {}, options = {}) {
+        console.log('DEBUG: makeRequest called for', service, endpoint, 'with params', params);
         try {
             // Check rate limiting
+            console.log('DEBUG: Checking rate limit for', service);
             if (!this.checkRateLimit(service)) {
                 throw new Error('Rate limit exceeded for ' + service + '. Please wait.');
             }
             // Check cache
+            console.log('DEBUG: Getting cache key');
             const cacheKey = this.getCacheKey(service, endpoint, params);
+            console.log('DEBUG: Cache key:', cacheKey);
 
             if (this.isValidCache(cacheKey)) {
-                console.log('Returning cached data for', service, endpoint);
+                console.log('DEBUG: Returning cached data for', service, endpoint);
                 return this.cache.get(cacheKey).data;
             }
 
             // Build request
+            console.log('DEBUG: Building request');
             const requestConfig = this.buildRequest(service, endpoint, params, options);
+            console.log('DEBUG: Request config:', requestConfig);
             // Make request with timeout
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(),
             this.config.apis[service].timeout);
 
+            console.log('DEBUG: Making fetch request to', requestConfig.url);
             const response = await fetch(requestConfig.url, {
                 ...requestConfig.options,
                 signal: controller.signal
@@ -79,21 +82,24 @@ class UnifiedApiClient {
             }
 
             const data = await response.json();
+            console.log('DEBUG: Received data:');
             // Cache successful response
+            console.log('DEBUG: Caching response');
             this.cacheResponse(cacheKey, data);
             // Update rate limiting
+            console.log('DEBUG: Updating rate limit');
             this.updateRateLimit(service);
 
             return data;
 
         } catch (error) {
-            console.error('API request failed:', error);
+            console.error('DEBUG: API request failed:', error);
             return this.handleApiError(service, endpoint, error);
         }
     }
 
     buildRequest(service, endpoint, params, options) {
-
+        console.log('DEBUG: buildRequest called for', service, endpoint, params);
         const apiConfig = this.config.apis[service];
         let url = apiConfig.baseUrl + endpoint;
         const headers = { 'Content-Type': 'application/json', ...options.headers };
@@ -102,8 +108,8 @@ class UnifiedApiClient {
             case 'openWeather':
                 const weatherParams = new URLSearchParams({
                     ...params,
-                    appid: apiConfig.key,
-                    units: 'imperial'
+                    units: 'imperial',
+                    appid: apiConfig.key
                 });
 
                 url += '?' + weatherParams.toString();
@@ -133,6 +139,7 @@ class UnifiedApiClient {
     }
 
     checkRateLimit(service) {
+        console.log('DEBUG: checkRateLimit called for', service);
         const limiter = this.rateLimiters.get(service);
         const now = Date.now();
         // Remove old requests outside the time window
@@ -142,20 +149,24 @@ class UnifiedApiClient {
     }
 
     updateRateLimit(service) {
+        console.log('DEBUG: updateRateLimit called for', service);
         this.rateLimiters.get(service).requests.push(Date.now());
     }
 
     getCacheKey(service, endpoint, params) {
+        console.log('DEBUG: getCacheKey called for', service, endpoint, params);
         return service + ':' + endpoint + ':' + JSON.stringify(params);
     }
 
     isValidCache(cacheKey) {
+        console.log('DEBUG: isValidCache called for', cacheKey);
         if (!this.cache.has(cacheKey)) return false;
         const cached = this.cache.get(cacheKey);
         return Date.now() - cached.timestamp < this.config.app.cacheExpiry;
     }
 
     cacheResponse(cacheKey, data) {
+        console.log('DEBUG: cacheResponse called for', cacheKey);
         this.cache.set(cacheKey, {
             data: data,
             timestamp: Date.now()
@@ -200,6 +211,11 @@ class UnifiedApiClient {
     }
 
     // Convenience methods for specific APIs
+    /**
+     * 
+     * @param {*} city 
+     * @returns 
+     */
     async getWeather(city = 'Kahului') {
         return this.makeRequest('openWeather', '/weather', { q: city + ',US' });
     }
@@ -212,6 +228,12 @@ class UnifiedApiClient {
         return this.makeRequest('jokeApi', '/joke/Programming', { type: 'single' });
     }
 
+    /**
+     * 
+     * @returns {Object} {chuck: promiseresult
+                programming: promiseresult
+            }
+     */
     async getAllJokes() {
         try {
             const [chuck, programming] = await Promise.allSettled([
