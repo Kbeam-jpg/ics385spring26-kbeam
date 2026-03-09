@@ -64,7 +64,7 @@ class CourseCatalogManager {
         } catch (error) {
             console.log('Application initialization failed', error);
         }
-    }
+    }  
 
     setupEventListeners() {
 

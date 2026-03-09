@@ -1,0 +1,16 @@
+{
+  "name": "intermediate-dashboard",
+  "version": "1.0.0",
+  "description": "- setup instructions     - api setup guide         -- .env.example     - usage guide     - feature overview",
+  "main": "api-client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.3.1"
+  }
+}

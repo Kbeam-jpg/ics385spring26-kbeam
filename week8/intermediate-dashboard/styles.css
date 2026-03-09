@@ -1,0 +1,111 @@
+/* to-do::after */
+
+/* header */
+    /* .dashboard-header {}
+    .header-content {}
+    .header-controls {}
+    .header-button {}
+    .header-button:hover {}
+    .header-button:active {} */
+/* /header */
+
+/* main */
+    /* .dashboard-grid {}
+    .dashboard-widget {} 
+    .widget-header {}
+    .loading {} */
+
+    /* stats section */
+        /* .stats-overview {}
+        .stat-card {}
+        .stat-number {}
+        .stat-label {} */
+    /*  */
+
+    /* weather widget */
+        /* .weather-widget {}*/
+    /*  */
+
+    /* course widget */
+        /* .course-widget {}
+        .widget-controls {}
+        .courses-grid {} */
+    /*  */
+
+    /* humor widget */
+        /* .humor-widget {} */
+    /*  */
+
+    /* actions widget */
+        /* .actions-widget {}
+        .actions-grid {}
+        .action-btn {}
+        .action-btn:hover {}
+        .action-btn:active{} */
+    /*  */
+
+/* /main */
+
+/* apiKeyModal */
+    /* .modal {}
+    .modal-content {}
+    .api-key-setup {}
+    .modal-actions {}
+    .save-btn {}
+    .save-btn:hover {}
+    .save-btn:active {} */
+/* */
+
+/* from dashboard.js */
+
+    /* .error-message {} */
+
+    /* displayWeatherWidget */
+        /* .last-updated {}
+        .weather-content {}
+        .location {}
+        .temperature {}
+        .description {}
+        .details {} */
+    /*  */
+
+    /* displayHumorWidget */
+        /* .refresh-btn {}
+        .refresh-btn:hover {}
+        .refresh-btn:active {}
+        .humor-content {}
+        .joke-section {}
+        .joke-text {} */
+    /*  */
+        
+
+    /* handleInitializationError */
+        /* .initialization-error {} */
+    /*  */
+
+/* /dashboard.js */
+
+
+/* for mobile, or half window */
+@media (min-width: 600px) {
+    /* grids and flex-columns */
+    /* grids {
+        grid-template-columns: repeat(2, 1fr);
+    } */
+} 
+@media (min-width: 900px) {
+    /* grids and flex-columns */
+    /* grids {
+        grid-template-columns: repeat(3, 1fr);
+    } */
+}
+
+
+
+
+
+    
+    
+    
+
+

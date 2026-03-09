@@ -1,0 +1,130 @@
+<!-- 
+ /* INFO
+NAME: Kendall Beam
+ASSIGNMENT: Assignment 8b - Integrated Campus Dashboard
+GOAL: html page for dashboard (see dashboard.js)
+FILENAME: index.html
+DATE: 3/9/2026
+*/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UH Maui College - Campus Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="dashboard-header">
+    <div class="display-errors">
+        <!-- show appropriate errors here -->
+        <!-- faint red background to communicate something went wrong -->
+    </div>
+    <div class="header-content">
+        <h1>UH Maui College Campus Dashboard</h1>
+        <div class="header-controls">
+            <button id="settingsBtn" class="header-btn">Settings</button>
+            <button id="refreshAllBtn" class="header-btn">Refresh All</button>
+        </div>
+    </div>
+</header>
+
+<main id="dashboard-container" class="dashboard-grid">
+    <!-- Quick Stats Overview -->
+    <section class="stats-overview">
+        <div class="stat-card">
+            <span class="stat-number" id="total-courses">-</span>
+            <span class="stat-label">Courses</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" id="total-students">-</span>
+            <span class="stat-label">Students</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" id="avg-capacity">-</span>
+            <span class="stat-label">Capacity</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" id="api-status">-</span>
+            <span class="stat-label">API Status</span>
+        </div>
+    </section>
+
+    <!-- Weather Widget -->
+    <section id="weather-widget" class="dashboard-widget weather-widget">
+        <div class="loading">Loading weather...</div>
+    </section>
+
+    <!-- Course Management Widget -->
+    <section class="dashboard-widget course-widget">
+        <div class="widget-header">
+            <h3>Course Management</h3>
+            <div class="widget-controls">
+                <input type="text" id="courseSearch" placeholder="Search courses...">
+                <select id="departmentFilter">
+                    <option value="all">All Departments</option>
+                </select>
+            </div>
+        </div>
+        <div id="coursesContainer" class="courses-grid">
+            <div class="loading">Loading courses...</div>
+        </div>
+    </section>
+
+    <!-- Humor Widget -->
+    <section id="humor-widget" class="dashboard-widget humor-widget">
+        <div class="loading">Loading humor...</div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="dashboard-widget actions-widget">
+        <div class="widget-header">
+            <h3>Quick Actions</h3>
+        </div>
+        <div class="actions-grid">
+            <button class="action-btn" 
+            onclick="dashboard.addNewCourse()">Add Course</button>
+            <button class="action-btn" 
+            onclick="dashboard.exportData()">Export Data</button>
+            <button class="action-btn" 
+            onclick="dashboard.refreshWeather()">Update Weather</button>
+            <button class="action-btn" 
+            onclick="dashboard.refreshHumor()">New Jokes</button>
+        </div>
+    </section>
+</main>
+
+<!-- API Key Setup Modal -->
+<div id="apiKeyModal" class="modal">
+    <div class="modal-content">
+        <h2>API Configuration Required</h2>
+        <p>Please configure your API keys to enable all dashboard features:</p>
+        <div class="api-key-setup">
+            <label for="openWeatherKey">OpenWeatherMap API Key:</label>
+            <input type="password" id="openWeatherKey" placeholder="Enter your OpenWeatherAPI key">
+            <label for="rapidApiKey">RapidAPI Key:</label>
+            <input type="password" id="rapidApiKey" placeholder="Enter your RapidAPI key">
+            <div class="modal-actions">
+                <button onclick="dashboard.saveApiKeys()" 
+                class="save-btn">Save Keys</button>
+                <!-- hide modal on skip -->
+                <button onclick="document.getElementById('apiKeyModal').style.display='none'">Skip</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+<p>ICS 385 Week 8 - Intermediate Assignment | Multi-API Dashboard</p>
+</footer>
+
+<!-- JavaScript Files -->
+<script src="config.js"></script>
+<script src="api-client.js"></script>
+<script src="course-catalog.js"></script>
+<script src="dashboard.js"></script>
+
+</body>
+</html>
