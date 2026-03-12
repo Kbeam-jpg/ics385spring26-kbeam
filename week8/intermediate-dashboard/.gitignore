@@ -1,2 +1,5 @@
 # enviornemnt variables
 .env
+
+#stop tracking this folder 3/10/26
+*

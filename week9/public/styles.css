@@ -1,0 +1,10 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 30px;
+    max-width: 450px;
+    background-color: whitesmoke;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}

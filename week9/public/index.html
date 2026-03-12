@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>wk9 get Weather</title>
+</head>
+<body>
+    <h1>wk9 get weather</h1>
+
+    <h3>Enter Coordinates in Decimal Degrees</h3>
+    <div class="form-group">
+        <label for="lat-input">Latitude: </label>
+        <input type="text" id="latInput" value="20.98">
+    </div><div class="form-group">
+        <label for="lon-input">Longitude: </label>
+        <input type="text" id="lonInput" value="-156.67">
+    </div>
+
+    <button onclick="getWeather()">Get Weather</button>
+
+    <p id="errorMsg"></p>
+    <p id="testing"></p>
+    <img id="icon" src="" alt="Weather icon">
+
+<script src="getWeather.js"></script>
+</body>
+</html>
