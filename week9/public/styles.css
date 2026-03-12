@@ -5,6 +5,70 @@ body {
     background-color: whitesmoke;
 }
 
-.form-group {
+.input-group {
     margin-bottom: 10px;
 }
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+button {
+    padding: 12px 20px;
+    background-color: #0077ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px
+}
+button:hover {
+    background-color: #0055bb;
+}
+button:active {
+    transform: scale(0.9);
+}
+
+.weather-card {
+    display: none; /*will be toggled*/
+    margin-top: 25px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 12px 12px 2px 1px rgb(0 0 255 / 0.2);
+}
+.weather-header {
+    display: flex;
+    margin: auto;
+}
+.icon {
+    float: right;
+    width: 100px;
+    height: 100px;
+}
+.description {
+    margin: 5px 0 0 0; 
+    color: #555; 
+    text-transform: capitalize;
+}
+.location {
+    margin-top: 0;
+}
+.temp {
+    margin: 0; 
+    font-size: 24px;
+}
+.error {
+    color: #ff3028;
+    margin-top: 20px;
+    text-decoration: underline;
+}
+

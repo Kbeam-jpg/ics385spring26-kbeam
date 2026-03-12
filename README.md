@@ -40,14 +40,13 @@ Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
 - HW6.c - Code Review [los review](week6/Code%20Review%20of%20LOS%20Visitor%20Data/)
 
 ## Week 8 - JSON & APIs
-- HW8.a Basic-JSON - [anything but](week8/basic-json/)
+- HW8.a Basic-JSON - [course-catalog](week8/basic-json/)
     -  course catalog with search filters and modals
 
-
-
-
-
-
+## Week 9 - APIs
+- HW9.c Weather API - [get weather](week9/)
+    - takes decimal degrees and shows weather data for that location
+    - uses an express.js server to make API calls w/ hidden key
 
 
 
@@ -58,7 +57,7 @@ Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
 
 ## 01. A bit about me
     Aloha and welcome! Still on my educational journey,
-     but currently enjoying the ride! 
+    but currently enjoying the ride! 
     I've dabbled in all kinds of tech, 
     picked up a wide range of skills and know-how along the way.
 
@@ -66,12 +65,11 @@ Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
     (wip)
 
 ## 03. Experience
-
     Surf Instructor
     2018 - 2019, Island Style Adventures
 
     2nd AV - Part Time
-    2019 - Present, Media Flow Productions 
+    2019 - 2024, Media Flow Productions 
     
     Computer Science & Information Technology
     2022 - Present, University of Hawaii Maui

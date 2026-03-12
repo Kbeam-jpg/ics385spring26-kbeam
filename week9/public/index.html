@@ -1,3 +1,13 @@
+<!-- /* INFO
+NAME: Kendall Beam
+ASSIGNMENT: Week 9 - Assignment 9c - Weather API
+GOAL: work with api's and a .env file, try out card detailing again
+FILENAME: index.html (client)
+DATE: 3/12/2026
+
+AI use: for some CSS, still not there yet with it
+*/ -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,22 +17,29 @@
     <title>wk9 get Weather</title>
 </head>
 <body>
+
     <h1>wk9 get weather</h1>
 
+    <div class="weather-card" id="weatherCard">
+        <img id="icon" class="icon" src="" alt="Weather icon">
+        <div id="weatherContent">
+            <!-- insert cards here -->
+        </div>
+    </div>
+
     <h3>Enter Coordinates in Decimal Degrees</h3>
-    <div class="form-group">
+    <div class="input-group">
         <label for="lat-input">Latitude: </label>
         <input type="text" id="latInput" value="20.98">
-    </div><div class="form-group">
+    </div><div class="input-group">
         <label for="lon-input">Longitude: </label>
         <input type="text" id="lonInput" value="-156.67">
     </div>
 
-    <button onclick="getWeather()">Get Weather</button>
+    <button id="submitBtn" onclick="getWeather()">Get Weather</button>
 
-    <p id="errorMsg"></p>
-    <p id="testing"></p>
-    <img id="icon" src="" alt="Weather icon">
+    <p id="errorMsg" class="error"></p>
+
 
 <script src="getWeather.js"></script>
 </body>
