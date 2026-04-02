@@ -7,6 +7,7 @@
 # */
 # AI usage: none
 
+
 # 1. Create the above Collection Customer
 # 2. Delete all records in the Customer collection to clean up the database
 # 3. Insert Many to insert 3 separate customer records in the Customer collection
@@ -27,7 +28,7 @@ lastName: { type: String, required: true },
 email: { type: String, required: true, unique: true } <= unique seems hard to enforce like this
 phone: { type: String, required: true }
 """
-# just creates a type hint, doesnt enforce types at run time
+# just creates a type hint, doesnt enforce types at runtime
 class Customer(TypedDict):
     firstName: str
     lastName: str
@@ -46,11 +47,14 @@ else:
     # create/use db
     db = client["ics385_week11"]
 
+
     # 1. create/use Customer collection
     collection: Collection[Customer] = db["Customers"]
 
+
     # 2. eqiv to drop table if exists, else create
     collection.delete_many({})
+
 
     # 3. insertMany() customers
         # needed type for pylance to calm
@@ -60,23 +64,26 @@ else:
         {"firstName": "Justin", "lastName": "Case", "email": "jcase@gmail.com", "phone": "(809)867-5309"}
     ]
     insertResult = collection.insert_many(customerList)
-    print(insertResult)
+    # print(insertResult)
+
 
     # 4. update an email, phone number
     updateResult = collection.update_one({"firstName": "Jane", "lastName": "Doe"}, 
                           {"$set": {"email": "janeD@gmail.com"}})
-    print(updateResult)
+    # print(updateResult)
 
     updateResult = collection.update_one({"firstName": "Justin", "lastName": "Case"},
                           {"$set": {"phone": "(405)867-5309"}})
-    print(updateResult)
+    # print(updateResult)
+
 
     # 5. query by firstName, lastName
-    result = collection.find_one({"firstName" : "John"})
-    print("Searching for John:\n", result)
+    result = collection.find_one({"firstName" : "Jane"})
+    print("Searching for Jane:\n", result)
 
     result = collection.find_one({"lastName" : "Case"})
     print("Searching for Case:\n", result)
+
 
     # 6. drop Customer collection
     collection.drop()
