@@ -44,11 +44,17 @@ Kendall Beam - ICS 385 Spring 2026 - University of Hawaii Maui
     -  course catalog with search filters and modals
 
 ## Week 9 - APIs
-- HW9.c Weather API - [get weather](week9/)
+- HW9.c Weather API - [get weather](week9/server.js)
     - takes decimal degrees and shows weather data for that location
     - uses an express.js server to make API calls w/ hidden key
 
-
+## Week 11 - MongoDB
+- HW11.a pymongo script - [pymongosc](week11/beamk_pymon-1.py)
+    - uses pymongo to query a local MongoDB instance
+    - implements type hint for IDE type checking
+- HW11.b mongoose script - [mongoosesc](week11/11b-mongoose/index.js)
+    - adds new model (Hotel) to use Create/Read operations on
+    - works with local MongoDB instance, or Atlas cluster if .env is configured
 
 
 
