@@ -26,4 +26,9 @@ Added in week 10:
 
 
 Week11:
+    Current behavior: 
+        'View Details' link just returns a raw JSON response 
+        Postman collection has saved responses from my testing
+
+    Kind of connecting the dots with what we learned in previous weeks. Took some trial and error with setting up the MongoDB / express route / ejs foundation, but got there in the end. Went over quite a few new things this week (mongoose sub-Schemas, res.format(), ternary operators, JS casting, mongoose.lean(), http statuses, exporting modules, html forms in ejs, postman collections w/ local host). Hopfully set up well for implementing React on the /properties/:id endpoint.
     

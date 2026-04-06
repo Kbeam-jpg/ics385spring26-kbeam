@@ -1,36 +1,110 @@
+/*
+Name: Kendall Beam
+# Assignment: Term Project 3 wk11
+# Description: middleware for /properties route
+# Filename: properties.js
+# Date: 4/5/26
+#
+# Additions:
+#   GET /properties - returns list of filtered properties, renders properties.ejs if text/html, otherwise json
+#       -- filter: ?op=&rating= or ?gte= or ?lte=
+#   GET /properties/:id - returns single property by id as json
+#   POST /properties/:id/reviews - adds review to property, returns updated property as json
+#       -- catch malformed body request
+#
+# AI usage: implementation of res.format()
+#           /properties filter logic
+*/
+
 import express from 'express';
 import Property from '../models/propertySchema.js';
 
 const router = express.Router();
 
+/**
+ * Accepts: ?op=<gte|lte>&rating=<num> | ?gte=<num> | ?lte=<num>
+ * html: res.render()
+ * json: res.json()
+ */
 router.get('/', async (req, res) => {
-	const properties = await Property.find().lean(); // Use .lean() since no maniping - https://mongoosejs.com/docs/tutorials/lean.html#when-to-use-lean
+	
+    // grab operator
+    const queryOp = req.query.op;
+    // if op=gte or op=lte => set to 'gte' | 'lte'
+    //      elif ?gte or ?lte => set to 'gte' | 'lte'
+    //          else set null
+	const op = queryOp === 'gte' || queryOp === 'lte'
+		? queryOp
+		: (req.query.gte !== undefined ? 'gte' : (req.query.lte !== undefined ? 'lte' : null));
 
-    // like and if/switch block - https://expressjs.com/en/api.html#res.format
+    // grab rating
+	const rawRating = req.query.rating ?? req.query.gte ?? req.query.lte;
+	const parsedRating = Number(rawRating);
+	const rating = Number.isFinite(parsedRating) //clamp to whole number for simplicity (***if adding decimal, change here)
+		? Math.min(5, Math.max(1, parsedRating))
+		: null; // if not 1-5, default to null
+
+    // build filter
+	const mongoFilter = {};
+	if (op && rating !== null) {
+                    /* example => "reviews.rating": { $gte: 4 } } */
+		mongoFilter['reviews.rating'] = { [`$${op}`]: rating };
+	}
+
+	// Use .lean() since no manipulation - https://mongoosejs.com/docs/tutorials/lean.html#when-to-use-lean
+    // find() based on filter
+    const properties = await Property.find(mongoFilter).lean();
+	const filter = { op, rating };
+
+    // like an if/switch block - https://expressjs.com/en/api.html#res.format
+    // return based on content type in header
 	res.format({
-		html: () => res.status(200).render('properties', { properties }),
-		json: () => res.status(200).json(properties),
-		default: () => res.status(406).send('uh oh')
+        'application/json': () => res.status(200).json(properties),
+		'text/html': () => res.status(200).render('properties', { properties, filter }),
+		default: () => res.status(406).send('uh oh, wrong content negotiation')
 	});
 });
 
+
+/**
+ * get by id (view details button)
+ */
 router.get('/:id', async (req, res) => {
-	const property = await Property.findById(req.params.id);
+    // find record
+	const property = await Property.findById(req.params.id).lean();
 
-	if (!property) return res.status(404).json({ error: 'Not found' });
+    // if not found => return 404 error
+	if (!property) return res.status(404).json({ error: 'Record not found' });
 
+    // if found => return json of property
 	res.status(200).json(property);
 });
 
+
+/**
+ * expects { "guestName": String, "rating": num, "comment": String }
+ */
 router.post('/:id/reviews', async (req, res) => {
-	const property = await Property.findById(req.params.id);
 
-	if (!property) return res.status(404).json({ error: 'Not found' });
+    // find record
+	const property = await Property.findById(req.params.id); // no .lean() since push and save
 
-	property.reviews.push(req.body);
-	await property.save();
+    // if not found => return 404 error
+	if (!property) return res.status(404).json({ error: 'Record not found' });
 
-	res.status(201).json(property);
+    // if found, try push and save, return updated property
+    try {
+        property.reviews.push(req.body);
+	    await property.save();
+
+	    res.status(201).json({updatedProperty: property});
+
+    // catch malformed POST requests
+    } catch (error) {
+        console.log(`Bad properties/:id/reviews json body from ${req.host}`);
+        res.status(400).json({ error: 'Bad request, check formatting of JSON body.\n Expects { "guestName": String, "rating": num, "comment": String }'});
+    }
 });
+
 
 export default router;

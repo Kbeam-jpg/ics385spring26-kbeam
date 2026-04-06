@@ -1,3 +1,13 @@
+/*
+Name: Kendall Beam
+# Assignment: Term Project 3 wk11
+# Description: script to populate MongoDB instance w/ sample data
+# Filename: seed.js
+# Date: 4/5/26
+#
+# AI usage: generating sample data for reviews subSchema
+*/
+
 import mongoose from 'mongoose';
 import Property from './models/propertySchema.js';
 import 'dotenv/config';
