@@ -2,39 +2,40 @@
 // will render using ejs template called views/properties.ejs
 
 import express from 'express';
-import Property from './propertySchema.js';
+import mongoose from 'mongoose';
+import propertiesRouter from './routes/properties.js'; // express logic in /routes/properties.js
 import 'dotenv/config';
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.set('views', './views');
 app.set('view engine', 'ejs');
 const PORT = process.env.PORT || 3000;
 
-// Get /properties
-app.get("/properties", async (req, res) => {
-    const properties = await Property.find();
-    res.json(properties);
+await mongoose.connect(process.env.MONGO_URI);
+
+app.get('/', (req, res) => {
+    res.redirect('/properties');
 });
 
-// Get /properties/:id
-app.get("/properties/:id", async (req, res) => {
-    const property = await Property.findById(req.params.id);
-    if (!property) return res.status(404).json({ error: "Not found" });
-    res.json(property);
-});
+app.use('/properties', propertiesRouter);
+/*
+GET properties/ 
+// Grabs all properties, returns Array of JS objects
+-- if text/html => res.status(200).render('properties', { properties })
+-- if application/json => res.status(200).json(properties)
 
-// POST /properties/:id/reviews
-app.post("/properties/:id/reviews", async (req, res) => {
-    const property = await Property.findById(req.params.id);
+GET properties/:id
+// find based on id, return single property
+=> res.status(200).json(property);
 
-    if (!property) return res.status(404).json({ error: "Not found" });
-    property.reviews.push(req.body); // push new review object
-
-    await property.save(); // triggers schema validation
-    res.status(201).json(property);
-});
+POST properties/:id/reviews
+// if exists, push review to property doc
+=> res.status(201).json(property);
+*/
 
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port http://localhost:${PORT}`);
 });

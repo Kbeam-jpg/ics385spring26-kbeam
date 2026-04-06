@@ -1,3 +1,15 @@
+/*
+Name: Kendall Beam
+# Assignment: Term Project 3 wk11
+# Description: mongoose schema for properties with reviews subdocument
+# Filename: propertySchema.js
+# Date: 4/5/26
+#
+# Additions:
+#   review subdocument (guestname, rating, comment, date)
+#
+# AI usage: none
+*/
 import mongoose from 'mongoose';
 
 const reviewSchema = new mongoose.Schema({

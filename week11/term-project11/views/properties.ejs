@@ -1,13 +1,23 @@
-Hawaii Properties
+<!--  -->
+<%- include("partials/header.ejs") %>
 
-Hawaii Hospitality Properties
-<% properties.forEach(function(prop) { %>
+<h1>Hawaii Properties</h1>
 
-<%= prop.name %>
-Island: <%= prop.island %>
-Type: <%= prop.type %>
-<%= prop.description %>
-Reviews: <%= prop.reviews.length %>
-View Details
+<p>Hawaii Hospitality Properties</p>
 
-<% }); %>
+<ul>
+	<% properties.forEach(function(prop) { %>
+		<li>
+			<h2><%= prop.name %></h2>
+			<p>Island: <%= prop.island %></p>
+			<p>Type: <%= prop.type %></p>
+			<p><%= prop.description %></p>
+			<p>Reviews: <%= prop.reviews.length %></p>
+			<p>
+				<a href="/properties/<%= prop._id %>">View Details</a>
+			</p>
+		</li>
+	<% }); %>
+</ul>
+
+<%- include("partials/footer.ejs") %>
