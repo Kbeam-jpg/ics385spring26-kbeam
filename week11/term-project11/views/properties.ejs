@@ -1,0 +1,13 @@
+Hawaii Properties
+
+Hawaii Hospitality Properties
+<% properties.forEach(function(prop) { %>
+
+<%= prop.name %>
+Island: <%= prop.island %>
+Type: <%= prop.type %>
+<%= prop.description %>
+Reviews: <%= prop.reviews.length %>
+View Details
+
+<% }); %>

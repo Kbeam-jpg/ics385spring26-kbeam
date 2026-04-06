@@ -1,0 +1,1 @@
+// GET /properties, GET /:id, POST /:id/reviews
