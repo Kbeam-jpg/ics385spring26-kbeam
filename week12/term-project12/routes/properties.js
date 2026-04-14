@@ -54,15 +54,9 @@ router.get('/', async (req, res) => {
 	// Use .lean() since no manipulation - https://mongoosejs.com/docs/tutorials/lean.html#when-to-use-lean
     // find() based on filter
     const properties = await Property.find(mongoFilter).lean();
-	const filter = { op, rating };
-
-    // like an if/switch block - https://expressjs.com/en/api.html#res.format
-    // return based on content type in header
-	res.format({
-        'application/json': () => res.status(200).json(properties),
-		'text/html': () => res.status(200).render('properties', { properties, filter }),
-		default: () => res.status(406).send('uh oh, wrong content negotiation')
-	});
+	
+    // send query as json response
+    res.status(200).json(properties);
 });
 
 

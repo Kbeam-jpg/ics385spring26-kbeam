@@ -17,15 +17,13 @@ import 'dotenv/config';
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.set('views', './views');
-app.set('view engine', 'ejs');
 const PORT = process.env.PORT || 3000;
 
 await mongoose.connect(process.env.MONGO_URI);
 
 // inital load => use /properties
 app.get('/', (req, res) => {
-    res.redirect('/properties');
+    res.status(200).json({message: 'Api is good'});
 });
 
 app.use('/properties', propertiesRouter);//({
