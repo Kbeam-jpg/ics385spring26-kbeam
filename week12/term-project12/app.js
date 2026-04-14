@@ -3,15 +3,8 @@ Name: Kendall Beam
 # Assignment: Term Project 3 wk11
 # Description: express.js server for rendering ejs / handling /properties endpoints
 # Filename: app.js (main)
-# Date: 4/5/26 
+# Date: 4/14/26 
 #
-# Additions: 
-#       /properties is handled as middleware (see routes/properties.js)
-#       updated seed.js to include review subschema 
-#
-# AI usage: vetting mongodb/express/ejs setup
-            moving /properties logic to its own file
-            generated /views/partials/filter.ejs from robust instructions
 */
 
 
