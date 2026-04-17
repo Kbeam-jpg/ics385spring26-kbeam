@@ -11,7 +11,7 @@ to do:
 
     AmenitiesSection At least 4 amenities rendered via .map() from an arrayProps array passed from App
 
-    CTASection "Book Now" or "Contact Us" button with property email or linkHardcoded
+    CTASection "Book Now" or "Contact Us" button with property email or link Hardcoded
 
     Header / Footer Navigation links (Home, Dashboard, Admin) and copyrightHardcoded
 

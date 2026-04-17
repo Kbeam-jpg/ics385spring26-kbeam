@@ -7,7 +7,6 @@ Name: Kendall Beam
 #
 */
 
-
 import express from 'express';
 import mongoose from 'mongoose';
 import propertiesRouter from './routes/properties.js'; 
