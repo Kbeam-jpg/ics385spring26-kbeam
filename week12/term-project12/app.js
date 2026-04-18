@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
     res.status(200).json({message: 'Api is good'});
 });
 
-app.use('/properties', propertiesRouter);//({
+app.use('/api/properties', propertiesRouter);//({
 /*
 GET properties/?op=&rating= or /?gte= or /?lte=
     // Grabs all property doc info, returns JSON array or render
