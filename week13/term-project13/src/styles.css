@@ -1,0 +1,323 @@
+/* :root {
+  spacing-small: 8px;
+  spacing-medium: 16px;
+  spacing-large: 32px;
+
+  colors:
+  #333
+  #fff
+  #eee
+  mediumblue
+  medium = rgba(0, 0, 0, 0.3)
+  light = rgba(0, 0, 0, 0.1)
+} */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  font-family: "Montserrat", sans-serif;
+  height: 100%
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #eee;
+  padding: 0 16px;
+  color: #333;
+}
+
+/* to push footer down */
+#root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+header {
+  background-color: mediumblue;
+  margin: auto -16px;
+  padding: 16px 32px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+header h1 {
+  color: #fff;
+  font-family: "McLaren", cursive;
+  font-weight: 200;
+  font-size: 1.8em;
+}
+footer {
+  position: sticky; /* oh can keep on screen if sticky/fixed */
+  text-align: center;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 16px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  height: 2.5rem;
+}
+footer p {
+  color: #333;
+  font-size: 1em;
+}
+
+/* to push footer down */
+main {
+  flex: 1;
+  padding-bottom: 4rem;
+}
+
+select {
+  padding: 8px 16px;
+  margin: 16px;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 2px solid mediumblue;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2 ease;
+}
+select:hover{
+  box-shadow: rgba(0, 0, 0, 0.1);
+}
+select:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+  border-color: mediumblue;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  padding: 16px;
+  margin: 0;
+}
+
+.stats {
+  padding: 16px 16px 0;
+  text-align: center;
+}
+.stats p {
+  font-size: 1.1em;
+  color: #333;
+}
+
+/*-----*/
+.note {
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+.note:hover {
+  transform: translateY(2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.note img{
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 16px;
+}
+.note img:hover {
+  transition: transform 0.2s ease;
+  transform: scale(1.01); /*or 0.99? either feel weird*/
+}
+.note h3 {
+  font-size: 1.1em;
+  margin-bottom: 8px;
+  color: #333;
+}
+.note p {
+  font-size: 1.1em;
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.5;
+}
+.note p:last-child { /*clamp last <p> down*/
+  margin-bottom: 0;
+}
+/*-----*/
+
+/* 
+z-indexes
+previous -> 1
+current -> 2
+overlay -> 3
+*/
+/*-----*/
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  overflow: hidden;
+  margin: 16px 0; /* calc(50% - 50vw)*/
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+.hero-media {
+  position: relative;
+  height: clamp(320px, 50vh, 560px);
+}
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-image--previous {
+  z-index: 1;
+  opacity: 1;
+}
+.hero-image--current {
+  z-index: 2;
+  opacity: 0;
+  animation: heroFadeIn 2s ease forwards;
+}
+@keyframes heroFadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  color: #eee;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+}
+.hero-copy {
+  width: min(900px, 100%); /* stop enlarging at 900px */
+  margin-bottom: clamp(1px, 3vh, 40px) /* bring up text from bottom*/
+}
+.hero-overlay h2 {
+  /* min: 1.8rem, ideal: 4vw, max: 3rem*/
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 8px 0;
+  /* v-offset 2px, blur 4px */                /* blur 2px behind, helps for contrast */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.90), 0 0 2px rgba(0, 0, 0, 0.9);
+}
+.hero-overlay p {
+  /* min: 1rem, ideal: 2vw, max: 1.5rem*/
+  font-size: clamp(1rem, 2vw, 1.5rem); 
+  margin: 0 auto;
+  /* v-offset 2px blur 3px*/
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.9);
+}
+/*-----*/
+
+/* set up 1fr 2fr for rest of page*/
+/*-----*/
+.about {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /*.|img |desc    |*/
+  align-items: center;
+  gap: clamp(12px, 2.5vw, 24px);
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 16px 0;
+  width: 100%;
+  padding: clamp(12px, 2vw, 20px);
+}
+.about-Img {
+  width: clamp(160px, 18vw, 200px);
+  height: clamp(160px, 18vw, 200px);
+  object-fit: cover;
+  border-radius: 7px;
+  justify-self: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.about-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-height: 100%;
+}
+.about-text h3 {
+  text-align: left;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: #333;
+}
+.about-text p {
+  text-align: left;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  line-height: 1.3; /* space out the lines a little bit*/
+  color: #333;
+}
+/*-----*/
+
+/*-----*/
+@media (max-width: 750px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .about-text h3,
+  .about-text p {
+    text-align: left;
+  }
+
+  header {
+    padding: 16px 16px;
+  }
+  header h1 {
+    font-size: 1.4em;
+  }
+}
+@media (max-width: 500px) {
+  body {
+    padding: 0;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    padding: 16px 8px;
+  }
+
+  select {
+    width: calc(100% - 32px);
+    margin: 16px 16px;
+  }
+
+  .about {
+    margin: 16px 8px;
+  }
+}
+/*-----*/
+@media (prefers-reduced-motion: reduce) {
+  .hero-image--current {
+    animation: none;
+    opacity: 1;
+  }
+}
+/*-----*/
