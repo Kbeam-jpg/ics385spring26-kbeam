@@ -1,22 +1,48 @@
-to do:
+Sort of a combined checkpoint for week 12/13
 
-1) shift from ejs to REACT
+Late to the party with finishing up the marketing page sections, but I'm happy with how they turned out.
+The Hero Section's rotating images looks really clean and the amenities implementation adds a lot towards marking a property for me.
+Still learning React as I go, but starting to get the hang of it. I can read React code and frankenstein React code, but making React code from idea to function is just out of reach.
+Implementing the charts started off as diving through tons of chart.js documentation which left me fatigued, so to speed things up I can't claim sole ownership of that code, especially the options. But there's charts, and they work.
+There's certain things I'm doing that are just outside of the scope of the class, unsure if the intent was to reach out beyond the bounds a little bit because we have assisance.
 
-2) make sure everything works / vite builds
+AI attribution:
+A lot of assistance was used in implementing chart.js quickly.
+Quite a bit of assistance was used in CSS rules for time efficiency.
+Some assistance was used in bug fixing the rotating hero images.
+No AI agents were used. All code was typed in by me.
 
-3) What to code up next
-    HeroSection Property name, island, tagline, background image Hardcoded props or JSON file
 
-    AboutSection 2–3 sentences describing the property and its visitor segmentHardcoded props
+New this week:
+Panned out => marketing page sections (hero, about, amenities, cta) and a bunch of CSS to get everything similar/clean
+Partly complete => dashboard charts, weather widget
 
-    AmenitiesSection At least 4 amenities rendered via .map() from an arrayProps array passed from App
+Charts:
+1) Bar chart uses data from Hawaii ISL visitors (people) from 2025-02 to 2026-02. Includes labels when hovering to see the numbers behind the chart. Colors are arbitrary at the moment.
+2) Doughnut chart uses data from all country indicators (US, Europe, Japan, etc.) for the latest month (2026-02). Visitor totals is statewide, so it is multiplied by the percentage of Hawaii Island visitors in the same month. Colors are arbitrary at the moment.   (total visitors) * (% of Big Island visitors) per country for that month
 
-    CTASection "Book Now" or "Contact Us" button with property email or link Hardcoded
+To-do:
+- get chart data from a /api/arrivals route
+--- store data in MongoDB, allow retrieval from there
+- fix chart titles not showing
+- have weather widget fetch the image from another openweather api call (in wk 10)
+- fix @media rules surrounding dashboard and CTASection
+- add css rules for charts (center, fill, colors, padding & magins)
+- update models/propertySchema.js to fsollow better with how the hardcoded data is in index.js
+- add Book now, about pages routing to header & footer
+--- book now buttons use same booking modal as in CTA section? React forms?
 
-    Header / Footer Navigation links (Home, Dashboard, Admin) and copyrightHardcoded
+Compensation: 
+- hardcoded JSON data (from dbedt csv) to get charts working
+- amenities section now uses useState to filter by location instead of the dashboard charts having one
+- hero section cycles through images on a timer, clever use of useState and useEffect
 
-4) styles.css
-    - readable on both desktop and mobile (≥375px width). Use CSS Grid or Flexbox.
-    - WCAG 2.1 AA accessibility
+Additions:
+- Modal.jsx component for booking screen
+-- reusable if I need another modal
+--- w.i.p. no data yet, but modal works
+--- may need to move reference upward if header/footer link also uses it
 
-5) attempt a fetch() call to /api/properties/:id. 
+Considerations:
+- add a google maps module to show the address of the property
+--- pay for the openweather map api?

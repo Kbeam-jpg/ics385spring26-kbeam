@@ -15,6 +15,7 @@ import Dashboard from "./components/Dashboard";
 
 import "./styles.css";
 
+// ** HARDCODED DATA IS TEMPORARY ** , but use as scaffolding for changing propertySchema
 const property = {
 name: "Hilo Eco-Vacation Rental",
 island: "Big Island",

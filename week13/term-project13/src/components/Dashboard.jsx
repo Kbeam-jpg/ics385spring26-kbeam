@@ -2,9 +2,7 @@ import {useMemo} from "react";
 import {
   Chart as ChartJS, 
   CategoryScale, 
-  LinearScale, 
-  // PointElement,
-  // LineElement,
+  LinearScale,
   BarElement,
   ArcElement, 
   Title, 
@@ -76,7 +74,6 @@ export default function Dashboard() {
       },
     },
   };
-
   /**
    * Chart 2: visitors by origin doughnut chart
    */
@@ -144,8 +141,7 @@ export default function Dashboard() {
     },
   };
 
-
-
+  // const trend = monthlyData[-2] < monthlyData[-1] ? "increased" : "decreased";
 
   return (
     <section className="dashboard-section">
@@ -153,7 +149,7 @@ export default function Dashboard() {
 
       <div className="chart-container">
         <Bar data={monthlyVisitorData} options={barChartOptions} />
-        
+        {/* increase or decrease from last month? */}
       </div>
 
       <div className="chart-container">

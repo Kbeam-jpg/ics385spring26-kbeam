@@ -7,7 +7,7 @@ export default function CTASection({email}) {
     <section className="ctasection">
       <div className="cta-upper">
         <h3>Interested?</h3>
-        <p>Start with the button below, or reach out via email.</p>
+        <p>Book now, or reach out via email.</p>
       </div>
 
       <div className="cta-lower">

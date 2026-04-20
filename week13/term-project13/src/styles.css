@@ -1,3 +1,8 @@
+/*
+AI attribution: copy-pasting previous CSS rules when appropriate to save time
+- centering title text on hero section, was a doozy
+- figuring out appropriate @media rules + reduced motion rule
+*/
 /* :root {
   spacing-small: 8px;
   spacing-medium: 16px;
@@ -446,7 +451,6 @@ overlay -> 3
   transform: translateY(2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
-
 /*--Dashboard---*/
 
 /*--@media---*/
