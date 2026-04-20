@@ -57,9 +57,9 @@ root.render(
       <Dashboard />
       <div className="column">
         <AmenitiesSection amenities={property.amenities} />
-        <CTASection email={property.contactEmail}/>
       </div> 
     </section>
+    <CTASection email={property.contactEmail}/>
     <Footer />
   </StrictMode>
 );

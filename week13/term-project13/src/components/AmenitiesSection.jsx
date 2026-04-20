@@ -22,9 +22,9 @@ export default function AmenitiesSection({ amenities = []}) {
         ))}
         </select>
 
-        <p className="amenity-count">
+        {/* <p className="amenity-count">
           Showing {displayed.length} of {amenities.length}
-        </p>
+        </p> */}
       </div>
 
      

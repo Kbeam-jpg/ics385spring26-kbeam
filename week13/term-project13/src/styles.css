@@ -434,6 +434,20 @@ overlay -> 3
 }
 /*--Modal---*/
 
+/*--Dashboard---*/
+.chart-container{
+  background: #fff;
+  padding: 16px;
+  border-radius: 7px;
+  margin: 8px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.chart-container:hover {
+  transform: translateY(2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/*--Dashboard---*/
 
 /*--@media---*/
 @media (max-width: 750px) {
