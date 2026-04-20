@@ -21,11 +21,13 @@ export default function AmenitiesSection({ amenities = []}) {
           <option key={s}>{s}</option>
         ))}
         </select>
+
+        <p className="amenity-count">
+          Showing {displayed.length} of {amenities.length}
+        </p>
       </div>
 
-      <p className="amenity-count">
-        Showing {displayed.length} of {amenities.length}
-      </p>
+     
 
       <div className="amenities-grid">
         {displayed.map((amenity) => (

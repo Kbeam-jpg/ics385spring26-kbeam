@@ -33,6 +33,7 @@ amenities: [
 
 ],
 contactEmail: "fillerEmail@voidandnull.com.dontuse",
+contactImg: "https://picsum.photos/300/200?random=2",
 heroImages: [
     "/marc-szeglat-Aduh0KXCI1w-unsplash.jpg",
     "/abigail-lynn-9JrBiphz0e0-unsplash.jpg",
@@ -56,7 +57,7 @@ root.render(
       <Dashboard />
       <div className="column">
         <AmenitiesSection amenities={property.amenities} />
-        <CTASection email={property.contactEmail} />
+        <CTASection email={property.contactEmail}/>
       </div> 
     </section>
     <Footer />
