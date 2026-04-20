@@ -34,7 +34,7 @@ body {
 #root {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 1; /* 1 1 0% --keep even spacing*/
 }
 
 header {
@@ -94,22 +94,23 @@ select:focus{
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
-  padding: 16px;
-  margin: 0;
+  grid-template-columns: 1fr 2fr; /*.|img |desc    |*/
+  align-items: center;
+  gap: clamp(12px, 2.5vw, 24px);
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 16px 0;
+  width: 100%;
+  padding: clamp(12px, 2vw, 20px);
+}
+.column {
+  display: flex;
+  flex-direction: column;
 }
 
-.stats {
-  padding: 16px 16px 0;
-  text-align: center;
-}
-.stats p {
-  font-size: 1.1em;
-  color: #333;
-}
 
-/*-----*/
+/*--Note---*/
 .note {
   background: #fff;
   border-radius: 7px;
@@ -150,7 +151,7 @@ select:focus{
 .note p:last-child { /*clamp last <p> down*/
   margin-bottom: 0;
 }
-/*-----*/
+/*--Note---*/
 
 /* 
 z-indexes
@@ -158,7 +159,7 @@ previous -> 1
 current -> 2
 overlay -> 3
 */
-/*-----*/
+/*--Hero---*/
 .hero {
   position: relative;
   width: 100%;
@@ -227,10 +228,10 @@ overlay -> 3
   /* v-offset 2px blur 3px*/
   text-shadow: 0 2px 3px rgba(0, 0, 0, 0.9);
 }
-/*-----*/
+/*--Hero---*/
 
 /* set up 1fr 2fr for rest of page*/
-/*-----*/
+/*--About---*/
 .about {
   display: grid;
   grid-template-columns: 1fr 2fr; /*.|img |desc    |*/
@@ -269,9 +270,55 @@ overlay -> 3
   line-height: 1.3; /* space out the lines a little bit*/
   color: #333;
 }
-/*-----*/
+/*--About---*/
 
-/*-----*/
+/*--Amenity---*/
+.amenity-section {
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 16px 0;
+  width: 100%;
+  padding: clamp(12px, 2vw, 20px);
+}
+.amenity-header {
+  display: flex; /*row*/
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap; /*push filter under h3 if vw thin*/
+}
+.amenity-header h3{
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  color: #333;
+}
+.amenity-select {
+  margin: 0;
+  min-width: 135px; /* magic#, move select below on @media change*/
+}
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+.amenity-card {
+  height: 100%; /* fill grid space block */
+}
+.amenity-location {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.8rem;
+  font-weight: 700; /* bold to make it pop */
+  letter-spacing: 0.02em; /* kerning looks better slightly spread out */
+  color: mediumblue;
+  background: rgba(0, 0, 205, 0.1);
+  border-radius: 21px; /* make bubble */
+  padding: 8px 16px; /* make bubble bigger */
+}
+/*--Amenity---*/
+
+
+
+/*--@media---*/
 @media (max-width: 750px) {
   .grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -281,7 +328,6 @@ overlay -> 3
     grid-template-columns: 1fr;
     text-align: center;
   }
-
   .about-text h3,
   .about-text p {
     text-align: left;
@@ -312,8 +358,12 @@ overlay -> 3
   .about {
     margin: 16px 8px;
   }
+
+  .amenities-grid {
+    grid-template-columns: 1fr;
+  }
 }
-/*-----*/
+/**/
 @media (prefers-reduced-motion: reduce) {
   .hero-image--current {
     animation: none;
