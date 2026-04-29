@@ -13,7 +13,7 @@ function formatDate(value) {
   });
 }
 
-export default function AdminDashboard() {
+export default function AdminDashboard({ onAuthError }) {
   const [dashboard, setDashboard] = useState({
     adminEmail: '',
     propertyName: '',
@@ -40,6 +40,12 @@ export default function AdminDashboard() {
         });
 
         const data = await response.json();
+
+        if (response.status === 401) {
+          // User is not authenticated, notify parent
+          if (onAuthError) onAuthError();
+          return;
+        }
 
         if (response.status === 403) {
           setError(data.error || 'Admin access required');
@@ -68,7 +74,7 @@ export default function AdminDashboard() {
     loadDashboard();
 
     return () => controller.abort();
-  }, []);
+  }, [onAuthError]);
 
   const totalProperties = dashboard.properties.length;
   const totalReviews = dashboard.properties.reduce((count, property) => {

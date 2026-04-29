@@ -16,6 +16,12 @@ import MongoStore from 'connect-mongo';
 import mongoose from 'mongoose';
 import initPassport from './passport-config.js';
 import User from './models/User.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// SPA fallback
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // routers
 import propertiesRouter from './routes/properties.js'; 
@@ -83,7 +89,18 @@ POST properties/:id/reviews
     => res.status(201).json(property);
 *///})
 
+// /**
+//  * serve static files from dist folder (built React app)
+//  */
+// app.use(express.static(path.join(__dirname, 'dist')));
 
+// /**
+//  * SPA fallback - serve index.html for all unmatched routes
+//  * This allows React Router to handle client-side navigation
+//  */
+// app.use((req, res) => {
+//   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// });
 
 /**
  * get to runnin

@@ -47,4 +47,23 @@ router.get('/logout', (req, res, next) => {
     });
 });
 
+// GET /status
+// Returns authentication status and user info
+router.get('/status', (req, res) => {
+  if (req.isAuthenticated()) {
+    return res.json({
+      isAuthenticated: true,
+      user: {
+        email: req.user.email,
+        role: req.user.role
+      }
+    });
+  }
+
+  return res.json({
+    isAuthenticated: false,
+    user: null
+  });
+});
+
 export default router;

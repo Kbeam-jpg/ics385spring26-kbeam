@@ -34,7 +34,7 @@ export default function LoginForm( { onSuccess }) {
 
             if (response.ok) {
                 onSuccess?.();
-                window.location.assign('/admin/dashboard');
+                window.location.reload();
             } else {
                 setError(data.error || 'Login failed');
             }
