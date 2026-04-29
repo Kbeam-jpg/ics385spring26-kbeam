@@ -7,9 +7,3 @@ bcrypt also uses the 'crypto' module for it's hashes, so "it's the same thing" i
 Important to note that this is HTTP trafic, so data-in-transit is very much unsafe. Though switching to an HTTPS capable setup would help fix that (would need to use the https module & openssl w/ NGINX it looks like?, inheriting the secure status from AWS or Cloudflare would be easiest?). 
 
 A client-side hash would only obfuscate sniffing for a "password=" field, slightly.
-
-
-Things I still don't understand:
--- What the SESSION_SECRET is supposed to mean/be? I saw that it can be arbitrary, I saw that it had to be a random 32 char string, so I don't know
--- How to handle error messages using passport.js? Even after reading the docs it's taking time to understand.
--- What the next() did for the userSchema.pre() hook. It works without it, breaks the Kareem dependency with it...
