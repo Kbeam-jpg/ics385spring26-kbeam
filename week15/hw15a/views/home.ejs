@@ -1,0 +1,31 @@
+<!-- /*
+# Name: Kendall Beam
+# Assignment: HW15a
+# Description: home screen that renders differently if authenticated
+# Filename: home.ejs
+# Date: 4/30/26 
+*/
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <main>
+        <% if (user) { %>
+            <p>You are signed in as <strong><%= user.displayName %></strong>.</p>
+            <p><a href="/profile">Go to profile</a></p>
+            <form action="/logout" method="post">
+                <button type="submit">Sign out</button>
+            </form>
+        <% } else { %>
+            <a href="/auth/google">
+                <button type="button">Sign in with Google</button>
+            </a>
+        <% } %>
+    </main>
+</body>
+</html>

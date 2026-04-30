@@ -1,0 +1,34 @@
+<!-- /*
+# Name: Kendall Beam
+# Assignment: HW15a
+# Description: displays profile information from rendered user object
+# Filename: profile.ejs
+# Date: 4/30/26 
+*/
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <main>
+        <h1>Profile</h1>
+        <dl>
+            <dt>Email</dt>
+            <dd><%= user.email %></dd>
+
+            <dt>Display Name</dt>
+            <dd><%= user.displayName %></dd>
+
+            <dt>Local Mongoose _id</dt>
+            <dd><%= user._id %></dd>
+        </dl>
+        <form action="/logout" method="post">
+            <button type="submit">Sign out</button>
+        </form>
+    </main>
+</body>
+</html>

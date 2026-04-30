@@ -1,6 +1,15 @@
-import passport from 'passport';
+/*
+# Name: Kendall Beam
+# Assignment: HW15a
+# Description: passport.js config file (strategt, serialize, deserialize) for 'google' sign in 
+# Filename: passport.js
+# Date: 4/30/26 
+*/
+
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import User from "../models/User.js";
+
+export default function initializePassport(passport) {
 
 passport.use(new GoogleStrategy({
     // options: 
@@ -10,26 +19,24 @@ passport.use(new GoogleStrategy({
     },
     // verify:
     async (accessToken, refreshToken, profile, done) => {
-        try {
-            // find user, else create
+        try { // find user
             let user = await User.findOne({googleId: profile.id});
-            if (!user) {
+            if (!user) { // else create one
                 user = await User.create({
                     googleId: profile.id,
                     email: profile.emails[0].value.toLowerCase(),
-                    displayname: profile.displayName
+                    displayName: profile.displayName
                 });
             }
             done(null, user);
-        // if error, then just pass i guess?
-        } catch (err) {
+        } catch (err) {// if error, then pass on the error
             done(err);
         }
     }
 ));
 
 // add user object to session
-passport.serializeUser((user, done => done(null, user.id)));
+passport.serializeUser((user, done) => done(null, user.id));
 
 // grab user info from session
 passport.deserializeUser(async (id, done) => {
@@ -39,3 +46,4 @@ passport.deserializeUser(async (id, done) => {
         done(err);
     }
 })
+}

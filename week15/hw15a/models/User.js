@@ -1,3 +1,11 @@
+/*
+# Name: Kendall Beam
+# Assignment: HW15a
+# Description: MongoDB schema for storing user data
+# Filename: User.js
+# Date: 4/30/26 
+*/
+
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
