@@ -103,9 +103,7 @@ export default function AdminDashboard({ onAuthError }) {
             });
             window.location.assign('/');
           }}
-        >
-          Log out
-        </button>
+        >Log out</button>
       </section>
 
       {status === 'loading' && (
