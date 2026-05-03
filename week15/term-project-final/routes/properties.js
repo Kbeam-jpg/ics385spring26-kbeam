@@ -18,6 +18,7 @@ Name: Kendall Beam
 
 import express from 'express';
 import Property from '../models/propertySchema.js';
+import Volcano from '../models/volcanoSchema.js';
 
 const router = express.Router();
 
@@ -61,6 +62,19 @@ router.get('/', async (req, res) => {
 
 
 /**
+ * get latest volcano eruptions for charting
+ */
+router.get('/volcano', async (req, res) => {
+    const volcanoes = await Volcano.find()
+        .sort({ id: -1 })
+        .limit(10)
+        .lean();
+
+    res.status(200).json(volcanoes);
+});
+
+
+/**
  * get by id (for React)
  */
 router.get('/:id', async (req, res) => {
@@ -94,7 +108,7 @@ router.post('/:id/reviews', async (req, res) => {
 	    res.status(201).json({updatedProperty: property});
 
     // catch malformed POST requests
-    } catch (error) {
+    } catch {
         console.log(`Bad properties/:id/reviews json body from ${req.host}`);
         res.status(400).json({ error: 'Bad request, check formatting of JSON body.\n Expects { "guestName": String, "rating": num, "comment": String }'});
     }

@@ -1,159 +1,180 @@
-import {useMemo} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {
   Chart as ChartJS, 
   CategoryScale, 
   LinearScale,
   BarElement,
-  ArcElement, 
   Title, 
   Tooltip, 
   Legend
 } from 'chart.js';
-import { Bar, Doughnut } from 'react-chartjs-2';
-
-import WeatherWidget from "./WeatherWidget";
+import { Bar } from 'react-chartjs-2';
 
 // register chart.js components that's in use
 ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
-  ArcElement,
+  Title,
   Tooltip,
   Legend
 )
 
 export default function Dashboard() {
+  const [volcanoRecords, setVolcanoRecords] = useState([]);
+  const [selectedMetric, setSelectedMetric] = useState('duration');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  /**
-   * Chart 1: visitor arrivals bar chart
-   */
-  const monthlyVisitorData = useMemo(() => {
-    // ** HARDCODED FOR NOW **
-    const monthlyData = {
-      '2025-02': 141968,
-      '2025-03': 158260,
-      '2025-04': 139871,
-      '2025-05': 130213,
-      '2025-06': 155217,
-      '2025-07': 160836,
-      '2025-08': 141621,
-      '2025-09': 128617,
-      '2025-10': 146002,
-      '2025-11': 124356,
-      '2025-12': 166315,
-      '2026-01': 154982,
-      '2026-02': 152151
-    };
+  useEffect(() => {
+    const controller = new AbortController();
 
+    async function fetchVolcanoData() {
+      try {
+        const response = await fetch('/api/properties/volcano', { signal: controller.signal });
+        if (!response.ok) throw new Error('Failed to fetch volcano data');
+        const data = await response.json();
+        setVolcanoRecords(Array.isArray(data) ? data : []);
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          setError(err.message || 'Unable to load volcano chart data');
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchVolcanoData();
+
+    return () => controller.abort();
+  }, []);
+
+  const metricOptions = {
+    duration: {
+      label: 'Duration (hours)',
+      formatter: (record) => Number.parseFloat(record.duration),
+      color: 'rgba(13, 110, 122, 1)'
+    },
+    max_height_m: {
+      label: 'Max Height (m)',
+      formatter: (record) => Number(record.max_height_m),
+      color: 'rgba(220, 83, 43, 1)'
+    },
+    volume_million_m3: {
+      label: 'Volume (million m³)',
+      formatter: (record) => Number(record.volume_million_m3),
+      color: 'rgba(50, 116, 187, 1)'
+    }
+  };
+
+  const activeMetric = metricOptions[selectedMetric];
+
+  const volcanoChartData = useMemo(() => {
     return {
-      labels: Object.keys(monthlyData),
       datasets: [
         {
-          label: 'Visitor Arrivals',
-          data: Object.values(monthlyData),
-          backgroundColor: 'rgba(13, 110, 122, 1)',
+          label: activeMetric.label,
+          data: volcanoRecords.map((record) => ({
+            x: `#${record.id}`,
+            y: activeMetric.formatter(record),
+            ...record
+          })),
+          backgroundColor: activeMetric.color,
+          borderRadius: 6,
         },
       ],
     };
-  }, []);
-  const barChartOptions = {
+  }, [activeMetric, volcanoRecords]);
+
+  const volcanoChartOptions = useMemo(() => ({
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top',
       },
       title: {
         display: true,
-        text: 'Monthly Visitor Arrivals (Hilo) - Past Year',
+        text: `Kilauea Eruptions by ${activeMetric.label}`,
+      },
+      tooltip: {
+        callbacks: {
+          title: (items) => {
+            const record = items[0].raw;
+            return `Eruption #${record.id}`;
+          },
+          label: (context) => {
+            const record = context.raw;
+
+            return [
+              `Start: ${record.start_date}`,
+              `End: ${record.end_date}`,
+              `Duration: ${record.duration}`,
+              `Max height: ${record.max_height_m} m`,
+              `Volume: ${record.volume_million_m3} million m³`,
+              `Description: ${record.description}`,
+            ];
+          },
+        },
       },
     },
     scales: {
       y: {
         beginAtZero: true,
-      },
-    },
-  };
-  /**
-   * Chart 2: visitors by origin doughnut chart
-   */
-  const originArrivalData = useMemo(() => {
-
-    const visitorsByCountry202602 = {
-      'United States': Math.round(588010 * 0.211),
-      'Japan': Math.round(52377*0.061),
-      'Canada': Math.round(46392*0.194),
-      'Europe': Math.round(8830*0.292),
-      'Oceania': Math.round(9504*0.0911),
-      'China': Math.round(2829*0.450),
-      'Korea': Math.round(15124*0.200),
-      'Latin America': Math.round(6368*0.190),
-    };
-
-    const colors = [
-      'rgba(255,0,0,1)',
-      'rgba(0,255,0,1)',
-      'rgba(0,0,255,1)',
-      'rgba(255,128,64,1)',
-      'rgba(255,64,128,1)',
-      'rgba(128,64,255,1)',
-      'rgba(64,255,128,1)',
-      'rgba(64,128,255,1)',
-    ];
-
-    return {
-      labels: Object.keys(visitorsByCountry202602),
-      datasets: [
-        {
-          label: "Arrival by Origin (Feb 2026)",
-          data: Object.values(visitorsByCountry202602),
-          backgroundColor: colors
-        },
-      ],
-    };
-  }, []);
-  const doughnutChartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: {
-          generateLabels: (chart) => {
-            const data = chart.data;
-            return data.labels.map((label, i) => {
-              const value = data.datasets[0].data[i];
-              const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
-              const percentage = ((value / total) * 100).toFixed(1);
-              return {
-                text: `${label}: ${percentage}%`,
-                fillStyle: data.datasets[0].backgroundColor[i],
-                hidden: false,
-                index: i,
-              };
-            });
-          },
+        title: {
+          display: true,
+          text: activeMetric.label,
         },
       },
-      title: {
-        display: true,
-        text: 'Visitors by Origin (Feb 2026',
+      x: {
+        reverse: true,
+        title: {
+          display: true,
+          text: 'Eruption',
+        },
       },
     },
-  };
+  }), [activeMetric]);
 
-  // const trend = monthlyData[-2] < monthlyData[-1] ? "increased" : "decreased";
+  const handleMetricChange = (metricKey) => {
+    setSelectedMetric(metricKey);
+  };
 
   return (
     <section className="dashboard-section">
-      {/* <WeatherWidget city="Hilo"/> */}
-
       <div className="chart-container">
-        <Bar data={monthlyVisitorData} options={barChartOptions} />
-        {/* increase or decrease from last month? */}
-      </div>
+        <div className="chart-controls" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+          {Object.entries(metricOptions).map(([metricKey, metric]) => (
+            <button
+              key={metricKey}
+              type="button"
+              onClick={() => handleMetricChange(metricKey)}
+              aria-pressed={selectedMetric === metricKey}
+              style={{
+                padding: '0.6rem 0.9rem',
+                borderRadius: '999px',
+                border: '1px solid rgba(13, 110, 122, 0.35)',
+                background: selectedMetric === metricKey ? 'rgba(13, 110, 122, 1)' : 'white',
+                color: selectedMetric === metricKey ? 'white' : 'rgba(13, 110, 122, 1)',
+                cursor: 'pointer',
+              }}
+            >
+              {metric.label}
+            </button>
+          ))}
+        </div>
 
-      <div className="chart-container">
-        <Doughnut data={originArrivalData} options={doughnutChartOptions} />
+        {loading ? (
+          <p>Loading volcano data...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : volcanoRecords.length === 0 ? (
+          <p>No volcano records found.</p>
+        ) : (
+          <div style={{ height: '420px' }}>
+            <Bar data={volcanoChartData} options={volcanoChartOptions} />
+          </div>
+        )}
       </div>
     </section>
   );
