@@ -118,7 +118,11 @@ app.use((req, res) => {
  */
 async function startServer() {
     try {
-        await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect(process.env.MONGO_URI, {
+            tls: true,
+            retryWrites: true,
+            w: 'majority'
+        });
         console.log("mongodb connected");
 
         app.listen(PORT, () => {
