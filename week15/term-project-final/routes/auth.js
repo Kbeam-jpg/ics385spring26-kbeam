@@ -4,19 +4,16 @@ import User from '../models/User.js';
 
 const router = express.Router();
 
-// router.get('/', async (req, res) => {
-// });
-
-// //GET /login
+// GET /login
 // the login form
-// If already authenticated => redirect to /profile
+// If already authenticated => redirect to admin dashboard
 router.get('/login', (req, res) => {
     // is auth => go to dashboard
     if (req.isAuthenticated()) {
     return res.redirect('/admin/dashboard');
     }
-
-    return res.json({message: "ERROR #2"})
+    // 
+    return res.json({message: "ERROR #2, see changelog"})
 });
 
 // POST /login
@@ -50,7 +47,8 @@ router.post('/login', (req, res, next) => {
   }
 );
 
-// POST /register -> create a local user and redirect to dashboard
+// POST /register 
+// -> create a local user and redirect to dashboard
 router.post('/register', async (req, res, next) => {
     // Input validation: email and password must be strings
     const { email, password } = req.body;
@@ -84,22 +82,49 @@ router.post('/logout', (req, res, next) => {
         req.session.destroy((destroyErr) => {
           if (destroyErr) return next(destroyErr);
           res.clearCookie('connect.sid');
-          return res.redirect('/admin/login');
+          return res.redirect('/');
         });
     });
 });
 
+// GET /status
+// Returns authentication status and user info
+router.get('/status', (req, res) => {
+  if (req.isAuthenticated()) {
+    return res.json({
+      isAuthenticated: true,
+      user: {
+        email: req.user.email,
+        role: req.user.role
+      }
+    });
+  }
+
+  return res.json({
+    isAuthenticated: false,
+    user: null
+  });
+});
+
+/**--google */
+// GET /google
 // Google OAuth sign-in entry point
 router.get('/google', passport.authenticate('google', {
   scope: ['profile', 'email']
 }));
 
-// Google OAuth callback
+// GET /google/callback
+// Google OAuth callback return route
 router.get('/google/callback', passport.authenticate('google', {
-  failureRedirect: '/admin/login'
+  failureRedirect: '/admin/login',
+  failureMessage: true
 }), (req, res) => {
-  res.redirect('/admin/dashboard');
+  // workaround to test google auth in vite dev
+  const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
+  return res.redirect(`${FRONTEND_URL}`);
 });
+/**--google */
+
 
 // Test-only route to simulate Google OAuth callback
 if (process.env.NODE_ENV === 'test') {
@@ -125,24 +150,5 @@ if (process.env.NODE_ENV === 'test') {
     }
   });
 }
-
-// GET /status
-// Returns authentication status and user info
-router.get('/status', (req, res) => {
-  if (req.isAuthenticated()) {
-    return res.json({
-      isAuthenticated: true,
-      user: {
-        email: req.user.email,
-        role: req.user.role
-      }
-    });
-  }
-
-  return res.json({
-    isAuthenticated: false,
-    user: null
-  });
-});
 
 export default router;

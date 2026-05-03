@@ -21,3 +21,4 @@ router.get('/google/callback',
     (req, res) => res.redirect('/profile'));
 
 export default router;
+

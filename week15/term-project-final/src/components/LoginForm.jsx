@@ -50,6 +50,9 @@ export default function LoginForm( { onSuccess }) {
     return (
         <div>
             {error && <p style={{color: 'red'}}>{error}</p>}
+            <div className="google-signin-wrapper">
+                <a href="/admin/google" className="google-signin">Sign in with Google</a>
+            </div>
             <form onSubmit={handleSubmit}>
                 <input 
                     type='email'

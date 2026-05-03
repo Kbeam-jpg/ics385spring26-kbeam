@@ -1,0 +1,102 @@
+[
+  {
+    "id": 36,
+    "start_date": "November 9, 2025 - 11:15 a.m.",
+    "end_date": "November 9, 2025 - 4:16 p.m.",
+    "duration": "5 hours",
+    "pause_duration": "16 days",
+    "max_height_m": 386,
+    "volume_million_m3": 8.1,
+    "description": "North and south vents active, as well as small vent area south of south vent; north vent inclined"
+  },
+  {
+    "id": 37,
+    "start_date": "November 25, 2025 - 2:30 p.m.",
+    "end_date": "November 25, 2025 - 11:39 p.m.",
+    "duration": "9 hours",
+    "pause_duration": "10 days",
+    "max_height_m": 174,
+    "volume_million_m3": 6.0,
+    "description": "Fountains active at north vent active only; lava visible in south vent"
+  },
+  {
+    "id": 38,
+    "start_date": "December 6, 2025 - 8:45 a.m.",
+    "end_date": "December 6, 2025 - 8:52 p.m.",
+    "duration": "12 hours",
+    "pause_duration": "17 days",
+    "max_height_m": 384,
+    "volume_million_m3": 12.1,
+    "description": "North and south vents active; south vent dominant and inclined fountain"
+  },
+  {
+    "id": 39,
+    "start_date": "December 23, 2025 - 8:10 p.m.",
+    "end_date": "December 24, 2025 - 2:13 a.m.",
+    "duration": "6 hours",
+    "pause_duration": "19 days",
+    "max_height_m": 407,
+    "volume_million_m3": 9.3,
+    "description": "North and south vents active"
+  },
+  {
+    "id": 40,
+    "start_date": "January 12, 2026 - 8:22 a.m.",
+    "end_date": "January 12, 2026 - 6:04 p.m.",
+    "duration": "10 hours",
+    "pause_duration": "12 days",
+    "max_height_m": 250,
+    "volume_million_m3": 5.5,
+    "description": "North and south vents active; north vent dominant"
+  },
+  {
+    "id": 41,
+    "start_date": "January 24, 2026 - 11:10 a.m.",
+    "end_date": "January 24, 2026 - 7:29 p.m.",
+    "duration": "8 hours",
+    "pause_duration": "22 days",
+    "max_height_m": 450,
+    "volume_million_m3": 10.6,
+    "description": "North and south vents active"
+  },
+  {
+    "id": 42,
+    "start_date": "February 15, 2026 - 1:50 p.m.",
+    "end_date": "February 15, 2026 - 11:38 p.m.",
+    "duration": "10 hours",
+    "pause_duration": "22 days",
+    "max_height_m": 400,
+    "volume_million_m3": 11.6,
+    "description": "North and south vents active, small intermediate fountain"
+  },
+  {
+    "id": 43,
+    "start_date": "March 10, 2026 - 9:17 a.m.",
+    "end_date": "March 10, 2026 - 6:21 p.m.",
+    "duration": "9 hours",
+    "pause_duration": "30 days",
+    "max_height_m": 540,
+    "volume_million_m3": 11.9,
+    "description": "North and south vents active, small intermediate fountain"
+  },
+  {
+    "id": 44,
+    "start_date": "April 9, 2026 - 11:10 a.m.",
+    "end_date": "April 9, 2026 - 7:41 p.m.",
+    "duration": "8.5 hours",
+    "pause_duration": "15 days",
+    "max_height_m": 240,
+    "volume_million_m3": 5.8,
+    "description": "North vent erupted fountain, though most precursory lava flows erupted from the south vent; small eq swarm and deformation on south rim"
+  },
+  {
+    "id": 45,
+    "start_date": "April 23, 2026 - 1:34 a.m.",
+    "end_date": "April 23, 2026 - 10:01 a.m.",
+    "duration": "8.5 hours",
+    "pause_duration": "TBD",
+    "max_height_m": 265,
+    "volume_million_m3": 5.2,
+    "description": "North vent erupted lava fountain; precursory lava flows from both vents"
+  }
+]

@@ -16,12 +16,12 @@ import MongoStore from 'connect-mongo';
 import mongoose from 'mongoose';
 import initPassport from './passport-config.js';
 import User from './models/User.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
 
-// SPA fallback
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// // SPA fallback
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 // routers
 import propertiesRouter from './routes/properties.js'; 
@@ -29,7 +29,7 @@ import authRouter from './routes/auth.js';
 import adminRouter from './routes/admin.js';
 
 /**
- * initialize process.env variables
+ * initialize .env variables
  */
 import 'dotenv/config';
 const PORT = process.env.PORT || 3000;
@@ -49,16 +49,21 @@ app.use(session({
     secret: process.env.SESSION_SECRET || 'test-session-secret',
     resave: false, // don't save session if unmodified
     saveUninitialized: false, // only save session if known user
-    // Use in-memory store for tests to avoid external Mongo dependency
     store: process.env.NODE_ENV === 'test'
-        ? new session.MemoryStore()
-        : MongoStore.create({ mongoUrl: process.env.MONGO_URI}),
-    cookie: {secure: false} // <= set to true if switching to HTTPS
+        ? new session.MemoryStore() // if test => use mongostore 
+        : MongoStore.create({ 
+            mongoUrl: process.env.MONGO_URI, // if not => use mongodb
+            ttl: 7 * 24 * 60 * 60
+        }), 
+    cookie: {httpOnly: true, // stop user-side cookie access
+        secure: process.env.NODE_ENV === 'production', //for https, will be false if NODE_ENV is anthing other than 'production'
+        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days}
+    }
 }));
 /**
  * initialize passport
  */
-initPassport(passport);
+initPassport(passport); // important since config is imported as a module
 app.use(passport.initialize());
 app.use(passport.session());
 /*--middleware--*/

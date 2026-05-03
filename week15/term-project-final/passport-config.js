@@ -39,26 +39,42 @@ passport.use(new LocalStrategy(
     }
 ));
 
+/**
+ * only use google strategy if configured in .env
+ */
 if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
 passport.use(new GoogleStrategy({
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: '/admin/google/callback'
+    // options: 
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: '/admin/google/callback',
+    scope: ['profile', 'email']
     },
     async (accessToken, refreshToken, profile, done) => {
         try {
+            // 1. Try to find user by their Google sub-ID.
             let user = await User.findOne({ googleId: profile.id });
+            if (user) return done(null, user);
 
-            if (!user) {
-                user = await User.create({
-                    googleId: profile.id,
-                    email: profile.emails?.[0]?.value?.toLowerCase(),
-                    displayName: profile.displayName,
-                    provider: 'google'
-                });
+            // 2. Otherwise, link by email if a local account already exists.
+            const email = profile.emails[0].value.toLowerCase();
+            user = await User.findOne({ email });
+            if (user) {
+                user.googleId = profile.id;
+                user.provider = 'google';
+                await user.save();
+                return done(null, user);
             }
 
+            // 3. Otherwise, provision a new user.
+            user = await User.create({
+                email,
+                displayName: profile.displayName,
+                googleId: profile.id,
+                provider: 'google'
+            });
             return done(null, user);
+
         } catch (err) {
             return done(err);
         }

@@ -99,6 +99,7 @@ export default function AdminDashboard({ onAuthError }) {
           className="admin-dashboard-logout"
           onClick={async () => {
             await fetch('/admin/logout', {
+              method: 'POST',
               credentials: 'include'
             });
             window.location.assign('/');
@@ -123,11 +124,12 @@ export default function AdminDashboard({ onAuthError }) {
           <p>This account is logged in but does not have admin permissions.</p>
           <button type="button" onClick={async () => {
             await fetch('/admin/logout', {
+              method: 'POST',
               credentials: 'include'
             });
             window.location.assign('/');
           }}>
-            Log out and switch account
+            Log out
           </button>
         </div>
       )}

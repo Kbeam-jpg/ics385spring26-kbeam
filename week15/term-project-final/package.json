@@ -8,6 +8,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "node server.js",
+    "seed:properties": "node seed-properties.js",
     "test:acceptance": "NODE_ENV=test node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand"
   },
   "dependencies": {

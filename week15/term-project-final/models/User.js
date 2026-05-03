@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-const SALT_ROUNDS = 12; // 2^13 rounds
+const SALT_ROUNDS = 12; // 2^12 rounds
 // 10 => basically instant ~0.1s ~ 1k rounds
 // 15 => like a second or so ~1s ~ 32k rounds
 // 16 => still reasonable ~2s ~ 64k rounds
@@ -15,15 +15,16 @@ const SALT_ROUNDS = 12; // 2^13 rounds
  */
 const userSchema = new mongoose.Schema({
     email: {type: String, required: true, unique: true, lowercase: true},
+    // displayName is optional for local accounts; if missing we'll derive one from the email
+    displayName: {type: String},
     password: {
         type: String,
         required: function requiredPassword() {
             return !this.googleId;
-        }
+        } // false when googleId exists, true otherwise
     },
-    googleId: {type: String, unique: true, sparse: true},
+    googleId: {type: String, unique: true, sparse: true, index: true},
     provider: {type: String, enum: ['local', 'google'], default: 'local'},
-    displayName: {type: String},
     role: {type: String, enum: ['user', 'admin'], default: 'user'},
     createdAt: {type: Date, default: Date.now}
 });
@@ -32,6 +33,16 @@ const userSchema = new mongoose.Schema({
  * hash the password before storing
  */
 userSchema.pre('save', async function() {
+    // If displayName is missing, derive from email
+    if (!this.displayName && this.email) {
+        try {
+            this.displayName = this.email.split('@')[0];
+        } catch (e) {
+            // ignore and leave displayName undefined
+        }
+    }
+
+    // hash the password before storing
     if (!this.password || !this.isModified('password')) return;
     this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
 });
