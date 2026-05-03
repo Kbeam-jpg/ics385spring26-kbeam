@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import mongoose from 'mongoose';
-import Property from './models/propertySchema.js';
+import Property from '../models/propertySchema.js';
 
 async function seed() {
   try {

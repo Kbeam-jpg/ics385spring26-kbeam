@@ -9,6 +9,7 @@ import {
   Legend
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import WeatherWidget from './WeatherWidget';
 
 // register chart.js components that's in use
 ChartJS.register(
@@ -23,6 +24,7 @@ ChartJS.register(
 export default function Dashboard() {
   const [volcanoRecords, setVolcanoRecords] = useState([]);
   const [selectedMetric, setSelectedMetric] = useState('duration');
+  const [selectedCity, setSelectedCity] = useState('Hilo');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -140,9 +142,21 @@ export default function Dashboard() {
     setSelectedMetric(metricKey);
   };
 
+  const cities = ['Hilo', 'Volcano Village', 'Kailua-Kona'];
+
   return (
     <section className="dashboard-section">
-      <div className="chart-container">
+      <div className="weather-header" style={{ marginBottom: '1.5rem' }}>
+        <h3>Weather</h3>
+        <select name="weatherselect" className="weather-select" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+          {cities.map((city) => (
+            <option key={city}>{city}</option>
+          ))}
+        </select>
+      </div>
+      <WeatherWidget city={selectedCity} />
+      
+      <div className="chart-container card">
         <div className="chart-controls" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
           {Object.entries(metricOptions).map(([metricKey, metric]) => (
             <button

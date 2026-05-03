@@ -51,7 +51,7 @@ export default function LoginForm( { onSuccess }) {
         <div>
             {error && <p style={{color: 'red'}}>{error}</p>}
             <div className="google-signin-wrapper">
-                <a href="/admin/google" className="google-signin">Sign in with Google</a>
+                <a href="/admin/google" className="google-signin" >Sign in with Google</a>
             </div>
             <form onSubmit={handleSubmit}>
                 <input 
@@ -60,6 +60,7 @@ export default function LoginForm( { onSuccess }) {
                     placeholder='email@example.com'
                     value={formData.email}
                     onChange={handleChange}
+                    autoComplete='email'
                     required
                 />
                 <input
@@ -68,6 +69,7 @@ export default function LoginForm( { onSuccess }) {
                     placeholder='password1234'
                     value={formData.password}
                     onChange={handleChange}
+                    autoComplete='current-password'
                     required
                 />
                 <button type='submit' disabled={isLoading}>

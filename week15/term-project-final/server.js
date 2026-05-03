@@ -16,6 +16,7 @@ import MongoStore from 'connect-mongo';
 import mongoose from 'mongoose';
 import initPassport from './passport-config.js';
 import User from './models/User.js';
+import helmet from 'helmet';
 // import path from 'path';
 // import { fileURLToPath } from 'url';
 
@@ -40,6 +41,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(helmet());
 
 /*--middleware--*/
 /**
@@ -55,8 +57,10 @@ app.use(session({
             mongoUrl: process.env.MONGO_URI, // if not => use mongodb
             ttl: 7 * 24 * 60 * 60
         }), 
-    cookie: {httpOnly: true, // stop user-side cookie access
+    cookie: {
+        httpOnly: true, // stop user-side cookie access
         secure: process.env.NODE_ENV === 'production', //for https, will be false if NODE_ENV is anthing other than 'production'
+        sameSite: 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days}
     }
 }));

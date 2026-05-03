@@ -2,14 +2,14 @@ import 'dotenv/config';
 import process from 'node:process';
 import mongoose from 'mongoose';
 import { readFile } from 'node:fs/promises';
-import Volcano from './models/volcanoSchema.js';
+import Volcano from '../models/volcanoSchema.js';
 
 async function seed() {
   try {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to MongoDB');
 
-    const fileUrl = new URL('./docs/kilauea.json', import.meta.url);
+    const fileUrl = new URL('../docs/kilauea.json', import.meta.url);
     const rawData = await readFile(fileUrl, 'utf8');
     const volcanoData = JSON.parse(rawData);
 

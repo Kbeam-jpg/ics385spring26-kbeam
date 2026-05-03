@@ -37,7 +37,7 @@ function App() {
         setIsAuthenticated(data.user.role === 'admin' || false);
       } catch (err) {
         if (err.name !== 'AbortError') {
-          console.error('Auth check failed:', err);
+          // console.error('Auth check failed:', err);
         }
       } finally {
         setAuthLoading(false);
@@ -96,9 +96,11 @@ function App() {
       {isAuthenticated && <AdminDashboard onAuthError={() => window.location.reload()} />}
       <Header />
       <HeroSection name={property?.name} island={property?.island} tagline={property?.tagline} heroImages={property?.heroImages} />
-      <AboutSection description={property?.description} title={"Address"} image={property?.imageURL || "https://picsum.photos/300/200?random=1"}/>
-      <section className="grid">
-        <Dashboard />
+      <AboutSection description={property?.description} title={"200 W. Kāwili St."} image={property?.imageURL || "https://picsum.photos/300/200?random=1"}/>
+      <section className="grid card">
+        <div className="column">
+          <Dashboard />
+        </div>
         <div className="column">
           <AmenitiesSection amenities={property?.amenities || []} />
         </div> 

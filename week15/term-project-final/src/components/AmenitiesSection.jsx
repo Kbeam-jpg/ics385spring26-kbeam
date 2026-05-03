@@ -13,7 +13,7 @@ export default function AmenitiesSection({ amenities = []}) {
   const locations = ["All", ...new Set(amenities.map((a) => a.location))];
   
   return (
-    <section className="amenity-section">
+    <section className="amenity-section card">
       <div className="amenity-header">
         <h3>Amenities & Nearby Activities</h3>
         <select className="amenity-select" onChange={(e) => setSelectedLocation(e.target.value)}>
