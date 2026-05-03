@@ -119,8 +119,8 @@ router.get('/google/callback', passport.authenticate('google', {
   failureRedirect: '/admin/login',
   failureMessage: true
 }), (req, res) => {
-  // workaround to test google auth in vite dev
-  const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
+  // Generated fix: use request's origin as url to return to
+  const FRONTEND_URL = process.env.FRONTEND_URL || `${req.protocol}://${req.get('host')}`;
   return res.redirect(`${FRONTEND_URL}`);
 });
 /**--google */

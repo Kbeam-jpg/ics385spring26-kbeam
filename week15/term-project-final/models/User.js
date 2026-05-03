@@ -38,6 +38,7 @@ userSchema.pre('save', async function() {
         try {
             this.displayName = this.email.split('@')[0];
         } catch (e) {
+            console.log("models/user error", e);
             // ignore and leave displayName undefined
         }
     }

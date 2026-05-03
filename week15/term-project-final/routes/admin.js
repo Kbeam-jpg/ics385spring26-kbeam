@@ -24,6 +24,7 @@ router.get('/dashboard/data', isAdmin, async (req, res) => {
 
     } catch (err) {
         return res.status(500).send('Server error, uh oh');
+        console.log("admin.js dashboard/data err", err)
     } 
 });
 

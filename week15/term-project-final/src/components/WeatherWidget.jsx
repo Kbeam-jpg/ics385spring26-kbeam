@@ -26,7 +26,6 @@ function formatLocalTime(timestamp, timezoneOffset) {
  */
 function getNextSolarEvent(weather) {
     const nowUtcSeconds = Math.floor(Date.now() / 1000);
-    const timezoneOffset = weather.timezone ?? 0;
     const sunrise = weather.sys?.sunrise;
     const sunset = weather.sys?.sunset;
 

@@ -75,30 +75,10 @@ app.use(passport.session());
 
 
 /*--routes--*/
-// make / route a test to check functionality for React? admin dashboard?
-app.get('/', (req, res) => {
-    res.status(200).json({message: 'Api is good'});
-});
-
 // api routes
 app.use('/admin', adminRouter);
 app.use('/admin', authRouter);
-app.use('/api/properties', propertiesRouter);//({
-/*
-GET properties/?op=&rating= or /?gte= or /?lte=
-    // Grabs all property doc info, returns JSON array or render
-    -- if text/html => res.status(200).render('properties', { properties })
-    -- if application/json => res.status(200).json(properties)
-        -- filter: ?op=&rating= or ?gte= or ?lte=
-
-GET properties/:id
-    // find based on id, return single property
-    => res.status(200).json(property);
-
-POST properties/:id/reviews
-    // if id exists, push json body (review obj) to property.reviews[]
-    => res.status(201).json(property);
-*///})
+app.use('/api/properties', propertiesRouter);
 
 /**
  * serve static files from dist folder (built React app)
