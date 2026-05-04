@@ -3,17 +3,21 @@ Name: Kendall Beam
 # Assignment: Term Project 3 wk11
 # Description: middleware for /properties route
 # Filename: properties.js
-# Date: 4/5/26
+# Date: 4/5/26, 5/2/26
 #
-# Additions:
+
 #   GET /properties - returns list of filtered properties, renders properties.ejs if text/html, otherwise json
 #       -- filter: ?op=&rating= or ?gte= or ?lte=
 #   GET /properties/:id - returns single property by id as json
 #   POST /properties/:id/reviews - adds review to property, returns updated property as json
 #       -- catch malformed body request
 #
+#   GET /volcano (above /:id) - returns volcano.json data
+#
 # AI usage: implementation of res.format()
 #           /properties filter logic
+            /volcano route
+            various debugging
 */
 
 import express from 'express';

@@ -5,6 +5,10 @@ AI attribution: copy-pasting previous CSS rules when appropriate to save time
 - consolidating repeated rules
 - implementing css variables for easier testing
 - admin dashboard css rules
+
+Hard for me to tell now what is and isn't generated,
+Assume the base design is me, assume implementation is generated, assume tweaking by me
+Rough estimate is half manual, half automated
 */
 
 /* Core design vars: */

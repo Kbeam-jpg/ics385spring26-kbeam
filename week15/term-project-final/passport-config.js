@@ -4,7 +4,6 @@ ASSIGNMENT: Week 14 - Assignment 14b - Web App with Username/Pwd Security
 GOAL: use a local strategy from passport.js to handle authen/author
 FILENAME: passport-config.js
 DATE: 4/21/2026
-
 */
 
 import { Strategy as LocalStrategy } from 'passport-local';

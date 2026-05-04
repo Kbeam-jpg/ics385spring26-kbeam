@@ -1,3 +1,52 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: test acceptance file
+Filename: auth test.js (npm run test:acceptance)
+Date: May 2 2026
+
+** wipes mongo memory server after each test
+
+'AC-3 Local sign-up: POST /register creates user and redirects'
+  -- hits /admin/register route
+  -- pass_1 => expects 302 redirect
+  -- pass_2 => checks User is stored in MongoDB
+
+'AC-4 Local sign-in: POST /login sets session cookie and redirects'
+  -- creates a user, sends login form to /admin/login
+  -- pass_1 -> expects 302 redirect
+  -- pass_2 -> expects cookies in response
+
+'AC-6 Protected route guard: unauthenticated GET /admin/dashboard redirects to /admin/login'
+  -- sends unauthenticated request to /admin/dashboard
+  -- pass_1 => expects 302 redirect
+  -- pass_2 => redirect location is /login
+
+'AC-5 Google OAuth sign-in: simulated callback creates google user and redirects'
+  -- Mocks google OAuth response (see routes/auth.js => creates a User by google signin)
+  -- pass_1 => expects 302 redirect
+  -- pass_2 => expects User w/ google specific information is stored
+
+'AC-7 Logout: POST /logout clears session'
+  -- creates a user, sends a login request, then sends a logout request
+
+  -- pass_1 => login redirects to 302
+  -- pass_2 => logout redirects to 302
+  -- pass_3 => logout sends correct cookie
+  -- pass_4 => after logout request to /admin/logout redirects to login
+  -- pass_5 => after logout /admin/status returns null
+
+Notes:
+  -- Uses MongoMemoryServer to test MongoDB functions, not wiring
+  -- The AC-5 test only checks redirecting and document creation, is a cop out otherwise
+  -- AC-7 logout will fail if AC-4 or AC-6 fail
+
+AI Use:
+  These tests are generated.
+  They are apt for testing specific things, but are not holistic.
+  Should be taken with a grain of salt what they actually prove.
+*/
+
 import request from 'supertest';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
@@ -24,6 +73,10 @@ beforeEach(async () => {
   await User.deleteMany({});
 });
 
+/**
+ * **Generated Code**
+ * Tweaked by me
+ */
 describe('Auth acceptance tests (AC-3..AC-7)', () => {
   test('AC-3 Local sign-up: POST /register creates user and redirects', async () => {
     const res = await request(app)

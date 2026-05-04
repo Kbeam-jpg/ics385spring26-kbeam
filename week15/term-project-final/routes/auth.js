@@ -1,3 +1,15 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: /admin routes for login, register, logout, google OAuth + callback, and helper /status. 
+  -- Also a test function for a mock google sign in
+Filename: auth.js
+Date: May 2 2026
+
+AI Use:
+-- test function for mock google sign in
+-- debugging code as the project went on
+*/
 import express from 'express';
 import passport from 'passport';
 import User from '../models/User.js';

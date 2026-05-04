@@ -1,3 +1,13 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: Load sample volcano chart data into a MongoDB
+Filename: seed-volcano.jsx (npm run seed, or npm run seed:volcano)
+Date: May 2 2026
+
+AI Use:
+-- using updateOne {upsert: true} to not create excess documents if run multiple times
+*/
 import 'dotenv/config';
 import process from 'node:process';
 import mongoose from 'mongoose';

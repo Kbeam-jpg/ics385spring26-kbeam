@@ -1,10 +1,26 @@
-import { useState } from 'react';
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: login form component for both google sign in and email + password
+Filename: LoginForm.jsx
+Date: May 3 2026
 
+AI Use:
+-- **Generated** with very specific instructions for quickness
+*/
+
+import { useState } from 'react';
+/**
+ * 
+ * @param {Function} onSuccess prop, what to do when done, e.g.  () => setShowLogin(false) 
+ * @returns {JSX.Element} centered image, google sign in button, email and password fields w/ submit
+ */
 export default function LoginForm( { onSuccess }) {
     const [formData, setFormData] = useState({email: '', password: ''});
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
+    // update variables as form fields change
     const handleChange = (e) => {
         const {name, value} = e.target;
         setFormData(prev => ({
@@ -14,6 +30,7 @@ export default function LoginForm( { onSuccess }) {
         setError(''); //clear error when typing
     }
 
+    // makes post request to /admin/login, if good => reload page
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);

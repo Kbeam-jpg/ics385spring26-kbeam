@@ -1,3 +1,13 @@
+/*
+Name: Kendall Beam
+# Assignment: Term Project 3
+# Description: mongoose schema for properties with reviews subdocument
+# Filename: propertySchema.js
+# Date: 4/5/26 && 5/1/26
+#
+# AI usage: debugging required fields at some point
+*/
+
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
@@ -49,7 +59,6 @@ userSchema.pre('save', async function() {
 });
 
 /**
- * 
  * @param {*} candidate 
  * @returns {Promise<Boolean>}
  */

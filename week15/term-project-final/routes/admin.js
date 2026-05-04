@@ -1,3 +1,13 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: protected /admin routes for admin dashboard and its data
+Filename: admin.js 
+Date: May 2 2026
+
+AI Use:
+-- logic for checking if exists => then dont update
+*/
 import express from 'express';
 import Property from '../models/propertySchema.js';
 import isAdmin from '../middleware/isAdmin.js';

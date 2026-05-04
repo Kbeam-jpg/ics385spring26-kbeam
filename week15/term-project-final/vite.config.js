@@ -1,3 +1,11 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: set proxies for vite to call local routes
+Filename: vite config.js
+Date: May 3 2026
+*/
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 

@@ -1,3 +1,13 @@
+/*
+Name: Kendall Beam
+# Assignment: Term Project 3
+# Description: mongoose schema for volcano chart data
+# Filename: volcanoSchema.js
+# Date: 5/2/26
+#
+#
+# AI usage: this is **Generated** based on /docs/volcano.json
+*/
 import mongoose from 'mongoose';
 
 const volcanoSchema = new mongoose.Schema({

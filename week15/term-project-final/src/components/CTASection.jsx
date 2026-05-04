@@ -1,6 +1,19 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: houses book now button, email button, and booking modal popup
+Filename: CTASection.jsx
+Date: May 3 2026
+*/
+
 import {useState} from "react";
 import Modal from "./Modal";
 
+/**
+ * handles useState of booking modal open/close
+ * @param {String} email mailto: reference
+ * @returns {JSX.Element} cta-section
+ */
 export default function CTASection({email}) {
   const [isOpen, setIsOpen] = useState(false); //default => modal closed
   return (

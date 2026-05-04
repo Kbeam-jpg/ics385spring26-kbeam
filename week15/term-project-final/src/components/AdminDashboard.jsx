@@ -1,5 +1,18 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: admin dashboard component, displays property information
+Filename: AdminDashboard.jsx
+Date: May 3 2026
+*/
+
 import { useEffect, useState } from 'react';
 
+/**
+ * **Generated**
+ * @param {*} value date
+ * @returns {string} numeric date, short month
+ */
 function formatDate(value) {
   if (!value) return '—';
 
@@ -13,6 +26,12 @@ function formatDate(value) {
   });
 }
 
+/**
+ * **Generated** with specific instructions
+ * @param {Function} onAuthError callback function on what to do if protected /admin/dashboard/data call fails
+ * , e.g. () => window.location.reload()
+ * @returns {JSX.Element} admin-dashboard-shell
+ */
 export default function AdminDashboard({ onAuthError }) {
   const [dashboard, setDashboard] = useState({
     adminEmail: '',

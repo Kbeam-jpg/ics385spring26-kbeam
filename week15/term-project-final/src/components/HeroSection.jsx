@@ -1,8 +1,27 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: Banner that cycles through different images
+Filename: HeroSection.jsx
+Date: May 3 2026
+
+AI Use:
+-- debugging useEffect chain
+*/
+
 import { useEffect, useState} from "react";
 
 const ROTATE_TIMER = 30000;//ms
 const FADE_TIMER = 2000;//ms
 
+/**
+ * banner that fades in new images, title text centered lower third
+ * @param {String} name <h2> title
+ * @param {String} island used in img alt text
+ * @param {String} tagline <p> description
+ * @param {Array} heroImages array of img src= /> Strings 
+ * @returns {JSX.Element} hero section
+ */
 export default function HeroSection({ name, island, tagline, heroImages = []}) {
   const [currentIndex, setCurrentIndex] = useState(0); //for hero img rotation
   const [previousIndex, setPreviousIndex] = useState(null); // for hero img fade (default null on load)
@@ -33,8 +52,6 @@ export default function HeroSection({ name, island, tagline, heroImages = []}) {
   }, [previousIndex]);
 
   const currentImage = heroImages[currentIndex] || "https://picsum.photos/300/200?random=1";
-  
-
 
   return (
     <section className="hero" aria-label={name + " hero image"}>

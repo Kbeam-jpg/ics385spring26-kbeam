@@ -1,9 +1,18 @@
 /*
 # Name: Kendall Beam
-# Assignment: Term Project 3 wk14
+# Assignment: Term Project 3 final wk 15
 # Description: express.js server for routes / api / admin
+#   Relies on serving /dist from npm run build to client
+#   Creates a session, uses passport for management
+#   Creates a connection to a mongodb instance, extra padding for Atlas
+#   Helmet allows api's through
+#   Mounts 3 main routes:
+        /properties -> for fetching data for the front end
+        /admin -> handling login/logout, admin dashboard
+        /check -> api check to test functionality
+
 # Filename: server.js (main backend)
-# Date: 4/26/26 
+# Date: 5/3/26 
 */
 
 /**
@@ -88,7 +97,7 @@ app.use(session({
 /**
  * initialize passport
  */
-initPassport(passport); // important since config is imported as a module
+initPassport(passport); // <= important since config is imported as a module
 app.use(passport.initialize());
 app.use(passport.session());
 /*--middleware--*/
@@ -132,6 +141,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
+/*--routes--*/
 
 /**
  * get to runnin

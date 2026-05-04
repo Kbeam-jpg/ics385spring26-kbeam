@@ -1,3 +1,16 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: for running eslint
+Filename: eslint config.js (npm run lint)
+Date: May 3 2026
+
+Notes: 5/3/26
+  auth.test.js throws a bunch of errors for jest terms
+  src/index.jsx throws a fast refresh error, I think because of nested JSX.Element functions? Maybe move <App /> to its own file?
+  src/components/WeatherWidget.jsx throws a setState sync error, setLoading(true) is set in a useEffect(), but doesn't impact performance
+*/
+
 import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -5,7 +18,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  // globalIgnores(['dist']), // <uncomment if /dist is causing problems
   /** frontend files, globals is scoped to browser */
   {
     files: ['src/**/*.{js,jsx}'],

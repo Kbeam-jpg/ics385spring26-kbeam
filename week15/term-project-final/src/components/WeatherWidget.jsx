@@ -1,3 +1,13 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: Weather widget that dislpays the weather of a given city string
+Filename: WeatherWidget.jsx
+Date: May 3 2026
+
+AI Use:
+-- **Generated** with very specific instructions
+*/
 import { useEffect, useState } from "react";
 
 const KEY = import.meta.env.VITE_WEATHER_KEY;
@@ -51,7 +61,7 @@ function getNextSolarEvent(weather) {
  * **Generated Code**
  * @param {String} label what goes in label field
  * @param {} value what goes in value field
- * @returns div containing 2 spans
+ * @returns {JSX.Element} containing 2 spans
  * @description
  * Recallable component function to keep code as 1 liners
  */
@@ -165,7 +175,8 @@ function WeatherIcon({ main }) {
  * @param {String} city openweather city query parameter e.g. "Hilo" 
  * @returns {JSX.Element} div className="note weather-card"
  * 1) call openweather api
- * 2) 
+ * 2) configure variables
+ * 3) load JSX element and return
  */
 export default function WeatherWidget({ city }) {
     const [weather, setWeather] = useState(null);

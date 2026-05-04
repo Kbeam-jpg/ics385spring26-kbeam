@@ -1,3 +1,14 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: Left side dashboard, houses charts and weather widget
+Filename: Dashboard.jsx
+Date: May 3 2026
+
+AI Use:
+-- assume this is generated with very specific instructions for quickness
+*/
+
 import {useEffect, useMemo, useState} from "react";
 import {
   Chart as ChartJS, 
@@ -11,7 +22,7 @@ import {
 import { Bar } from 'react-chartjs-2';
 import WeatherWidget from './WeatherWidget';
 
-// register chart.js components that's in use
+// register chart.js components in use
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -21,13 +32,21 @@ ChartJS.register(
   Legend
 )
 
+/**
+ * **Generated**
+ * 
+ * @returns {JSX.Element} dashboard-section = 
+ * weather-select + WeatherWidget/>, chart-controls + Bars/> chart
+ */
 export default function Dashboard() {
-  const [volcanoRecords, setVolcanoRecords] = useState([]);
-  const [selectedMetric, setSelectedMetric] = useState('duration');
-  const [selectedCity, setSelectedCity] = useState('Hilo');
+  const [volcanoRecords, setVolcanoRecords] = useState([]); // <= handle fetch load time
+  const [selectedMetric, setSelectedMetric] = useState('duration'); // <= set metric for chart
+  const [selectedCity, setSelectedCity] = useState('Hilo'); // <= set city to query into weather api
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+
+  // calls fetchVolcanoData() from /api/properties/volcano, sets to volcanoRecords if good
   useEffect(() => {
     const controller = new AbortController();
 
@@ -51,6 +70,7 @@ export default function Dashboard() {
     return () => controller.abort();
   }, []);
 
+  // chart.js color options for metric selection
   const metricOptions = {
     duration: {
       label: 'Duration (hours)',
@@ -69,8 +89,11 @@ export default function Dashboard() {
     }
   };
 
+  // used by chart to display which data
   const activeMetric = metricOptions[selectedMetric];
 
+  // sets datasets:
+  // **Generated**
   const volcanoChartData = useMemo(() => {
     return {
       datasets: [
@@ -88,6 +111,10 @@ export default function Dashboard() {
     };
   }, [activeMetric, volcanoRecords]);
 
+  // sets plugins: && scales: 
+  // legend at top, title changes by active metric, 
+  // tooltip: bars labeled by id, on hover shows all record information
+  // **Generated**
   const volcanoChartOptions = useMemo(() => ({
     responsive: true,
     maintainAspectRatio: false,
@@ -138,6 +165,7 @@ export default function Dashboard() {
     },
   }), [activeMetric]);
 
+  // useState for metric buttons
   const handleMetricChange = (metricKey) => {
     setSelectedMetric(metricKey);
   };
@@ -154,7 +182,7 @@ export default function Dashboard() {
           ))}
         </select>
       </div>
-      <WeatherWidget city={selectedCity} />
+      <WeatherWidget city={selectedCity} /> {/* **Weather Widget* **/}
       
       <div className="chart-container card">
         <div className="chart-controls" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1rem' }}>

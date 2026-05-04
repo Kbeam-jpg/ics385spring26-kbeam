@@ -1,3 +1,13 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: Load sample property data into a MongoDB
+Filename: seed-properties.jsx (npm run seed, or npm run seed:properties)
+Date: May 2 2026
+
+AI Use:
+-- logic for checking if exists => then dont update
+*/
 import 'dotenv/config';
 import mongoose from 'mongoose';
 import Property from '../models/propertySchema.js';

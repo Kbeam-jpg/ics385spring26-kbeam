@@ -1,6 +1,21 @@
-/**
- * React Entry Point
- */
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: Houses the core App for the React front end
+Filename: index.jsx (react entry point)
+Date: May 3 2026
+
+Notes:
+-- currently throws a fast refresh error do to function App() existing in the same page
+-- function App() handles the useEffect / useState
+    for checking authentication / fetching property data
+-- assigns grid and column classes to the grid sections here
+
+AI attribution:
+-- implementing abort controllers (though they give browser errors, still gets the data)
+-- the fetchProperty() function, in adapting it to an updated Property schema quickly
+*/
+
 import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -52,6 +67,7 @@ function App() {
   useEffect(() => {
     const controller = new AbortController();
 
+    // **Generated Code**
     async function fetchProperty() {
       try {
         const res = await fetch('/api/properties', { signal: controller.signal });

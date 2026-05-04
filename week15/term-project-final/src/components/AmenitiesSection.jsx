@@ -1,6 +1,19 @@
+/*
+Name: Kendall Beam
+Assignment: Term Project 3
+Description: grid of amenity cards, filterable by selected Location <options> combobox
+Filename: AmenitiesSection.jsx
+Date: May 3 2026
+*/
+
 import { useState } from "react";
 import AmenityCard from "./AmenityCard";
 
+/**
+ * Creates grid of <AmenityCard /> with their data
+ * @param {Array} ammenities list of amenity objects
+ * @returns {JSX.Element} amenity-section
+ */
 export default function AmenitiesSection({ amenities = []}) {
   const [selectedLocation, setSelectedLocation] = useState("All");
   
@@ -43,4 +56,3 @@ export default function AmenitiesSection({ amenities = []}) {
   );
 }
 
-// Option: control label and value seperately
