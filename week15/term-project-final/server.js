@@ -34,6 +34,13 @@ import adminRouter from './routes/admin.js';
  */
 import 'dotenv/config';
 const PORT = process.env.PORT || 3000;
+const mongoUrl = process.env.MONGO_URI;
+const mongoOptions = {
+    tls: true,
+    retryWrites: true,
+    w: 'majority',
+    serverSelectionTimeoutMS: 10000
+};
 
 /**
  * initialize express
@@ -53,8 +60,9 @@ app.use(session({
     saveUninitialized: false, // only save session if known user
     store: process.env.NODE_ENV === 'test'
         ? new session.MemoryStore() // if test => use mongostore 
-        : MongoStore.create({ 
-            mongoUrl: process.env.MONGO_URI, // if not => use mongodb
+        : MongoStore.create({
+            mongoUrl: mongoUrl,
+            mongoOptions,
             ttl: 7 * 24 * 60 * 60
         }), 
     cookie: {
@@ -118,18 +126,18 @@ app.use((req, res) => {
  */
 async function startServer() {
     try {
-        await mongoose.connect(process.env.MONGO_URI, {
-            tls: true,
-            retryWrites: true,
-            w: 'majority'
-        });
-        console.log("mongodb connected");
+        if (!mongoUrl) {
+            throw new Error('MONGO_URI is required');
+        }
+
+        await mongoose.connect(mongoUrl, mongoOptions);
+        console.log('mongodb connected');
 
         app.listen(PORT, () => {
             console.log(`Server running at http://localhost:${PORT}`);
         });
     } catch (err) {
-        console.error('mongodb connection error:', err.message);
+        console.error('mongodb connection error:', err);
         process.exit(1);
     }
 }
