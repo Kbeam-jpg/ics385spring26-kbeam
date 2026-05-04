@@ -6,6 +6,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   globalIgnores(['dist']),
+  /** frontend files, globals is scoped to browser */
   {
     files: ['src/**/*.{js,jsx}'],
     extends: [
@@ -26,6 +27,7 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
+  /** backend files, only difference is globals is scoped to node.js  */
   {
     files: ['server.js', 'passport-config.js', 'routes/**/*.js', 'models/**/*.js', 'middleware/**/*.js', 'seed/**/*.js', 'tests/**/*.js'],
     extends: [js.configs.recommended],

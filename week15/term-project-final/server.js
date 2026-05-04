@@ -48,9 +48,22 @@ const mongoOptions = {
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(helmet());
+
+
 
 /*--middleware--*/
+/**
+ * helmet config
+ */
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            connectSrc: ["'self'", 'https://api.openweathermap.org'], //allow openweather api for render
+            imgSrc: ["'self'", 'data:', 'https:'], //allow sample img from picsum
+        }
+    }
+}));
+
 /**
  * session middleware
  */
@@ -84,7 +97,7 @@ app.use(passport.session());
 
 /*--routes--*/
 // make / route a test to check functionality for React? admin dashboard?
-app.get('/', (req, res) => {
+app.get('/check', (req, res) => {
     res.status(200).json({message: 'Api is good'});
 });
 
@@ -109,13 +122,12 @@ POST properties/:id/reviews
 *///})
 
 /**
- * serve static files from dist folder (built React app)
+ * serve static files from dist folder (after npm run build)
  */
 app.use(express.static(path.join(__dirname, 'dist')));
 
 /**
- * SPA fallback - serve index.html for all unmatched routes
- * This allows React Router to handle client-side navigation
+ * SPA Fallback -- serve index.html for all unmatched routes
  */
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
