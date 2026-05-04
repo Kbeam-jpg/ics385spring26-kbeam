@@ -117,11 +117,21 @@ export default function AdminDashboard({ onAuthError }) {
           type="button"
           className="admin-dashboard-logout"
           onClick={async () => {
-            await fetch('/admin/logout', {
-              method: 'POST',
-              credentials: 'include'
-            });
-            window.location.assign('/');
+            try {
+              const res = await fetch('/admin/logout', {
+                method: 'POST',
+                credentials: 'include'
+              });
+              // log status for debugging
+              // eslint-disable-next-line no-console
+              console.log('logout response status', res.status);
+            } catch (err) {
+              // eslint-disable-next-line no-console
+              console.error('logout error', err);
+            } finally {
+              // Ensure navigation happens even if the request fails
+              window.location.assign('/');
+            }
           }}
         >Log out</button>
       </section>
@@ -142,11 +152,19 @@ export default function AdminDashboard({ onAuthError }) {
           <p>{error}</p>
           <p>This account is logged in but does not have admin permissions.</p>
           <button type="button" onClick={async () => {
-            await fetch('/admin/logout', {
-              method: 'POST',
-              credentials: 'include'
-            });
-            window.location.assign('/');
+            try {
+              const res = await fetch('/admin/logout', {
+                method: 'POST',
+                credentials: 'include'
+              });
+              // eslint-disable-next-line no-console
+              console.log('forbidden logout response', res.status);
+            } catch (err) {
+              // eslint-disable-next-line no-console
+              console.error('forbidden logout error', err);
+            } finally {
+              window.location.assign('/');
+            }
           }}>
             Log out
           </button>
